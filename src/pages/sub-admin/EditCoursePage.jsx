@@ -1,7 +1,8 @@
 import React from 'react';
+import EditCourseForm from '../../features/courses/components/EditCourseForm';
 
 const EditCoursePage = () => {
-	return <div>EditCoursePage</div>;
+	return <EditCourseForm />;
 };
 
 export default EditCoursePage;

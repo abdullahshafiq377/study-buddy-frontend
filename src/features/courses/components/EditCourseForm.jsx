@@ -1,74 +1,83 @@
-import DropdownMenu from '../../../components/DropdownMenu';
-import RadioInput from '../../../components/RadioInput';
-import TextInput from '../../../components/TextInput';
 import { useState } from 'react';
 import {
-	selectSubAdminById,
-	useDeleteSubAdminMutation,
-	useUpdateSubAdminMutation,
-} from '../subAdminsApiSlice';
+	selectCourseById,
+	useDeleteCourseMutation,
+	useUpdateCourseMutation,
+} from '../coursesApiSlice';
+import {
+	departmentsApiSlice,
+	selectAllDepartments,
+} from './../../departments/departmentsApiSlice';
+import {
+	programsApiSlice,
+	selectAllPrograms,
+} from './../../programs/programsApiSlice';
+import DropdownMenu from '../../../components/DropdownMenu';
+import TextInput from '../../../components/TextInput';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import DeleteActionPanel from '../../../components/DeleteActionPanel';
 import ConfirmDeletionModal from '../../../components/ConfirmDeletionModal';
+import TextArea from './../../../components/TextArea';
+import TextInputLong from './../../../components/TextInputLong';
 
-export default function EditSubAdminForm() {
-	const { subAdminId } = useParams();
+export default function EditCourseForm() {
+	const { courseId } = useParams();
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
-	const [updateSubAdmin, { isLoading }] = useUpdateSubAdminMutation();
-	const [deleteSubAdmin] = useDeleteSubAdminMutation();
+	const [updateCourse, { isLoading }] = useUpdateCourseMutation();
+	const [deleteCourse] = useDeleteCourseMutation();
 
-	const subAdmin = useSelector((state) =>
-		selectSubAdminById(state, subAdminId),
-	);
+	const course = useSelector((state) => selectCourseById(state, courseId));
 
+	const [courseCode, setCourseCode] = useState(course?.course_code);
+	const [title, setTitle] = useState(course?.title);
+	const [creditHours, setCreditHours] = useState(course?.credit_hours);
+	const [departmentId, setDepartmentId] = useState(course?.department_id);
+	const [programId, setProgramId] = useState(course?.program_id);
+	const [description, setDescription] = useState(course?.description);
 
-	const [name, setName] = useState(subAdmin?.name);
-	const [fatherName, setFatherName] = useState(subAdmin?.f_name);
-	const [email, setEmail] = useState(subAdmin?.email);
-	const [department, setDepartment] = useState('');
-	const [gender, setGender] = useState(subAdmin?.gender);
-	const [contact, setContact] = useState(subAdmin?.contact);
-	const [nationality, setNationality] = useState(subAdmin?.nationality);
+	dispatch(departmentsApiSlice.endpoints.getDepartments.initiate());
+	dispatch(programsApiSlice.endpoints.getPrograms.initiate());
+	const departments = useSelector(selectAllDepartments);
+	const programs = useSelector(selectAllPrograms);
 
-	if (!subAdmin) {
-		return <h2>Sub Admin Not Found</h2>;
+	if (!course) {
+		return <h2>Course Not Found</h2>;
 	}
 
-	const handleNameInput = (e) => setName(e.target.value);
-	const handleFatherNameInput = (e) => setFatherName(e.target.value);
-	const handleEmailInput = (e) => setEmail(e.target.value);
-	const handleDepartmentInput = (e) => setDepartment(e.target.value);
-	const handleGenderInput = (e) => setGender(e.target.id);
-	const handleContactInput = (e) => setContact(e.target.value);
-	const handleNationalityInput = (e) => setNationality(e.target.value);
+	const handleCourseCodeInput = (e) => setCourseCode(e.target.value);
+	const handleTitleInput = (e) => setTitle(e.target.value);
+	const handleCreditHoursInput = (e) => setCreditHours(e.target.value);
+	const handleDepartmentIdInput = (e) => setDepartmentId(e.target.value);
+	const handleProgramIdInput = (e) => setProgramId(e.target.value);
+	const handleDescriptionInput = (e) => setDescription(e.target.value);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const updatedSubAdmin = {
-			id: subAdminId,
-			name,
-			f_name: fatherName,
-			email,
-			gender,
-			contact,
-			nationality,
-			dob: null,
-			image: null,
-			department_id: null,
+		const updatedCourse = {
+			id: courseId,
+			title,
+			credit_hours: creditHours,
+			department_id: departmentId,
+			program_id: programId,
+			pre_reqs: null,
+			min_semester: null,
+			offered: 1,
+			course_code: courseCode,
+			description,
 		};
-		console.log(updatedSubAdmin);
+		console.log(updatedCourse);
 		try {
-			await updateSubAdmin(updatedSubAdmin).unwrap();
-			setName('');
-			setFatherName('');
-			setEmail('');
-			setDepartment('');
-			setGender('');
-			setContact('');
-			setNationality('');
-			navigate('/admin/sub-admins');
+			await updateCourse(updatedCourse).unwrap();
+			setCourseCode('');
+			setTitle('');
+			setCreditHours(0);
+			setDepartmentId('');
+			setProgramId('');
+			setDescription('');
+			navigate('/sub-admin/courses');
 		} catch (err) {
 			console.log(err);
 		}
@@ -76,15 +85,14 @@ export default function EditSubAdminForm() {
 
 	const handleDelete = async () => {
 		try {
-			await deleteSubAdmin({ id: subAdminId });
-			setName('');
-			setFatherName('');
-			setEmail('');
-			setDepartment('');
-			setGender('');
-			setContact('');
-			setNationality('');
-			navigate('/admin/sub-admins');
+			await deleteCourse({ id: courseId });
+			setCourseCode('');
+			setTitle('');
+			setCreditHours(0);
+			setDepartmentId('');
+			setProgramId('');
+			setDescription('');
+			navigate('/sub-admin/courses');
 		} catch (err) {
 			console.log(err);
 		}
@@ -100,101 +108,65 @@ export default function EditSubAdminForm() {
 					<div className='space-y-6 sm:space-y-5'>
 						<div>
 							<h3 className='text-xl font-semibold leading-6 text-gray-900'>
-								Edit Sub Admin
+								Edit Course
 							</h3>
 							<p className='mt-1 max-w-2xl text-sm text-gray-500'>
 								Please fill all the required fields.
 							</p>
 						</div>
 						<div className='space-y-6 sm:space-y-5'>
-							<div className='sm:grid sm:grid-cols-3 sm:items-center sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5'>
-								<label
-									htmlFor='photo'
-									className='block text-sm font-medium text-gray-700'
-								>
-									Photo
-								</label>
-								<div className='mt-1 sm:col-span-2 sm:mt-0'>
-									<div className='flex items-center'>
-										<span className='h-12 w-12 overflow-hidden rounded-full bg-gray-100'>
-											<svg
-												className='h-full w-full text-gray-300'
-												fill='currentColor'
-												viewBox='0 0 24 24'
-											>
-												<path d='M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z' />
-											</svg>
-										</span>
-										<button
-											type='button'
-											className='ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2'
-										>
-											Change
-										</button>
-									</div>
-								</div>
-							</div>
-
 							<TextInput
-								name='full-name'
-								label='Full Name'
+								name='courseCode'
+								label='Course Code'
 								type='text'
-								value={name}
-								onChange={handleNameInput}
+								value={courseCode}
+								onChange={handleCourseCodeInput}
+								required={true}
+							/>
+
+							<TextInputLong
+								name='title'
+								label='Title'
+								type='text'
+								value={title}
+								onChange={handleTitleInput}
 								required={true}
 							/>
 
 							<TextInput
-								name='father-name'
-								label="Father's Name"
-								type='text'
-								value={fatherName}
-								onChange={handleFatherNameInput}
-								required={true}
-							/>
-
-							<TextInput
-								name='email'
-								label='Email'
-								type='email'
-								value={email}
-								onChange={handleEmailInput}
+								name='creditHours'
+								label='Credit Hours'
+								type='number'
+								value={creditHours}
+								onChange={handleCreditHoursInput}
 								required={true}
 							/>
 
 							<DropdownMenu
 								name='department'
 								label='Department'
-								onChange={handleDepartmentInput}
 								required={true}
+								value={departmentId}
+								data={departments}
+								onChange={handleDepartmentIdInput}
 							/>
 
-							<RadioInput
-								name='gender'
-								label='Gender'
-								value={gender}
-								onChange={handleGenderInput}
-								options={[
-									{ name: 'male', label: 'Male' },
-									{ name: 'female', label: 'Female' },
-								]}
-							/>
-
-							<TextInput
-								name='contact'
-								label='Contact'
-								type='text'
-								value={contact}
-								onChange={handleContactInput}
+							<DropdownMenu
+								name='program'
+								label='Program'
 								required={true}
+								value={programId}
+								data={programs}
+								onChange={handleProgramIdInput}
 							/>
 
-							<TextInput
-								name='nationality'
-								label='Nationality'
-								value={nationality}
-								onChange={handleNationalityInput}
-								type='text'
+							<TextArea
+								name='description'
+								label='Description'
+								rows={5}
+								value={description}
+								onChange={handleDescriptionInput}
+								required={true}
 							/>
 						</div>
 					</div>
@@ -204,7 +176,7 @@ export default function EditSubAdminForm() {
 					<div className='flex justify-end'>
 						<Link
 							type='button'
-							to='/admin/sub-admins'
+							to='/sub-admin/courses'
 							className='rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2'
 						>
 							Cancel

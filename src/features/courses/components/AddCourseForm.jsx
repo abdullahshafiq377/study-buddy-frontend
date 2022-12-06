@@ -6,52 +6,65 @@ import { useAddNewCourseMutation } from '../coursesApiSlice';
 import { useNavigate, Link } from 'react-router-dom';
 import TextArea from './../../../components/TextArea';
 import TextInputLong from './../../../components/TextInputLong';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	departmentsApiSlice,
+	selectAllDepartments,
+} from './../../departments/departmentsApiSlice';
+import {
+	programsApiSlice,
+	selectAllPrograms,
+} from './../../programs/programsApiSlice';
 
 export default function AddCourseForm() {
 	const [addNewCourse, { isLoading }] = useAddNewCourseMutation();
 
+	const dispatch = useDispatch();
+
 	const navigate = useNavigate();
 
-	const [name, setName] = useState('');
-	const [fatherName, setFatherName] = useState('');
-	const [email, setEmail] = useState('');
-	const [department, setDepartment] = useState('');
-	const [gender, setGender] = useState('');
-	const [contact, setContact] = useState('');
-	const [nationality, setNationality] = useState('');
+	const [courseCode, setCourseCode] = useState('');
+	const [title, setTitle] = useState('');
+	const [creditHours, setCreditHours] = useState(0);
+	const [departmentId, setDepartmentId] = useState('');
+	const [programId, setProgramId] = useState('');
+	const [description, setDescription] = useState('');
 
-	const handleNameInput = (e) => setName(e.target.value);
-	const handleFatherNameInput = (e) => setFatherName(e.target.value);
-	const handleEmailInput = (e) => setEmail(e.target.value);
-	const handleDepartmentInput = (e) => setDepartment(e.target.value);
-	const handleGenderInput = (e) => setGender(e.target.id);
-	const handleContactInput = (e) => setContact(e.target.value);
-	const handleNationalityInput = (e) => setNationality(e.target.value);
+	dispatch(departmentsApiSlice.endpoints.getDepartments.initiate());
+	dispatch(programsApiSlice.endpoints.getPrograms.initiate());
+	const departments = useSelector(selectAllDepartments);
+	const programs = useSelector(selectAllPrograms);
+
+	const handleCourseCodeInput = (e) => setCourseCode(e.target.value);
+	const handleTitleInput = (e) => setTitle(e.target.value);
+	const handleCreditHoursInput = (e) => setCreditHours(e.target.value);
+	const handleDepartmentIdInput = (e) => setDepartmentId(e.target.value);
+	const handleProgramIdInput = (e) => setProgramId(e.target.value);
+	const handleDescriptionInput = (e) => setDescription(e.target.value);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const newCourse = {
-			name,
-			f_name: fatherName,
-			email,
-			gender,
-			contact,
-			nationality,
-			dob: null,
-			image: null,
-			department_id: null,
+			title,
+			credit_hours: creditHours,
+			department_id: departmentId,
+			program_id: programId,
+			pre_reqs: null,
+			min_semester: null,
+			offered: 1,
+			course_code: courseCode,
+			description,
 		};
 		console.log(newCourse);
 
 		try {
 			await addNewCourse(newCourse).unwrap();
-			setName('');
-			setFatherName('');
-			setEmail('');
-			setDepartment('');
-			setGender('');
-			setContact('');
-			setNationality('');
+			setCourseCode('');
+			setTitle('');
+			setCreditHours(0);
+			setDepartmentId('');
+			setProgramId('');
+			setDescription('');
 			navigate('/sub-admin/courses');
 		} catch (err) {
 			console.log(err);
@@ -79,7 +92,7 @@ export default function AddCourseForm() {
 							name='courseCode'
 							label='Course Code'
 							type='text'
-							onChange={handleNameInput}
+							onChange={handleCourseCodeInput}
 							required={true}
 						/>
 
@@ -87,7 +100,7 @@ export default function AddCourseForm() {
 							name='title'
 							label='Title'
 							type='text'
-							onChange={handleFatherNameInput}
+							onChange={handleTitleInput}
 							required={true}
 						/>
 
@@ -95,39 +108,31 @@ export default function AddCourseForm() {
 							name='creditHours'
 							label='Credit Hours'
 							type='number'
-							onChange={handleEmailInput}
+							onChange={handleCreditHoursInput}
 							required={true}
 						/>
 
 						<DropdownMenu
 							name='department'
 							label='Department'
-							onChange={handleDepartmentInput}
 							required={true}
+							data={departments}
+							onChange={handleDepartmentIdInput}
 						/>
 
 						<DropdownMenu
 							name='program'
 							label='Program'
-							onChange={handleDepartmentInput}
 							required={true}
-						/>
-
-						<RadioInput
-							name='offered'
-							label='Offered'
-							onChange={handleGenderInput}
-							options={[
-								{ name: 'yes', label: 'Yes' },
-								{ name: 'no', label: 'No' },
-							]}
+							data={programs}
+							onChange={handleProgramIdInput}
 						/>
 
 						<TextArea
 							name='description'
 							label='Description'
 							rows={5}
-							onChange={handleContactInput}
+							onChange={handleDescriptionInput}
 							required={true}
 						/>
 					</div>
