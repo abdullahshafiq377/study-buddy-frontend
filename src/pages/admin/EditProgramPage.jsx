@@ -1,7 +1,8 @@
 import React from 'react';
+import EditDepartmentForm from '../../features/programs/components/EditProgramForm';
 
 const EditProgramPage = () => {
-	return <div>EditProgramPage</div>;
+	return <EditDepartmentForm />;
 };
 
 export default EditProgramPage;

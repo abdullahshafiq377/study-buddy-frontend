@@ -265,7 +265,7 @@ export default function EditStudentForm() {
 					<div className='flex justify-end'>
 						<Link
 							type='button'
-							to='/admin/students'
+							to='/sub-admin/students'
 							className='rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2'
 						>
 							Cancel

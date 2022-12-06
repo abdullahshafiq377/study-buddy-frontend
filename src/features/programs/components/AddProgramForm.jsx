@@ -6,52 +6,44 @@ import { useAddNewProgramMutation } from '../programsApiSlice';
 import { useNavigate, Link } from 'react-router-dom';
 import TextInputLong from './../../../components/TextInputLong';
 import TextArea from './../../../components/TextArea';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	departmentsApiSlice,
+	selectAllDepartments,
+} from './../../departments/departmentsApiSlice';
 
 export default function AddProgramForm() {
 	const [addNewProgram, { isLoading }] = useAddNewProgramMutation();
 
+	const dispatch = useDispatch();
+
 	const navigate = useNavigate();
 
-	const [name, setName] = useState('');
-	const [fatherName, setFatherName] = useState('');
-	const [email, setEmail] = useState('');
-	const [program, setProgram] = useState('');
-	const [gender, setGender] = useState('');
-	const [contact, setContact] = useState('');
-	const [nationality, setNationality] = useState('');
+	const [title, setTitle] = useState('');
+	const [departmentId, setDepartmentId] = useState('');
+	const [description, setDescription] = useState('');
 
-	const handleNameInput = (e) => setName(e.target.value);
-	const handleFatherNameInput = (e) => setFatherName(e.target.value);
-	const handleEmailInput = (e) => setEmail(e.target.value);
-	const handleProgramInput = (e) => setProgram(e.target.value);
-	const handleGenderInput = (e) => setGender(e.target.id);
-	const handleContactInput = (e) => setContact(e.target.value);
-	const handleNationalityInput = (e) => setNationality(e.target.value);
+	dispatch(departmentsApiSlice.endpoints.getDepartments.initiate());
+	const departments = useSelector(selectAllDepartments);
+
+	const handleTitleInput = (e) => setTitle(e.target.value);
+	const handleDepartmentInput = (e) => setDepartmentId(e.target.value);
+	const handleDescriptionInput = (e) => setDescription(e.target.value);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const newProgram = {
-			name,
-			f_name: fatherName,
-			email,
-			gender,
-			contact,
-			nationality,
-			dob: null,
-			image: null,
-			program_id: null,
+			title,
+			description,
+			department_id: departmentId,
 		};
 		console.log(newProgram);
 
 		try {
 			await addNewProgram(newProgram).unwrap();
-			setName('');
-			setFatherName('');
-			setEmail('');
-			setProgram('');
-			setGender('');
-			setContact('');
-			setNationality('');
+			setTitle('');
+			setDepartmentId('');
+			setDescription('');
 			navigate('/admin/programs');
 		} catch (err) {
 			console.log(err);
@@ -79,7 +71,7 @@ export default function AddProgramForm() {
 							name='title'
 							label='Title'
 							type='text'
-							onChange={handleNameInput}
+							onChange={handleTitleInput}
 							required={true}
 						/>
 
@@ -87,13 +79,15 @@ export default function AddProgramForm() {
 							name='department'
 							label='Department'
 							required={true}
+							data={departments}
+							onChange={handleDepartmentInput}
 						/>
 
 						<TextArea
 							name='description'
 							label='Description'
 							rows={10}
-							onChange={handleContactInput}
+							onChange={handleDescriptionInput}
 							required={true}
 						/>
 					</div>
