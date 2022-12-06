@@ -1,6 +1,3 @@
-import DropdownMenu from '../../../components/DropdownMenu';
-import RadioInput from '../../../components/RadioInput';
-import TextInput from '../../../components/TextInput';
 import { useState } from 'react';
 import { useAddNewNoticeMutation } from '../noticesApiSlice';
 import { useNavigate, Link } from 'react-router-dom';
@@ -12,46 +9,24 @@ export default function AddNoticeForm() {
 
 	const navigate = useNavigate();
 
-	const [name, setName] = useState('');
-	const [fatherName, setFatherName] = useState('');
-	const [email, setEmail] = useState('');
-	const [department, setDepartment] = useState('');
-	const [gender, setGender] = useState('');
-	const [contact, setContact] = useState('');
-	const [nationality, setNationality] = useState('');
+	const [title, setTitle] = useState('');
+	const [link, setLink] = useState('');
 
-	const handleNameInput = (e) => setName(e.target.value);
-	const handleFatherNameInput = (e) => setFatherName(e.target.value);
-	const handleEmailInput = (e) => setEmail(e.target.value);
-	const handleDepartmentInput = (e) => setDepartment(e.target.value);
-	const handleGenderInput = (e) => setGender(e.target.id);
-	const handleContactInput = (e) => setContact(e.target.value);
-	const handleNationalityInput = (e) => setNationality(e.target.value);
+	const handleTitleInput = (e) => setTitle(e.target.value);
+	const handleLinkInput = (e) => setLink(e.target.value);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const newNotice = {
-			name,
-			f_name: fatherName,
-			email,
-			gender,
-			contact,
-			nationality,
-			dob: null,
-			image: null,
-			department_id: null,
+			title,
+			link,
 		};
 		console.log(newNotice);
 
 		try {
 			await addNewNotice(newNotice).unwrap();
-			setName('');
-			setFatherName('');
-			setEmail('');
-			setDepartment('');
-			setGender('');
-			setContact('');
-			setNationality('');
+			setTitle('');
+			setLink('');
 			navigate('/admin/notices');
 		} catch (err) {
 			console.log(err);
@@ -75,11 +50,11 @@ export default function AddNoticeForm() {
 					</div>
 
 					<div className='space-y-6 sm:space-y-5'>
-					<TextInputLong
+						<TextInputLong
 							name='title'
 							label='Title'
 							type='text'
-							onChange={handleNameInput}
+							onChange={handleTitleInput}
 							required={true}
 						/>
 
@@ -87,7 +62,7 @@ export default function AddNoticeForm() {
 							name='link'
 							label='Link'
 							rows={10}
-							onChange={handleContactInput}
+							onChange={handleLinkInput}
 							required={true}
 						/>
 					</div>

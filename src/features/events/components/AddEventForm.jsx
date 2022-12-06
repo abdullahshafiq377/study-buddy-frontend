@@ -12,46 +12,29 @@ export default function AddEventForm() {
 
 	const navigate = useNavigate();
 
-	const [name, setName] = useState('');
-	const [fatherName, setFatherName] = useState('');
-	const [email, setEmail] = useState('');
-	const [department, setDepartment] = useState('');
-	const [gender, setGender] = useState('');
-	const [contact, setContact] = useState('');
-	const [nationality, setNationality] = useState('');
+	const [title, setTitle] = useState('');
+	const [venue, setVenue] = useState('');
+	const [description, setDescription] = useState('');
 
-	const handleNameInput = (e) => setName(e.target.value);
-	const handleFatherNameInput = (e) => setFatherName(e.target.value);
-	const handleEmailInput = (e) => setEmail(e.target.value);
-	const handleDepartmentInput = (e) => setDepartment(e.target.value);
-	const handleGenderInput = (e) => setGender(e.target.id);
-	const handleContactInput = (e) => setContact(e.target.value);
-	const handleNationalityInput = (e) => setNationality(e.target.value);
+	const handleTitleInput = (e) => setTitle(e.target.value);
+	const handleVenueInput = (e) => setVenue(e.target.value);
+	const handleDescriptionInput = (e) => setDescription(e.target.value);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const newEvent = {
-			name,
-			f_name: fatherName,
-			email,
-			gender,
-			contact,
-			nationality,
-			dob: null,
-			image: null,
-			department_id: null,
+			title,
+			venue,
+			date_time: null,
+			description,
 		};
 		console.log(newEvent);
 
 		try {
 			await addNewEvent(newEvent).unwrap();
-			setName('');
-			setFatherName('');
-			setEmail('');
-			setDepartment('');
-			setGender('');
-			setContact('');
-			setNationality('');
+			setTitle('');
+			setVenue('');
+			setDescription('');
 			navigate('/admin/events');
 		} catch (err) {
 			console.log(err);
@@ -79,14 +62,14 @@ export default function AddEventForm() {
 							name='title'
 							label='Title'
 							type='text'
-							onChange={handleNameInput}
+							onChange={handleTitleInput}
 							required={true}
 						/>
 						<TextInputLong
 							name='venue'
 							label='Venue'
 							type='text'
-							onChange={handleNameInput}
+							onChange={handleVenueInput}
 							required={true}
 						/>
 
@@ -94,7 +77,7 @@ export default function AddEventForm() {
 							name='description'
 							label='Description'
 							rows={10}
-							onChange={handleContactInput}
+							onChange={handleDescriptionInput}
 							required={true}
 						/>
 					</div>

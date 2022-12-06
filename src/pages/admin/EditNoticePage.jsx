@@ -1,7 +1,8 @@
 import React from 'react';
+import EditNoticeForm from '../../features/notices/components/EditNoticeForm';
 
 const EditNoticePage = () => {
-	return <div>EditNoticePage</div>;
+	return <EditNoticeForm />;
 };
 
 export default EditNoticePage;
