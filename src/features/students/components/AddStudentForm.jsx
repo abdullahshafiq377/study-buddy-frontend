@@ -14,6 +14,7 @@ import {
 import {
 	programsApiSlice,
 	selectAllPrograms,
+	selectProgramById,
 } from './../../programs/programsApiSlice';
 
 export default function AddStudentForm() {
@@ -31,6 +32,8 @@ export default function AddStudentForm() {
 	const [gender, setGender] = useState('');
 	const [contact, setContact] = useState('');
 	const [nationality, setNationality] = useState('');
+	const [session, setSession] = useState('');
+	const [rollNum, setRollNum] = useState('');
 
 	dispatch(departmentsApiSlice.endpoints.getDepartments.initiate());
 	dispatch(programsApiSlice.endpoints.getPrograms.initiate());
@@ -45,9 +48,15 @@ export default function AddStudentForm() {
 	const handleGenderInput = (e) => setGender(e.target.id);
 	const handleContactInput = (e) => setContact(e.target.value);
 	const handleNationalityInput = (e) => setNationality(e.target.value);
+	const handleSessionInput = (e) => setSession(e.target.value);
+	const handleRollNumInput = (e) => setRollNum(e.target.value);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const program = programs.filter((program) => {
+			return program.id === programId;
+		});
+		let programTitle = program[0].title;
 		const newStudent = {
 			name,
 			f_name: fatherName,
@@ -57,7 +66,11 @@ export default function AddStudentForm() {
 			nationality,
 			dob: null,
 			image: null,
-			department_id: null,
+			department_id: departmentId,
+			session,
+			reg_num: rollNum,
+			program_id: programId,
+			program_title: programTitle,
 		};
 		console.log(newStudent);
 
@@ -67,9 +80,12 @@ export default function AddStudentForm() {
 			setFatherName('');
 			setEmail('');
 			setDepartmentId('');
+			setProgramId('');
 			setGender('');
 			setContact('');
 			setNationality('');
+			setSession('');
+			setRollNum('');
 			navigate('/sub-admin/students');
 		} catch (err) {
 			console.log(err);
@@ -157,7 +173,7 @@ export default function AddStudentForm() {
 							name='session'
 							label='Session'
 							type='text'
-							onChange={handleFatherNameInput}
+							onChange={handleSessionInput}
 							required={true}
 						/>
 
@@ -173,7 +189,7 @@ export default function AddStudentForm() {
 							name='rollNumber'
 							label='Roll Number'
 							type='text'
-							onChange={handleFatherNameInput}
+							onChange={handleRollNumInput}
 							required={true}
 						/>
 

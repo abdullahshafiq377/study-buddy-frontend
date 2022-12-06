@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
+import EditStudentForm from '../../features/students/components/EditStudentForm';
 
 const EditStudentPage = () => {
-  return (
-    <div>EditStudentPage</div>
-  )
-}
+	return <EditStudentForm />;
+};
 
-export default EditStudentPage
+export default EditStudentPage;

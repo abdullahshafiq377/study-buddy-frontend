@@ -3,51 +3,73 @@ import RadioInput from '../../../components/RadioInput';
 import TextInput from '../../../components/TextInput';
 import { useState } from 'react';
 import {
-	selectSubAdminById,
-	useDeleteSubAdminMutation,
-	useUpdateSubAdminMutation,
-} from '../subAdminsApiSlice';
+	selectStudentById,
+	useDeleteStudentMutation,
+	useUpdateStudentMutation,
+} from '../studentsApiSlice';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import DeleteActionPanel from '../../../components/DeleteActionPanel';
-import ConfirmDeletionModal from '../../../components/ConfirmDeletionModal';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+	departmentsApiSlice,
+	selectAllDepartments,
+} from './../../departments/departmentsApiSlice';
+import {
+	programsApiSlice,
+	selectAllPrograms,
+} from '../../programs/programsApiSlice';
+import TextInputLong from './../../../components/TextInputLong';
 
-export default function EditSubAdminForm() {
-	const { subAdminId } = useParams();
+export default function EditStudentForm() {
+	const { studentId } = useParams();
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
-	const [updateSubAdmin, { isLoading }] = useUpdateSubAdminMutation();
-	const [deleteSubAdmin] = useDeleteSubAdminMutation();
+	dispatch(departmentsApiSlice.endpoints.getDepartments.initiate());
+	const departments = useSelector(selectAllDepartments);
+	dispatch(programsApiSlice.endpoints.getPrograms.initiate());
+	const programs = useSelector(selectAllPrograms);
 
-	const subAdmin = useSelector((state) =>
-		selectSubAdminById(state, subAdminId),
-	);
+	const [updateStudent, { isLoading }] = useUpdateStudentMutation();
+	const [deleteStudent] = useDeleteStudentMutation();
 
+	const student = useSelector((state) => selectStudentById(state, studentId));
 
-	const [name, setName] = useState(subAdmin?.name);
-	const [fatherName, setFatherName] = useState(subAdmin?.f_name);
-	const [email, setEmail] = useState(subAdmin?.email);
-	const [department, setDepartment] = useState('');
-	const [gender, setGender] = useState(subAdmin?.gender);
-	const [contact, setContact] = useState(subAdmin?.contact);
-	const [nationality, setNationality] = useState(subAdmin?.nationality);
+	const [name, setName] = useState(student?.name);
+	const [fatherName, setFatherName] = useState(student?.f_name);
+	const [email, setEmail] = useState(student?.email);
+	const [departmentId, setDepartmentId] = useState(student?.department_id);
+	const [programId, setProgramId] = useState(student?.program_id);
+	const [gender, setGender] = useState(student?.gender);
+	const [contact, setContact] = useState(student?.contact);
+	const [nationality, setNationality] = useState(student?.nationality);
+	const [session, setSession] = useState(student?.session);
+	const [rollNum, setRollNum] = useState(student?.reg_num);
 
-	if (!subAdmin) {
-		return <h2>Sub Admin Not Found</h2>;
+	if (!student) {
+		return <h2>Student Not Found</h2>;
 	}
 
 	const handleNameInput = (e) => setName(e.target.value);
 	const handleFatherNameInput = (e) => setFatherName(e.target.value);
 	const handleEmailInput = (e) => setEmail(e.target.value);
-	const handleDepartmentInput = (e) => setDepartment(e.target.value);
+	const handleDepartmentInput = (e) => setDepartmentId(e.target.value);
+	const handleProgramInput = (e) => setProgramId(e.target.value);
 	const handleGenderInput = (e) => setGender(e.target.id);
 	const handleContactInput = (e) => setContact(e.target.value);
 	const handleNationalityInput = (e) => setNationality(e.target.value);
+	const handleSessionInput = (e) => setSession(e.target.value);
+	const handleRollNumInput = (e) => setRollNum(e.target.value);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const updatedSubAdmin = {
-			id: subAdminId,
+
+		const program = programs.filter((program) => {
+			return program.id === programId;
+		});
+		let programTitle = program[0].title;
+
+		const updatedStudent = {
+			id: studentId,
 			name,
 			f_name: fatherName,
 			email,
@@ -56,19 +78,26 @@ export default function EditSubAdminForm() {
 			nationality,
 			dob: null,
 			image: null,
-			department_id: null,
+			department_id: departmentId,
+			session,
+			reg_num: rollNum,
+			program_id: programId,
+			program_title: programTitle,
 		};
-		console.log(updatedSubAdmin);
+		console.log(updatedStudent);
 		try {
-			await updateSubAdmin(updatedSubAdmin).unwrap();
+			await updateStudent(updatedStudent).unwrap();
 			setName('');
 			setFatherName('');
 			setEmail('');
-			setDepartment('');
+			setDepartmentId('');
+			setProgramId('');
 			setGender('');
 			setContact('');
 			setNationality('');
-			navigate('/admin/sub-admins');
+			setSession('');
+			setRollNum('');
+			navigate('/sub-admin/students');
 		} catch (err) {
 			console.log(err);
 		}
@@ -76,15 +105,18 @@ export default function EditSubAdminForm() {
 
 	const handleDelete = async () => {
 		try {
-			await deleteSubAdmin({ id: subAdminId });
+			await deleteStudent({ id: studentId });
 			setName('');
 			setFatherName('');
 			setEmail('');
-			setDepartment('');
+			setDepartmentId('');
+			setProgramId('');
 			setGender('');
 			setContact('');
 			setNationality('');
-			navigate('/admin/sub-admins');
+			setSession('');
+			setRollNum('');
+			navigate('/sub-admin/students');
 		} catch (err) {
 			console.log(err);
 		}
@@ -100,7 +132,7 @@ export default function EditSubAdminForm() {
 					<div className='space-y-6 sm:space-y-5'>
 						<div>
 							<h3 className='text-xl font-semibold leading-6 text-gray-900'>
-								Edit Sub Admin
+								Edit Student
 							</h3>
 							<p className='mt-1 max-w-2xl text-sm text-gray-500'>
 								Please fill all the required fields.
@@ -153,7 +185,7 @@ export default function EditSubAdminForm() {
 								required={true}
 							/>
 
-							<TextInput
+							<TextInputLong
 								name='email'
 								label='Email'
 								type='email'
@@ -165,7 +197,36 @@ export default function EditSubAdminForm() {
 							<DropdownMenu
 								name='department'
 								label='Department'
+								data={departments}
+								value={departmentId}
 								onChange={handleDepartmentInput}
+								required={true}
+							/>
+
+							<TextInput
+								name='session'
+								label='Session'
+								type='text'
+								value={session}
+								onChange={handleSessionInput}
+								required={true}
+							/>
+
+							<DropdownMenu
+								name='program'
+								label='Program'
+								data={programs}
+								value={programId}
+								onChange={handleProgramInput}
+								required={true}
+							/>
+
+							<TextInput
+								name='rollNumber'
+								label='Roll Number'
+								type='text'
+								value={rollNum}
+								onChange={handleRollNumInput}
 								required={true}
 							/>
 
@@ -204,7 +265,7 @@ export default function EditSubAdminForm() {
 					<div className='flex justify-end'>
 						<Link
 							type='button'
-							to='/admin/sub-admins'
+							to='/admin/students'
 							className='rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2'
 						>
 							Cancel
