@@ -8,14 +8,20 @@ import {
 	useUpdateSubAdminMutation,
 } from '../subAdminsApiSlice';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import DeleteActionPanel from '../../../components/DeleteActionPanel';
-import ConfirmDeletionModal from '../../../components/ConfirmDeletionModal';
+import { useSelector, useDispatch } from 'react-redux';
 import TextInputLong from './../../../components/TextInputLong';
+import {
+	departmentsApiSlice,
+	selectAllDepartments,
+} from './../../departments/departmentsApiSlice';
 
 export default function EditSubAdminForm() {
 	const { subAdminId } = useParams();
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	dispatch(departmentsApiSlice.endpoints.getDepartments.initiate());
+	const departments = useSelector(selectAllDepartments);
 
 	const [updateSubAdmin, { isLoading }] = useUpdateSubAdminMutation();
 	const [deleteSubAdmin] = useDeleteSubAdminMutation();
@@ -27,7 +33,7 @@ export default function EditSubAdminForm() {
 	const [name, setName] = useState(subAdmin?.name);
 	const [fatherName, setFatherName] = useState(subAdmin?.f_name);
 	const [email, setEmail] = useState(subAdmin?.email);
-	const [department, setDepartment] = useState('');
+	const [departmentId, setDepartmentId] = useState(subAdmin?.department_id);
 	const [gender, setGender] = useState(subAdmin?.gender);
 	const [contact, setContact] = useState(subAdmin?.contact);
 	const [nationality, setNationality] = useState(subAdmin?.nationality);
@@ -39,7 +45,7 @@ export default function EditSubAdminForm() {
 	const handleNameInput = (e) => setName(e.target.value);
 	const handleFatherNameInput = (e) => setFatherName(e.target.value);
 	const handleEmailInput = (e) => setEmail(e.target.value);
-	const handleDepartmentInput = (e) => setDepartment(e.target.value);
+	const handleDepartmentInput = (e) => setDepartmentId(e.target.value);
 	const handleGenderInput = (e) => setGender(e.target.id);
 	const handleContactInput = (e) => setContact(e.target.value);
 	const handleNationalityInput = (e) => setNationality(e.target.value);
@@ -64,7 +70,7 @@ export default function EditSubAdminForm() {
 			setName('');
 			setFatherName('');
 			setEmail('');
-			setDepartment('');
+			setDepartmentId('');
 			setGender('');
 			setContact('');
 			setNationality('');
@@ -80,7 +86,7 @@ export default function EditSubAdminForm() {
 			setName('');
 			setFatherName('');
 			setEmail('');
-			setDepartment('');
+			setDepartmentId('');
 			setGender('');
 			setContact('');
 			setNationality('');
@@ -165,6 +171,8 @@ export default function EditSubAdminForm() {
 							<DropdownMenu
 								name='department'
 								label='Department'
+								data={departments}
+								value={departmentId}
 								onChange={handleDepartmentInput}
 								required={true}
 							/>

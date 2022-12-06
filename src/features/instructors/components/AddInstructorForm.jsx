@@ -2,33 +2,40 @@ import DropdownMenu from '../../../components/DropdownMenu';
 import RadioInput from '../../../components/RadioInput';
 import TextInput from '../../../components/TextInput';
 import { useState } from 'react';
-import { useAddNewSubAdminMutation } from '../instructorsApiSlice';
+import { useAddNewInstructorMutation } from '../instructorsApiSlice';
 import { useNavigate, Link } from 'react-router-dom';
+import { departmentsApiSlice, selectAllDepartments } from './../../departments/departmentsApiSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
-export default function AddSubAdminForm() {
-	const [addNewSubAdmin, { isLoading }] = useAddNewSubAdminMutation();
+export default function AddInstructorForm() {
+	const [addNewInstructor, { isLoading }] = useAddNewInstructorMutation();
+
+	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
 
 	const [name, setName] = useState('');
 	const [fatherName, setFatherName] = useState('');
 	const [email, setEmail] = useState('');
-	const [department, setDepartment] = useState('');
+	const [departmentId, setDepartmentId] = useState('');
 	const [gender, setGender] = useState('');
 	const [contact, setContact] = useState('');
 	const [nationality, setNationality] = useState('');
 
+	dispatch(departmentsApiSlice.endpoints.getDepartments.initiate());
+	const departments = useSelector(selectAllDepartments);
+
 	const handleNameInput = (e) => setName(e.target.value);
 	const handleFatherNameInput = (e) => setFatherName(e.target.value);
 	const handleEmailInput = (e) => setEmail(e.target.value);
-	const handleDepartmentInput = (e) => setDepartment(e.target.value);
+	const handleDepartmentInput = (e) => setDepartmentId(e.target.value);
 	const handleGenderInput = (e) => setGender(e.target.id);
 	const handleContactInput = (e) => setContact(e.target.value);
 	const handleNationalityInput = (e) => setNationality(e.target.value);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const newSubAdmin = {
+		const newInstructor = {
 			name,
 			f_name: fatherName,
 			email,
@@ -37,20 +44,20 @@ export default function AddSubAdminForm() {
 			nationality,
 			dob: null,
 			image: null,
-			department_id: null,
+			department_id: departmentId,
 		};
-		console.log(newSubAdmin);
+		console.log(newInstructor);
 
 		try {
-			await addNewSubAdmin(newSubAdmin).unwrap();
+			await addNewInstructor(newInstructor).unwrap();
 			setName('');
 			setFatherName('');
 			setEmail('');
-			setDepartment('');
+			setDepartmentId('');
 			setGender('');
 			setContact('');
 			setNationality('');
-			navigate('/admin/sub-admins');
+			navigate('/sub-admin/instructors');
 		} catch (err) {
 			console.log(err);
 		}
@@ -65,7 +72,7 @@ export default function AddSubAdminForm() {
 				<div className='space-y-6 sm:space-y-5'>
 					<div>
 						<h3 className='text-xl font-semibold leading-6 text-gray-900'>
-							Add Sub Admin
+							Add Instructor
 						</h3>
 						<p className='mt-1 max-w-2xl text-sm text-gray-500'>
 							Please fill all the required fields.
@@ -128,6 +135,7 @@ export default function AddSubAdminForm() {
 						<DropdownMenu
 							name='department'
 							label='Department'
+							data={departments}
 							onChange={handleDepartmentInput}
 							required={true}
 						/>
@@ -164,7 +172,7 @@ export default function AddSubAdminForm() {
 				<div className='flex justify-end'>
 					<Link
 						type='button'
-						to='/admin/sub-admins'
+						to='/sub-admin/instructors'
 						className='rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2'
 					>
 						Cancel

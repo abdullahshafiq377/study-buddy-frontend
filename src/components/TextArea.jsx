@@ -19,9 +19,6 @@ const TextArea = ({ name, rows, label, value, required, onChange }) => {
 					className='block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-primary-600 focus:ring-primary-600 sm:text-sm'
 					defaultValue={value}
 				/>
-				<p className='mt-2 text-sm text-gray-500'>
-					Write a few sentences about yourself.
-				</p>
 			</div>
 		</div>
 	);

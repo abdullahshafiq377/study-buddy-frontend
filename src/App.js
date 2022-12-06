@@ -19,6 +19,20 @@ import SubAdminDashboardPage from './pages/sub-admin/SubAdminDashboardPage';
 import InstructorsListPage from './pages/sub-admin/InstructorsListPage';
 import StudentsListPage from './pages/sub-admin/StudentsListPage';
 import CoursesListPage from './pages/sub-admin/CoursesListPage';
+import AddDepartmentPage from './pages/admin/AddDepartmentPage';
+import EditDepartmentPage from './pages/admin/EditDepartmentPage';
+import AddProgramPage from './pages/admin/AddProgramPage';
+import EditProgramPage from './pages/admin/EditProgramPage';
+import EditNoticePage from './pages/admin/EditNoticePage';
+import AddNoticePage from './pages/admin/AddNoticePage';
+import AddEventPage from './pages/admin/AddEventPage';
+import EditEventPage from './pages/admin/EditEventPage';
+import AddInstructorPage from './pages/sub-admin/AddInstructorPage';
+import EditInstructorPage from './pages/sub-admin/EditInstructorPage';
+import AddStudentPage from './pages/sub-admin/AddStudentPage';
+import EditStudentPage from './pages/sub-admin/EditStudentPage';
+import AddCoursePage from './pages/sub-admin/AddCoursePage';
+import EditCoursePage from './pages/sub-admin/EditCoursePage';
 
 function App() {
 	return (
@@ -52,10 +66,38 @@ function App() {
 							path='departments'
 							element={<DepartmentsListPage />}
 						/>
+						<Route
+							path='departments/add'
+							element={<AddDepartmentPage />}
+						/>
+						<Route
+							path='departments/edit/:departmentId'
+							element={<EditDepartmentPage />}
+						/>
 
 						<Route path='programs' element={<ProgramsListPage />} />
+						<Route
+							path='programs/add'
+							element={<AddProgramPage />}
+						/>
+						<Route
+							path='programs/edit/:programId'
+							element={<EditProgramPage />}
+						/>
+
 						<Route path='notices' element={<NoticesListPage />} />
+						<Route path='notices/add' element={<AddNoticePage />} />
+						<Route
+							path='notices/edit/:noticeId'
+							element={<EditNoticePage />}
+						/>
+
 						<Route path='events' element={<EventsListPage />} />
+						<Route path='events/add' element={<AddEventPage />} />
+						<Route
+							path='events/edit/:eventId'
+							element={<EditEventPage />}
+						/>
 					</Route>
 				</Route>
 
@@ -69,8 +111,28 @@ function App() {
 							path='instructors'
 							element={<InstructorsListPage />}
 						/>
+						<Route
+							path='instructors/add'
+							element={<AddInstructorPage />}
+						/>
+						<Route
+							path='instructors/edit/:instructorId'
+							element={<EditInstructorPage />}
+						/>
+
 						<Route path='students' element={<StudentsListPage />} />
+						<Route path='students/add' element={<AddStudentPage />} />
+						<Route
+							path='students/edit/:studentId'
+							element={<EditStudentPage />}
+						/>
+
 						<Route path='courses' element={<CoursesListPage />} />
+						<Route path='courses/add' element={<AddCoursePage />} />
+						<Route
+							path='courses/edit/:courseId'
+							element={<EditCoursePage />}
+						/>
 					</Route>
 				</Route>
 

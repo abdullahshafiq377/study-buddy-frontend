@@ -58,7 +58,6 @@ const SubAdminsTable = () => {
 						>
 							Delete
 						</th>
-						
 					</tr>
 				</thead>
 				<tbody className='bg-white'>
@@ -85,7 +84,7 @@ const SubAdminsTable = () => {
 					</h1>
 					<p className='mt-2 text-sm text-gray-700'>
 						A list of all the sub admins in the system including
-						their name and email.
+						their names, emails, genders and contact numbers.
 					</p>
 				</div>
 				<div className='mt-4 sm:mt-0 sm:ml-16 sm:flex-none'>

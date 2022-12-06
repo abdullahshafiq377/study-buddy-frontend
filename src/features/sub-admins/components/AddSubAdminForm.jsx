@@ -4,26 +4,33 @@ import TextInput from '../../../components/TextInput';
 import { useState } from 'react';
 import { useAddNewSubAdminMutation } from '../subAdminsApiSlice';
 import { useNavigate, Link } from 'react-router-dom';
-import TextArea from './../../../components/TextArea';
 import TextInputLong from './../../../components/TextInputLong';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectAllDepartments } from '../../departments/departmentsApiSlice';
+import { departmentsApiSlice } from './../../departments/departmentsApiSlice';
 
 export default function AddSubAdminForm() {
 	const [addNewSubAdmin, { isLoading }] = useAddNewSubAdminMutation();
+
+	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
 
 	const [name, setName] = useState('');
 	const [fatherName, setFatherName] = useState('');
 	const [email, setEmail] = useState('');
-	const [department, setDepartment] = useState('');
+	const [departmentId, setDepartmentId] = useState('');
 	const [gender, setGender] = useState('');
 	const [contact, setContact] = useState('');
 	const [nationality, setNationality] = useState('');
 
+	dispatch(departmentsApiSlice.endpoints.getDepartments.initiate());
+	const departments = useSelector(selectAllDepartments);
+
 	const handleNameInput = (e) => setName(e.target.value);
 	const handleFatherNameInput = (e) => setFatherName(e.target.value);
 	const handleEmailInput = (e) => setEmail(e.target.value);
-	const handleDepartmentInput = (e) => setDepartment(e.target.value);
+	const handleDepartmentInput = (e) => setDepartmentId(e.target.value);
 	const handleGenderInput = (e) => setGender(e.target.id);
 	const handleContactInput = (e) => setContact(e.target.value);
 	const handleNationalityInput = (e) => setNationality(e.target.value);
@@ -39,7 +46,7 @@ export default function AddSubAdminForm() {
 			nationality,
 			dob: null,
 			image: null,
-			department_id: null,
+			department_id: departmentId,
 		};
 		console.log(newSubAdmin);
 
@@ -48,7 +55,7 @@ export default function AddSubAdminForm() {
 			setName('');
 			setFatherName('');
 			setEmail('');
-			setDepartment('');
+			setDepartmentId('');
 			setGender('');
 			setContact('');
 			setNationality('');
@@ -130,6 +137,7 @@ export default function AddSubAdminForm() {
 						<DropdownMenu
 							name='department'
 							label='Department'
+							data={departments}
 							onChange={handleDepartmentInput}
 							required={true}
 						/>

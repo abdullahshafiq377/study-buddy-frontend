@@ -2,33 +2,53 @@ import DropdownMenu from '../../../components/DropdownMenu';
 import RadioInput from '../../../components/RadioInput';
 import TextInput from '../../../components/TextInput';
 import { useState } from 'react';
-import { useAddNewSubAdminMutation } from '../studentsApiSlice';
+import { useAddNewStudentMutation } from '../studentsApiSlice';
 import { useNavigate, Link } from 'react-router-dom';
+import TextInputSmall from './../../../components/TextInputSmall';
+import TextInputLong from './../../../components/TextInputLong';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	departmentsApiSlice,
+	selectAllDepartments,
+} from './../../departments/departmentsApiSlice';
+import {
+	programsApiSlice,
+	selectAllPrograms,
+} from './../../programs/programsApiSlice';
 
-export default function AddSubAdminForm() {
-	const [addNewSubAdmin, { isLoading }] = useAddNewSubAdminMutation();
+export default function AddStudentForm() {
+	const [addNewStudent, { isLoading }] = useAddNewStudentMutation();
+
+	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
 
 	const [name, setName] = useState('');
 	const [fatherName, setFatherName] = useState('');
 	const [email, setEmail] = useState('');
-	const [department, setDepartment] = useState('');
+	const [departmentId, setDepartmentId] = useState('');
+	const [programId, setProgramId] = useState('');
 	const [gender, setGender] = useState('');
 	const [contact, setContact] = useState('');
 	const [nationality, setNationality] = useState('');
 
+	dispatch(departmentsApiSlice.endpoints.getDepartments.initiate());
+	dispatch(programsApiSlice.endpoints.getPrograms.initiate());
+	const departments = useSelector(selectAllDepartments);
+	const programs = useSelector(selectAllPrograms);
+
 	const handleNameInput = (e) => setName(e.target.value);
 	const handleFatherNameInput = (e) => setFatherName(e.target.value);
 	const handleEmailInput = (e) => setEmail(e.target.value);
-	const handleDepartmentInput = (e) => setDepartment(e.target.value);
+	const handleDepartmentInput = (e) => setDepartmentId(e.target.value);
+	const handleProgramInput = (e) => setProgramId(e.target.value);
 	const handleGenderInput = (e) => setGender(e.target.id);
 	const handleContactInput = (e) => setContact(e.target.value);
 	const handleNationalityInput = (e) => setNationality(e.target.value);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const newSubAdmin = {
+		const newStudent = {
 			name,
 			f_name: fatherName,
 			email,
@@ -39,18 +59,18 @@ export default function AddSubAdminForm() {
 			image: null,
 			department_id: null,
 		};
-		console.log(newSubAdmin);
+		console.log(newStudent);
 
 		try {
-			await addNewSubAdmin(newSubAdmin).unwrap();
+			await addNewStudent(newStudent).unwrap();
 			setName('');
 			setFatherName('');
 			setEmail('');
-			setDepartment('');
+			setDepartmentId('');
 			setGender('');
 			setContact('');
 			setNationality('');
-			navigate('/admin/sub-admins');
+			navigate('/sub-admin/students');
 		} catch (err) {
 			console.log(err);
 		}
@@ -65,7 +85,7 @@ export default function AddSubAdminForm() {
 				<div className='space-y-6 sm:space-y-5'>
 					<div>
 						<h3 className='text-xl font-semibold leading-6 text-gray-900'>
-							Add Sub Admin
+							Add Student
 						</h3>
 						<p className='mt-1 max-w-2xl text-sm text-gray-500'>
 							Please fill all the required fields.
@@ -117,7 +137,7 @@ export default function AddSubAdminForm() {
 							required={true}
 						/>
 
-						<TextInput
+						<TextInputLong
 							name='email'
 							label='Email'
 							type='email'
@@ -128,7 +148,32 @@ export default function AddSubAdminForm() {
 						<DropdownMenu
 							name='department'
 							label='Department'
+							data={departments}
 							onChange={handleDepartmentInput}
+							required={true}
+						/>
+
+						<TextInput
+							name='session'
+							label='Session'
+							type='text'
+							onChange={handleFatherNameInput}
+							required={true}
+						/>
+
+						<DropdownMenu
+							name='program'
+							label='Program'
+							data={programs}
+							onChange={handleProgramInput}
+							required={true}
+						/>
+
+						<TextInput
+							name='rollNumber'
+							label='Roll Number'
+							type='text'
+							onChange={handleFatherNameInput}
 							required={true}
 						/>
 
@@ -164,7 +209,7 @@ export default function AddSubAdminForm() {
 				<div className='flex justify-end'>
 					<Link
 						type='button'
-						to='/admin/sub-admins'
+						to='/sub-admin/students'
 						className='rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2'
 					>
 						Cancel
