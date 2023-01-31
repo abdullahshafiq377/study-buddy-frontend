@@ -2,7 +2,7 @@ import React from 'react';
 import EditEventForm from '../../features/events/components/EditEventForm';
 
 const EditEventPage = () => {
-	return <EditEventForm />;
+    return <EditEventForm/>;
 };
 
 export default EditEventPage;
