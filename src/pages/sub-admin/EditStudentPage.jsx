@@ -2,7 +2,7 @@ import React from 'react';
 import EditStudentForm from '../../features/students/components/EditStudentForm';
 
 const EditStudentPage = () => {
-	return <EditStudentForm />;
+    return <EditStudentForm/>;
 };
 
 export default EditStudentPage;
