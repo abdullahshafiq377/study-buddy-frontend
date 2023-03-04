@@ -13,11 +13,13 @@ import AddCoursePage from './../pages/sub-admin/AddCoursePage';
 import EditCoursePage from './../pages/sub-admin/EditCoursePage';
 import SubAdminProilePage from './../pages/sub-admin/SubAdminProilePage';
 import NotFoundPage from '../pages/public/NotFoundPage';
+import SubAdminSettingsPage from "../pages/sub-admin/SubAdminSettingsPage";
 
 const SubAdminRoutes = () => {
     return (
         <Routes>
             <Route path='dashboard' element={<SubAdminDashboardPage/>}/>
+            <Route path='settings' element={<SubAdminSettingsPage/>}/>
             <Route path='instructors' element={<InstructorsListPage/>}/>
             <Route path='instructors/add' element={<AddInstructorPage/>}/>
             <Route

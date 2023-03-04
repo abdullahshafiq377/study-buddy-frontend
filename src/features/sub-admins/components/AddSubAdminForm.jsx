@@ -37,6 +37,7 @@ export default function AddSubAdminForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const data = new FormData();
         const newSubAdmin = {
             name,
             f_name: fatherName,

@@ -21,3 +21,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/.idea/.gitignore
+/.idea/modules.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.fleet/settings.json
+/.idea/study-buddy-frontend.iml
+/.idea/vcs.xml
+/todos.txt

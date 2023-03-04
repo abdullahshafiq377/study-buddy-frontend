@@ -40,14 +40,6 @@ const TableRow = ({studentId}) => {
                     <PencilSquareIcon className='w-7'/>
                 </Link>
             </td>
-            <td className='relative whitespace-nowrap py-2 pl-5'>
-                <button
-                    onClick={handleDelete}
-                    className='text-red-400 hover:text-red-600'
-                >
-                    <TrashIcon className='w-7'/>
-                </button>
-            </td>
         </tr>
     );
 };

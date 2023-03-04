@@ -18,11 +18,14 @@ import EventsListPage from './../pages/admin/EventsListPage';
 import AddEventPage from './../pages/admin/AddEventPage';
 import EditEventPage from './../pages/admin/EditEventPage';
 import NotFoundPage from './../pages/public/NotFoundPage';
+import AdminSettingsPage from "../pages/admin/AdminSettingsPage";
 
 const AdminRoutes = () => {
     return (
         <Routes>
             <Route path='dashboard' element={<AdminDashboardPage/>}/>
+            <Route path='settings' element={<AdminSettingsPage/>}/>
+
             <Route path='sub-admins' element={<SubAdminsListPage/>}/>
             <Route path='sub-admins/add' element={<AddSubAdminPage/>}/>
             <Route

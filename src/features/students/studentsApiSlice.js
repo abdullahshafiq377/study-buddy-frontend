@@ -20,6 +20,17 @@ export const studentsApiSlice = apiSlice.injectEndpoints({
                 ...result.ids.map((id) => ({type: 'Student', id})),
             ],
         }),
+        getStudentById: builder.query({
+            query: (id) => `/students/${id}`,
+            keepUnusedDataFor: 900,
+            transformResponse: (responseData) => {
+                return studentsAdapter.setAll(initialState, responseData);
+            },
+            providesTags: (result, error, arg) => [
+                {type: 'Student', id: 'LIST'},
+                ...result.ids.map((id) => ({type: 'Student', id})),
+            ],
+        }),
         addNewStudent: builder.mutation({
             query: (initialStudent) => ({
                 url: '/students',
@@ -54,6 +65,7 @@ export const studentsApiSlice = apiSlice.injectEndpoints({
 // Api hooks
 export const {
     useGetStudentsQuery,
+    useGetStudentByIdQuery,
     useAddNewStudentMutation,
     useUpdateStudentMutation,
     useDeleteStudentMutation,

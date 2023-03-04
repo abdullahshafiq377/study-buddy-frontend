@@ -8,10 +8,10 @@ import AdminRoutes from './routes/AdminRoutes';
 import SubAdminRoutes from './routes/SubAdminRoutes';
 import InstructorRoutes from './routes/InstructorRoutes';
 import StudentRoutes from './routes/StudentRoutes';
+import StudentLayout from "./components/StudentLayout";
 
 function App() {
-    return (
-        <Routes>
+    return (<Routes>
             {/* Public Routes */}
             <Route path='/'>
                 <Route index element={<LoginPage/>}/>
@@ -33,7 +33,9 @@ function App() {
                 <Route path='instructor/*' element={<InstructorRoutes/>}/>
 
                 {/* Student Routes */}
-                <Route path='student/*' element={<StudentRoutes/>}></Route>
+                <Route element={<StudentLayout/>}>
+                    <Route path='student/*' element={<StudentRoutes/>}/>
+                </Route>
 
                 <Route path='*' element={<NotFoundPage/>}/>
             </Route>
