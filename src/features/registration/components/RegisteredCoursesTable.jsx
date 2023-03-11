@@ -1,20 +1,25 @@
 import React from 'react';
 import FeedbackAlert from './../../../components/FeedbackAlert';
-import {Link, useNavigate} from 'react-router-dom';
-import UnregisteredCoursesTableRow from "./UnregisteredCoursesTableRow";
+import {useNavigate} from 'react-router-dom';
 import RegisteredCoursesTableRow from "./RegisteredCoursesTableRow";
+import {useSelector} from "react-redux";
+import {selectCurrentUserId} from "../../auth/authSlice";
+import {useGetRegisteredCoursesQuery} from "../registrationApiSlice";
 
 const RegisteredCoursesTable = () => {
+    const studentId = useSelector(selectCurrentUserId);
+    const {data, isLoading, isSuccess, isError, error} = useGetRegisteredCoursesQuery(studentId);
+    let courses, content;
     const navigate = useNavigate();
 
-
-    let content;
-
-    if (false) {
+    if (isLoading) {
         content = <p>Loading...</p>;
-    } else if (true) {
+    } else if (isSuccess) {
+        courses = data.ids.map(id => {
+            return data.entities[id]
+        })
+        console.log(courses);
         content = (<>
-
                 <table className='min-w-full divide-y divide-gray-300'>
                     <thead className='bg-gray-50'>
                     <tr>
@@ -45,12 +50,14 @@ const RegisteredCoursesTable = () => {
                     </tr>
                     </thead>
                     <tbody className='bg-white'>
-                    <RegisteredCoursesTableRow/>
+                    {courses.map(course => {
+                        return <RegisteredCoursesTableRow key={course.id} course={course}/>
+                    })}
                     </tbody>
                 </table>
             </>
         );
-    } else if (false) {
+    } else if (isError) {
         content = (
             <div className='mt-6'>
                 <FeedbackAlert type='error' content={"Replace with error"}/>
