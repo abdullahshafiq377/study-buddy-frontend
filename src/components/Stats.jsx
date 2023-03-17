@@ -2,6 +2,10 @@ import {useGetStudentsQuery} from "../features/students/studentsApiSlice";
 import {useGetInstructorsQuery} from "../features/instructors/instructorsApiSlice";
 import {useGetSubAdminsQuery} from "../features/sub-admins/subAdminsApiSlice";
 import {useGetCoursesQuery} from "../features/courses/coursesApiSlice";
+import {useGetDepartmentsQuery} from "../features/departments/departmentsApiSlice";
+import {useGetProgramsQuery} from "../features/programs/programsApiSlice";
+import {useGetEventsQuery} from "../features/events/eventsApiSlice";
+import {useGetNoticesQuery} from "../features/notices/noticesApiSlice";
 
 
 
@@ -9,11 +13,11 @@ export default function Stats() {
     const {isSuccess: isSuccessStudent, data: students} = useGetStudentsQuery();
     const {isSuccess: isSuccessInstructor, data: instructors} = useGetInstructorsQuery();
     const {isSuccess: isSuccessSubAdmin, data: subAdmins} = useGetSubAdminsQuery();
-    const {isSuccess: isSuccessDepartment, data: departments} = useGetCoursesQuery();
-    const {isSuccess: isSuccessProgram, data: programs} = useGetCoursesQuery();
+    const {isSuccess: isSuccessDepartment, data: departments} = useGetDepartmentsQuery();
+    const {isSuccess: isSuccessProgram, data: programs} = useGetProgramsQuery();
     const {isSuccess: isSuccessCourse, data: courses} = useGetCoursesQuery();
-    const {isSuccess: isSuccessEvents, data: events} = useGetCoursesQuery();
-    const {isSuccess: isSuccessNotices, data: notices} = useGetCoursesQuery();
+    const {isSuccess: isSuccessEvents, data: events} = useGetEventsQuery();
+    const {isSuccess: isSuccessNotices, data: notices} = useGetNoticesQuery();
 
     let stats = [
         { name: 'Students', stat: 'Loading' },
@@ -26,7 +30,7 @@ export default function Stats() {
         { name: 'Notices', stat: 'Loading' },
     ]
 
-    if (isSuccessStudent && isSuccessInstructor && isSuccessSubAdmin && isSuccessCourse) {
+    if (isSuccessStudent && isSuccessInstructor && isSuccessSubAdmin && isSuccessCourse && isSuccessDepartment && isSuccessProgram && isSuccessEvents && isSuccessNotices) {
         stats = [
             { name: 'Students', stat: students.ids.length },
             { name: 'Instructors', stat: instructors.ids.length },

@@ -24,14 +24,21 @@ export default function StudentSideNav(props) {
     const studentId = useSelector(selectCurrentUserId);
     const {data, isLoading, isSuccess, isError, error} = useGetStudentByIdQuery(studentId);
 
-    let name, email;
+    let name = '';
+    let email = '';
     if (isLoading) {
-        name = "Loading"
-        email = "Loading"
+        name = "Loading";
+        email = "Loading";
     } else if (isSuccess) {
         let student = data.entities[studentId];
-        name = student.name;
-        email = student.email;
+        if (student) {
+            name = student.name;
+            email = student.email;
+        }
+    }
+    else if (isError){
+        name = "Not Found";
+        email = "Not found";
     }
 
 
@@ -132,6 +139,17 @@ export default function StudentSideNav(props) {
                                             />
                                             Registration
                                         </NavLink>
+                                        <NavLink
+                                            key='Posts'
+                                            to='student/posts'
+                                            className={({isActive}) => isActive ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md' : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-base font-medium rounded-md'}
+                                        >
+                                            <HomeIcon
+                                                className='mr-3 h-6 w-6 flex-shrink-0 text-primary-400'
+                                                aria-hidden='true'
+                                            />
+                                            Posts
+                                        </NavLink>
                                     </nav>
                                 </div>
                             </Dialog.Panel>
@@ -180,6 +198,17 @@ export default function StudentSideNav(props) {
                                     aria-hidden='true'
                                 />
                                 Registration
+                            </NavLink>
+                            <NavLink
+                                key='Posts'
+                                to='student/posts'
+                                className={({isActive}) => isActive ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md' : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md'}
+                            >
+                                <HomeIcon
+                                    className='mr-3 h-6 w-6 flex-shrink-0 text-primary-400'
+                                    aria-hidden='true'
+                                />
+                                Posts
                             </NavLink>
                         </nav>
                     </div>
@@ -245,6 +274,15 @@ export default function StudentSideNav(props) {
                                 >
                                     <Menu.Items
                                         className='absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
+                                        <Menu.Item key='My Posts'>
+                                            <NavLink
+                                                to='student/my-posts'
+                                                className='hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700'
+                                            >
+                                               My Posts
+                                            </NavLink>
+                                        </Menu.Item>
+
                                         <Menu.Item key='Profile'>
                                             <NavLink
                                                 to='student/profile'
