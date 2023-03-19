@@ -20,6 +20,17 @@ export const instructorsApiSlice = apiSlice.injectEndpoints({
                 ...result.ids.map((id) => ({type: 'Instructor', id})),
             ],
         }),
+        getInstructorsByDepartment: builder.query({
+            query: (deptId) => `/instructors/by-department/${deptId}`,
+            keepUnusedDataFor: 900,
+            transformResponse: (responseData) => {
+                return instructorsAdapter.setAll(initialState, responseData);
+            },
+            providesTags: (result, error, arg) => [
+                {type: 'Instructor', id: 'LIST'},
+                ...result.ids.map((id) => ({type: 'Instructor', id})),
+            ],
+        }),
         addNewInstructor: builder.mutation({
             query: (initialInstructor) => ({
                 url: '/instructors',
@@ -54,6 +65,7 @@ export const instructorsApiSlice = apiSlice.injectEndpoints({
 // Api hooks
 export const {
     useGetInstructorsQuery,
+    useGetInstructorsByDepartmentQuery,
     useAddNewInstructorMutation,
     useUpdateInstructorMutation,
     useDeleteInstructorMutation,

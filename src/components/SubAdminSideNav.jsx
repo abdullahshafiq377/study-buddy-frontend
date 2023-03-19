@@ -32,6 +32,9 @@ export default function SubAdminSideNav(props) {
         let subAdmin = data.entities[subAdminId];
         name = subAdmin.name;
         email = subAdmin.email;
+    }else if (isError) {
+        name = '';
+        email = '';
     }
 
 
@@ -154,6 +157,17 @@ export default function SubAdminSideNav(props) {
                                             />
                                             Courses
                                         </NavLink>
+                                        <NavLink
+                                            key='Sections'
+                                            to='sub-admin/sections'
+                                            className={({isActive}) => isActive ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md' : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-base font-medium rounded-md'}
+                                        >
+                                            <NewspaperIcon
+                                                className='mr-3 h-6 w-6 flex-shrink-0 text-primary-400'
+                                                aria-hidden='true'
+                                            />
+                                            Sections
+                                        </NavLink>
 
                                         <NavLink
                                             key='ResetPassword'
@@ -236,6 +250,17 @@ export default function SubAdminSideNav(props) {
                                     aria-hidden='true'
                                 />
                                 Courses
+                            </NavLink>
+                            <NavLink
+                                key='Sections'
+                                to='sub-admin/sections'
+                                className={({isActive}) => isActive ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md' : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md'}
+                            >
+                                <NewspaperIcon
+                                    className='mr-3 h-6 w-6 flex-shrink-0 text-primary-400'
+                                    aria-hidden='true'
+                                />
+                                Sections
                             </NavLink>
 
                             <NavLink

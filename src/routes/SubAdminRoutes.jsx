@@ -14,6 +14,7 @@ import EditCoursePage from './../pages/sub-admin/EditCoursePage';
 import SubAdminProilePage from './../pages/sub-admin/SubAdminProilePage';
 import NotFoundPage from '../pages/public/NotFoundPage';
 import SubAdminSettingsPage from "../pages/sub-admin/SubAdminSettingsPage";
+import SectionsPage from "../pages/sub-admin/SectionsPage";
 
 const SubAdminRoutes = () => {
     return (
@@ -37,6 +38,9 @@ const SubAdminRoutes = () => {
             <Route path='courses' element={<CoursesListPage/>}/>
             <Route path='courses/add' element={<AddCoursePage/>}/>
             <Route path='courses/edit/:courseId' element={<EditCoursePage/>}/>
+
+            <Route path='sections' element={<SectionsPage/>}/>
+
             <Route path='profile' element={<SubAdminProilePage/>}/>
 
             <Route path='*' element={<NotFoundPage/>}/>

@@ -23,8 +23,8 @@ const CourseRegistrationPage = () => {
                         Registration Card
                     </Link>
                 </div>
-
             </div>
+
             <div>
                 <h3 className='text-l font-bold leading-6 text-gray-900 mt-8'>
                     Registered Courses
@@ -37,7 +37,6 @@ const CourseRegistrationPage = () => {
                 </h3>
                 <UnregisteredCoursesTable/>
             </div>
-
         </div>
     );
 };

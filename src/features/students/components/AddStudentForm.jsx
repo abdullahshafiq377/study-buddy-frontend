@@ -8,6 +8,7 @@ import TextInputLong from './../../../components/TextInputLong';
 import {useDispatch, useSelector} from 'react-redux';
 import {departmentsApiSlice, selectAllDepartments,} from './../../departments/departmentsApiSlice';
 import {programsApiSlice, selectAllPrograms,} from './../../programs/programsApiSlice';
+import ComboBox from "../../../components/ComboBox";
 
 export default function AddStudentForm() {
     const [addNewStudent, {isLoading}] = useAddNewStudentMutation();
@@ -19,8 +20,8 @@ export default function AddStudentForm() {
     const [name, setName] = useState('');
     const [fatherName, setFatherName] = useState('');
     const [email, setEmail] = useState('');
-    const [departmentId, setDepartmentId] = useState('');
-    const [programId, setProgramId] = useState('');
+    const [department, setDepartment] = useState('');
+    const [program, setProgram] = useState('');
     const [gender, setGender] = useState('');
     const [contact, setContact] = useState('');
     const [nationality, setNationality] = useState('');
@@ -35,8 +36,8 @@ export default function AddStudentForm() {
     const handleNameInput = (e) => setName(e.target.value);
     const handleFatherNameInput = (e) => setFatherName(e.target.value);
     const handleEmailInput = (e) => setEmail(e.target.value);
-    const handleDepartmentInput = (e) => setDepartmentId(e.target.value);
-    const handleProgramInput = (e) => setProgramId(e.target.value);
+    //const handleDepartmentInput = (e) => setDepartmentId(e.target.value);
+    const handleProgramInput = (e) => setProgram(e.target.value);
     const handleGenderInput = (e) => setGender(e.target.id);
     const handleContactInput = (e) => setContact(e.target.value);
     const handleNationalityInput = (e) => setNationality(e.target.value);
@@ -45,10 +46,6 @@ export default function AddStudentForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const program = programs.filter((program) => {
-            return program.id === programId;
-        });
-        let programTitle = program[0].title;
         const newStudent = {
             name,
             f_name: fatherName,
@@ -58,27 +55,27 @@ export default function AddStudentForm() {
             nationality,
             dob: null,
             image: null,
-            department_id: departmentId,
+            department_id: department.id,
             session,
             reg_num: rollNum,
-            program_id: programId,
-            program_title: programTitle,
+            program_id: program.id,
+            program_title: program.name,
         };
         console.log(newStudent);
 
         try {
-            await addNewStudent(newStudent).unwrap();
-            setName('');
-            setFatherName('');
-            setEmail('');
-            setDepartmentId('');
-            setProgramId('');
-            setGender('');
-            setContact('');
-            setNationality('');
-            setSession('');
-            setRollNum('');
-            navigate('/sub-admin/students');
+            // await addNewStudent(newStudent).unwrap();
+            // setName('');
+            // setFatherName('');
+            // setEmail('');
+            // setDepartmentId('');
+            // setProgram('');
+            // setGender('');
+            // setContact('');
+            // setNationality('');
+            // setSession('');
+            // setRollNum('');
+            // navigate('/sub-admin/students');
         } catch (err) {
             console.log(err);
         }
@@ -155,12 +152,11 @@ export default function AddStudentForm() {
                             required={true}
                         />
 
-                        <DropdownMenu
-                            name='department'
+                        <ComboBox
                             label='Department'
-                            data={departments}
-                            onChange={handleDepartmentInput}
-                            required={true}
+                        data={departments}
+                        selectedData={department}
+                        setSelectedData={setDepartment}
                         />
 
                         <TextInput
@@ -171,12 +167,11 @@ export default function AddStudentForm() {
                             required={true}
                         />
 
-                        <DropdownMenu
-                            name='program'
+                        <ComboBox
                             label='Program'
                             data={programs}
-                            onChange={handleProgramInput}
-                            required={true}
+                            selectedData={program}
+                            setSelectedData={setProgram}
                         />
 
                         <TextInput

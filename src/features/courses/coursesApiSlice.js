@@ -20,6 +20,17 @@ export const coursesApiSlice = apiSlice.injectEndpoints({
                 ...result.ids.map((id) => ({type: 'Course', id})),
             ],
         }),
+        getCoursesByDepartment: builder.query({
+            query: (deptId) => `/courses/by-department/${deptId}`,
+            keepUnusedDataFor: 900,
+            transformResponse: (responseData) => {
+                return coursesAdapter.setAll(initialState, responseData);
+            },
+            providesTags: (result, error, arg) => [
+                {type: 'Course', id: 'LIST'},
+                ...result.ids.map((id) => ({type: 'Course', id})),
+            ],
+        }),
         addNewCourse: builder.mutation({
             query: (initialCourse) => ({
                 url: '/courses',
@@ -54,6 +65,7 @@ export const coursesApiSlice = apiSlice.injectEndpoints({
 // Api hooks
 export const {
     useGetCoursesQuery,
+    useGetCoursesByDepartmentQuery,
     useAddNewCourseMutation,
     useUpdateCourseMutation,
     useDeleteCourseMutation,

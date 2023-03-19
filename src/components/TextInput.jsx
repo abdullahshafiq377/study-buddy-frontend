@@ -2,6 +2,7 @@
 // type, name, lable, required, onChange
 
 import React from 'react';
+import {QuestionMarkCircleIcon} from "@heroicons/react/20/solid";
 
 const TextInput = ({name, type, label, value, required, onChange}) => {
     return (
@@ -10,7 +11,7 @@ const TextInput = ({name, type, label, value, required, onChange}) => {
                 htmlFor={name}
                 className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'
             >
-                {label}
+                {label} {required ? (<span className='text-gray-600 font-light'>*</span>) : ''}
             </label>
             <div className='mt-1 sm:col-span-2 sm:mt-0'>
                 <input
