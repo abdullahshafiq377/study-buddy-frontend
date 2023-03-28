@@ -5,7 +5,7 @@ import {PencilIcon} from "@heroicons/react/20/solid";
 import {TrashIcon} from "@heroicons/react/24/outline";
 import {
     selectPostById,
-    useAddNewCommentMutation,
+    useAddNewCommentMutation, useDeleteCommentByPostMutation, useDeleteCommentMutation,
     useDeletePostMutation,
     useGetCommentsByPostQuery
 } from "../postsApiSlice";
@@ -20,6 +20,7 @@ const UsersPost = ({post, onEdit, onDelete}) => {
     const [openEditPostSildeover, setOpenEditPostSildeover] = useState(false);
     const [openConfirmDeletionModal, setOpenConfirmDeletionModal] = useState(false);
     const [deletePost] = useDeletePostMutation();
+    const [deleteCommentByPost] = useDeleteCommentByPostMutation();
 
     const userId = useSelector(selectCurrentUserId);
     const [addNewComment] = useAddNewCommentMutation();
@@ -45,6 +46,8 @@ const UsersPost = ({post, onEdit, onDelete}) => {
     const handleDelete = async () => {
         try {
             await deletePost(post.id);
+            await deleteCommentByPost(post.id);
+
         } catch (e) {
             console.log(e);
         }

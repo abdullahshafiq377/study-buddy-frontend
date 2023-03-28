@@ -9,6 +9,7 @@ import SubAdminRoutes from './routes/SubAdminRoutes';
 import InstructorRoutes from './routes/InstructorRoutes';
 import StudentRoutes from './routes/StudentRoutes';
 import StudentLayout from "./components/StudentLayout";
+import InstructorLayout from "./components/InstructorLayout";
 
 function App() {
     return (<Routes>
@@ -30,7 +31,9 @@ function App() {
                 </Route>
 
                 {/* Instructor Routes */}
+                <Route element={<InstructorLayout/>}>
                 <Route path='instructor/*' element={<InstructorRoutes/>}/>
+                </Route>
 
                 {/* Student Routes */}
                 <Route element={<StudentLayout/>}>

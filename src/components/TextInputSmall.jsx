@@ -5,9 +5,9 @@ const TextInputSmall = ({name, type, label, value, required, onChange}) => {
         <div className='sm:col-span-1 pt-4'>
             <label
                 htmlFor={name}
-                className='block text-sm font-medium text-gray-700'
+                className='block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2'
             >
-                {label}
+                {label} {required ? (<span className='text-gray-600 font-light'>*</span>) : ''}
             </label>
             <div className='mt-1'>
                 <input

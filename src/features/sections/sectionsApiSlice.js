@@ -21,8 +21,19 @@ export const sectionsApiSlice = apiSlice.injectEndpoints({
                 ...result.ids.map((id) => ({type: 'Post', id})),
             ],
         }),
+        getSectionById: builder.query({
+            query: (id) => `/sections/${id}`,
+            keepUnusedDataFor: 900,
+            transformResponse: (responseData) => {
+                return sectionsAdapter.setAll(initialState, responseData);
+            },
+            providesTags: (result, error, arg) => [
+                {type: 'Section', id: 'LIST'},
+                ...result.ids.map((id) => ({type: 'Section', id})),
+            ],
+        }),
         getSectionsByDepartment: builder.query({
-            query: (departmentId) => `/sections/${departmentId}`,
+            query: (departmentId) => `/sections/by-department/${departmentId}`,
             keepUnusedDataFor: 900,
             transformResponse: (responseData) => {
                 return sectionsAdapter.setAll(initialState, responseData);
@@ -60,15 +71,48 @@ export const sectionsApiSlice = apiSlice.injectEndpoints({
                 {type: 'Section', id: arg.id},
             ],
         }),
+        getAssignedStudents: builder.query({
+            query: (sectionId) => `/sections/assigned/${sectionId}`,
+            keepUnusedDataFor: 900,
+            transformResponse: (responseData) => {
+                return responseData;
+            },
+        }),
+        getUnassignedStudents: builder.query({
+            query: (courseId) => `/sections/unassigned/${courseId}`,
+            keepUnusedDataFor: 900,
+            transformResponse: (responseData) => {
+                return responseData;
+            },
+        }),
+        assignSection: builder.mutation({
+            query: (details) => ({
+                url: `/sections/assign/${details.registrationId}`,
+                method: 'PATCH',
+                body: {...details},
+            }),
+        }),
+        unassignSection: builder.mutation({
+            query: (registrationId) => ({
+                url: `/sections/unassign/${registrationId}`,
+                method: 'PATCH',
+                body: {registrationId},
+            }),
+        }),
     }),
 });
 
 
 export const {
     useGetSectionsByDepartmentQuery,
+    useGetSectionByIdQuery,
+    useGetAssignedStudentsQuery,
+    useGetUnassignedStudentsQuery,
     useAddNewSectionMutation,
     useUpdateSectionMutation,
     useDeleteSectionMutation,
+    useAssignSectionMutation,
+    useUnassignSectionMutation,
 } = sectionsApiSlice;
 
 // Selectors

@@ -64,18 +64,18 @@ export default function AddStudentForm() {
         console.log(newStudent);
 
         try {
-            // await addNewStudent(newStudent).unwrap();
-            // setName('');
-            // setFatherName('');
-            // setEmail('');
-            // setDepartmentId('');
-            // setProgram('');
-            // setGender('');
-            // setContact('');
-            // setNationality('');
-            // setSession('');
-            // setRollNum('');
-            // navigate('/sub-admin/students');
+            await addNewStudent(newStudent).unwrap();
+            setName('');
+            setFatherName('');
+            setEmail('');
+            setDepartment(null);
+            setProgram(null);
+            setGender('');
+            setContact('');
+            setNationality('');
+            setSession('');
+            setRollNum('');
+            navigate('/sub-admin/students');
         } catch (err) {
             console.log(err);
         }

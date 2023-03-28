@@ -11,16 +11,16 @@ import EditStudentPage from './../pages/sub-admin/EditStudentPage';
 import CoursesListPage from './../pages/sub-admin/CoursesListPage';
 import AddCoursePage from './../pages/sub-admin/AddCoursePage';
 import EditCoursePage from './../pages/sub-admin/EditCoursePage';
-import SubAdminProilePage from './../pages/sub-admin/SubAdminProilePage';
+import SubAdminProfilePage from '../pages/sub-admin/SubAdminProfilePage';
 import NotFoundPage from '../pages/public/NotFoundPage';
 import SubAdminSettingsPage from "../pages/sub-admin/SubAdminSettingsPage";
 import SectionsPage from "../pages/sub-admin/SectionsPage";
+import SectionPage from "../pages/sub-admin/SectionPage";
 
 const SubAdminRoutes = () => {
     return (
         <Routes>
             <Route path='dashboard' element={<SubAdminDashboardPage/>}/>
-            <Route path='settings' element={<SubAdminSettingsPage/>}/>
             <Route path='instructors' element={<InstructorsListPage/>}/>
             <Route path='instructors/add' element={<AddInstructorPage/>}/>
             <Route
@@ -40,8 +40,10 @@ const SubAdminRoutes = () => {
             <Route path='courses/edit/:courseId' element={<EditCoursePage/>}/>
 
             <Route path='sections' element={<SectionsPage/>}/>
+            <Route path='sections/:sectionId' element={<SectionPage/>}/>
 
-            <Route path='profile' element={<SubAdminProilePage/>}/>
+            <Route path='profile' element={<SubAdminProfilePage/>}/>
+            <Route path='settings' element={<SubAdminSettingsPage/>}/>
 
             <Route path='*' element={<NotFoundPage/>}/>
         </Routes>

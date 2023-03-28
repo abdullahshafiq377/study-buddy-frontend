@@ -2,12 +2,9 @@ import React from 'react';
 import FeedbackAlert from './../../../components/FeedbackAlert';
 import {useNavigate} from 'react-router-dom';
 import UnregisteredCoursesTableRow from "./UnregisteredCoursesTableRow";
-import {useSelector} from "react-redux";
-import {selectCurrentUserId} from "../../auth/authSlice";
 import {useGetUnregisteredCoursesQuery} from "../registrationApiSlice";
 
-const UnregisteredCoursesTable = () => {
-    const studentId = useSelector(selectCurrentUserId);
+const UnregisteredCoursesTable = ({studentId}) => {
     const {data, isLoading, isSuccess, isError, error} = useGetUnregisteredCoursesQuery(studentId);
     let courses, content;
     const navigate = useNavigate();

@@ -5,7 +5,7 @@ import {
     Bars3BottomLeftIcon,
     ChevronDownIcon,
     HomeIcon,
-    NewspaperIcon,
+    NewspaperIcon, UserGroupIcon,
     UserIcon,
     UsersIcon,
     XMarkIcon,
@@ -162,23 +162,11 @@ export default function SubAdminSideNav(props) {
                                             to='sub-admin/sections'
                                             className={({isActive}) => isActive ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md' : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-base font-medium rounded-md'}
                                         >
-                                            <NewspaperIcon
+                                            <UserGroupIcon
                                                 className='mr-3 h-6 w-6 flex-shrink-0 text-primary-400'
                                                 aria-hidden='true'
                                             />
                                             Sections
-                                        </NavLink>
-
-                                        <NavLink
-                                            key='ResetPassword'
-                                            to='sub-admin/reset-password'
-                                            className={({isActive}) => isActive ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md' : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-base font-medium rounded-md'}
-                                        >
-                                            <ArrowPathIcon
-                                                className='mr-3 h-6 w-6 flex-shrink-0 text-primary-400'
-                                                aria-hidden='true'
-                                            />
-                                            Reset Password
                                         </NavLink>
                                     </nav>
                                 </div>
@@ -256,23 +244,11 @@ export default function SubAdminSideNav(props) {
                                 to='sub-admin/sections'
                                 className={({isActive}) => isActive ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md' : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md'}
                             >
-                                <NewspaperIcon
+                                <UserGroupIcon
                                     className='mr-3 h-6 w-6 flex-shrink-0 text-primary-400'
                                     aria-hidden='true'
                                 />
                                 Sections
-                            </NavLink>
-
-                            <NavLink
-                                key='ResetPassword'
-                                to='sub-admin/reset-password'
-                                className={({isActive}) => isActive ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md' : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md'}
-                            >
-                                <ArrowPathIcon
-                                    className='mr-3 h-6 w-6 flex-shrink-0 text-primary-400'
-                                    aria-hidden='true'
-                                />
-                                Reset Password
                             </NavLink>
                         </nav>
                     </div>

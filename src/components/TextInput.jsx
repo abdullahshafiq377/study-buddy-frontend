@@ -21,6 +21,7 @@ const TextInput = ({name, type, label, value, required, onChange}) => {
                     value={value}
                     required={required}
                     onChange={onChange}
+                    autoComplete="false"
                     className='block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-primary-600 focus:ring-primary-600 sm:max-w-xs sm:text-sm'
                 />
             </div>

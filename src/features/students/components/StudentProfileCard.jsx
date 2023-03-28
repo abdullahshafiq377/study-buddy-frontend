@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-export default function SubAdminProfileCard({subAdmin}) {
+const StudentProfileCard = ({student}) => {
     return (
         <div className='border-t border-gray-200 px-4 py-5 sm:p-0'>
             <dl className='sm:divide-y sm:divide-gray-200'>
@@ -9,7 +9,7 @@ export default function SubAdminProfileCard({subAdmin}) {
                         Full name
                     </dt>
                     <dd className='mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0'>
-                        {subAdmin.name}
+                        {student.name ? student.name : 'N/A'}
                     </dd>
                 </div>
                 <div className='py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6'>
@@ -17,7 +17,15 @@ export default function SubAdminProfileCard({subAdmin}) {
                         Father's Name
                     </dt>
                     <dd className='mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0'>
-                        {subAdmin.f_name}
+                        {student.f_name ? student.f_name : 'N/A'}
+                    </dd>
+                </div>
+                <div className='py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6'>
+                    <dt className='text-sm font-medium text-gray-500'>
+                        Registration Number
+                    </dt>
+                    <dd className='mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0'>
+                        {student.session}-{student.program_title}-{student.reg_num}
                     </dd>
                 </div>
                 <div className='py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6'>
@@ -25,7 +33,7 @@ export default function SubAdminProfileCard({subAdmin}) {
                         Email address
                     </dt>
                     <dd className='mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0'>
-                        {subAdmin.email}
+                        {student.email}
                     </dd>
                 </div>
                 <div className='py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6'>
@@ -33,7 +41,7 @@ export default function SubAdminProfileCard({subAdmin}) {
                         Date of Birth
                     </dt>
                     <dd className='mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0'>
-                        {subAdmin.dob.split('T')[0]}
+                        {student.dob ? student.dob.split('T')[0] : 'N/A'}
                     </dd>
                 </div>
                 <div className='py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6'>
@@ -41,7 +49,7 @@ export default function SubAdminProfileCard({subAdmin}) {
                         Gender
                     </dt>
                     <dd className='mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0'>
-                        {subAdmin.gender.charAt(0).toUpperCase() + subAdmin.gender.slice(1)}
+                        {student.gender ? student.gender.charAt(0).toUpperCase() + student.gender.slice(1) : 'N/A'}
                     </dd>
                 </div>
                 <div className='py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6'>
@@ -49,7 +57,7 @@ export default function SubAdminProfileCard({subAdmin}) {
                         Nationality
                     </dt>
                     <dd className='mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0'>
-                        {subAdmin.nationality}
+                        {student.nationality ? student.nationality : 'N/A'}
                     </dd>
                 </div>
                 <div className='py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6'>
@@ -57,9 +65,12 @@ export default function SubAdminProfileCard({subAdmin}) {
                         Contact
                     </dt>
                     <dd className='mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0'>
-                        {subAdmin.contact}
+                        {student.contact ? student.contact : 'N/A'}
                     </dd>
                 </div>
             </dl>
-        </div>);
-}
+        </div>
+    );
+};
+
+export default StudentProfileCard;

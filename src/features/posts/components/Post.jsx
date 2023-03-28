@@ -103,6 +103,7 @@ const Post = ({postId}) => {
         </div>
         <div className='mt-4'>
             {post.is_question ? <Badge isQuestion={true}/> : ''}
+            {<Badge userType={post.author_type}/> }
             {tags ? tags.map(tag => <Badge text={tag}/>) : ''}
         </div>
         <div

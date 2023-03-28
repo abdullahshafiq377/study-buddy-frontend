@@ -20,9 +20,11 @@ import {NavLink} from 'react-router-dom';
 import {useLogoutMutation} from '../features/auth/authApiSlice';
 import {useDispatch} from 'react-redux';
 import logo from '../assets/logos/logo-dark@2x.png';
+import ResetPasswordSlideover from "../features/reset-password/components/ResetPasswordSlideover";
 
 export default function AdminSideNav(props) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [resetPasswordSlideoverOpen, setResetPasswordSlideoverOpen] = useState(false);
     const [logout] = useLogoutMutation();
     const dispatch = useDispatch();
 
@@ -328,12 +330,8 @@ export default function AdminSideNav(props) {
                                 </NavLink>
                                 <NavLink
                                     key='ResetPassword'
-                                    to='admin/reset-password'
-                                    className={({isActive}) =>
-                                        isActive
-                                            ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-                                            : 'text-primary-100 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-                                    }
+                                    onClick={() => setResetPasswordSlideoverOpen(true)}
+                                    className='text-primary-100 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                                 >
                                     <ArrowPathIcon
                                         className='mr-3 h-6 w-6 flex-shrink-0 text-primary-400'
@@ -440,6 +438,7 @@ export default function AdminSideNav(props) {
                         </div>
                     </main>
                 </div>
+                <ResetPasswordSlideover setOpen={setResetPasswordSlideoverOpen} open={resetPasswordSlideoverOpen}/>
             </div>
         </>
     );

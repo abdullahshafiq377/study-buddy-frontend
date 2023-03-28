@@ -6,8 +6,7 @@ import {useSelector} from "react-redux";
 import {selectCurrentUserId} from "../../auth/authSlice";
 import {useGetRegisteredCoursesQuery} from "../registrationApiSlice";
 
-const RegisteredCoursesTable = () => {
-    const studentId = useSelector(selectCurrentUserId);
+const RegisteredCoursesTable = ({studentId}) => {
     const {data, isLoading, isSuccess, isError, error} = useGetRegisteredCoursesQuery(studentId);
     let courses, content;
     const navigate = useNavigate();

@@ -18,11 +18,15 @@ const PostsPage = () => {
     if (isLoading) {
         content = <p>Loading...</p>;
     } else if (isSuccess) {
-        content = (
-            postIds.map(id => {
-                return  <Post postId={id}/>
-            })
-    );
+        if (postIds.length === 0) {
+            content = (<p className='py-4 pr-3 text-sm font-medium text-red-600'>No Posts Found</p>)
+        }else {
+            content = (
+                postIds.map(id => {
+                    return <Post postId={id}/>
+                })
+            );
+        }
     }
     else if (isError) {
         content = (

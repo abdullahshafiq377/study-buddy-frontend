@@ -1,28 +1,19 @@
 import {Fragment, useState} from 'react';
 import {Dialog, Menu, Transition} from '@headlessui/react';
-import {
-    ArrowPathIcon,
-    Bars3BottomLeftIcon,
-    ChevronDownIcon,
-    HomeIcon,
-    NewspaperIcon, QueueListIcon,
-    UserIcon,
-    UsersIcon,
-    XMarkIcon,
-} from '@heroicons/react/24/outline';
+import {Bars3BottomLeftIcon, ChevronDownIcon, HomeIcon, QueueListIcon, XMarkIcon,} from '@heroicons/react/24/outline';
 import {logOut, selectCurrentUserId} from '../features/auth/authSlice';
 import {NavLink} from 'react-router-dom';
 import {useLogoutMutation} from '../features/auth/authApiSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import logo from '../assets/logos/logo-dark@2x.png';
-import {useGetStudentByIdQuery} from "../features/students/studentsApiSlice";
+import {useGetInstructorByIdQuery} from "../features/instructors/instructorsApiSlice";
 
-export default function StudentSideNav(props) {
+export default function InstructorSideNav(props) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [logout] = useLogoutMutation();
     const dispatch = useDispatch();
-    const studentId = useSelector(selectCurrentUserId);
-    const {data, isLoading, isSuccess, isError, error} = useGetStudentByIdQuery(studentId);
+    const instructorId = useSelector(selectCurrentUserId);
+    const {data, isLoading, isSuccess, isError, error} = useGetInstructorByIdQuery(instructorId);
 
     let name = '';
     let email = '';
@@ -30,13 +21,12 @@ export default function StudentSideNav(props) {
         name = "Loading";
         email = "Loading";
     } else if (isSuccess) {
-        let student = data.entities[studentId];
-        if (student) {
-            name = student.name;
-            email = student.email;
+        let instructor = data.entities[instructorId];
+        if (instructor) {
+            name = instructor.name;
+            email = instructor.email;
         }
-    }
-    else if (isError){
+    } else if (isError) {
         name = "Not Found";
         email = "Not found";
     }
@@ -119,7 +109,7 @@ export default function StudentSideNav(props) {
                                     <nav className='space-y-1 px-2'>
                                         <NavLink
                                             key='Dashboard'
-                                            to='student/dashboard'
+                                            to='instructor/dashboard'
                                             className={({isActive}) => isActive ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md' : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-base font-medium rounded-md'}
                                         >
                                             <HomeIcon
@@ -129,19 +119,8 @@ export default function StudentSideNav(props) {
                                             Dashboard
                                         </NavLink>
                                         <NavLink
-                                            key='Registration'
-                                            to='student/registration'
-                                            className={({isActive}) => isActive ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md' : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-base font-medium rounded-md'}
-                                        >
-                                            <NewspaperIcon
-                                                className='mr-3 h-6 w-6 flex-shrink-0 text-primary-400'
-                                                aria-hidden='true'
-                                            />
-                                            Registration
-                                        </NavLink>
-                                        <NavLink
                                             key='Posts'
-                                            to='student/posts'
+                                            to='instructor/posts'
                                             className={({isActive}) => isActive ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md' : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-base font-medium rounded-md'}
                                         >
                                             <QueueListIcon
@@ -179,7 +158,7 @@ export default function StudentSideNav(props) {
                         <nav className='flex-1 space-y-1 px-2 pb-4'>
                             <NavLink
                                 key='Dashboard'
-                                to='student/dashboard'
+                                to='instructor/dashboard'
                                 className={({isActive}) => isActive ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md' : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md'}
                             >
                                 <HomeIcon
@@ -189,19 +168,8 @@ export default function StudentSideNav(props) {
                                 Dashboard
                             </NavLink>
                             <NavLink
-                                key='Registration'
-                                to='student/registration'
-                                className={({isActive}) => isActive ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md' : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md'}
-                            >
-                                <NewspaperIcon
-                                    className='mr-3 h-6 w-6 flex-shrink-0 text-primary-400'
-                                    aria-hidden='true'
-                                />
-                                Registration
-                            </NavLink>
-                            <NavLink
                                 key='Posts'
-                                to='student/posts'
+                                to='instructor/posts'
                                 className={({isActive}) => isActive ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md' : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md'}
                             >
                                 <QueueListIcon
@@ -276,16 +244,16 @@ export default function StudentSideNav(props) {
                                         className='absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
                                         <Menu.Item key='My Posts'>
                                             <NavLink
-                                                to='student/my-posts'
+                                                to='instructor/my-posts'
                                                 className='hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700'
                                             >
-                                               My Posts
+                                                My Posts
                                             </NavLink>
                                         </Menu.Item>
 
                                         <Menu.Item key='Profile'>
                                             <NavLink
-                                                to='student/profile'
+                                                to='instructor/profile'
                                                 className='hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700'
                                             >
                                                 Profile
@@ -294,7 +262,7 @@ export default function StudentSideNav(props) {
 
                                         <Menu.Item key='Settings'>
                                             <NavLink
-                                                to='student/settings'
+                                                to='instructor/settings'
                                                 className='hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700'
                                             >
                                                 Settings

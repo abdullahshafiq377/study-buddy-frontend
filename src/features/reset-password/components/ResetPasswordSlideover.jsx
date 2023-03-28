@@ -1,48 +1,55 @@
 import {Fragment, useState} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
 import {XMarkIcon} from '@heroicons/react/24/outline'
-import {useSelector} from "react-redux";
-import {selectCurrentUserId, selectCurrentUserType} from "../../auth/authSlice";
-import {useAddNewPostMutation, useUpdatePostMutation} from "../postsApiSlice";
-import {format} from "date-fns";
+import {
+    useResetInstructorPasswordMutation,
+    useResetStudentPasswordMutation,
+    useResetSubAdminPasswordMutation
+} from "../resetPasswordApiSlice";
+import FeedbackAlert from "../../../components/FeedbackAlert";
 
-export default function EditPostSlideover({open, setOpen, post}) {
-    const userId = useSelector(selectCurrentUserId);
-    const userType = useSelector(selectCurrentUserType);
-    const [updatePost, {isLoading}] = useUpdatePostMutation();
+export default function ResetPasswordSlideover({open, setOpen}) {
+    const [email, setEmail] = useState('');
+    const [userType, setUserType] = useState('sub-admin');
 
-    const [title, setTitle] = useState(post.title);
-    const [isQuestion, setIsQuestion] = useState(post.is_question);
-    const [description, setDescription] = useState(post.description);
-    const [tags, setTags] = useState(post.tags);
+    const [resetSubAdminPassword, {isSuccess: isSuccessSubAdmin, isError: isErrorSubAdmin}] = useResetSubAdminPasswordMutation();
+    const [resetInstructorPassword, {isSuccess: isSuccessInstructor, isError: isErrorInstructor}] = useResetInstructorPasswordMutation();
+    const [resetStudentPassword, {isSuccess: isSuccessStudent, isError: isErrorStudent}] = useResetStudentPasswordMutation();
 
-    const handleTitleInput = (e) => setTitle(e.target.value);
-    const handleIsQuestionInput = (e) => setIsQuestion(e.target.checked);
-    const handleDescriptionInput = (e) => setDescription(e.target.value);
-    const handleTagsInput = (e) => setTags(e.target.value);
+    let isSuccess = Boolean(isSuccessSubAdmin) || Boolean(isSuccessInstructor) || Boolean(isSuccessStudent);
+    let isError = Boolean(isErrorSubAdmin) || Boolean(isErrorInstructor) || Boolean(isErrorStudent);
+
+    const handleEmailInput = (e) => setEmail(e.target.value);
+    const handleUserTypeInput = (e) => setUserType(e.target.id);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const updatedPost = {
-            id: post.id,
-            title,
-            description,
-            isQuestion,
-            tags,
-            dateTime: format(new Date(),'yyyy-MM-dd HH:mm:ss'),
-            authorId: userId,
-            authorType: userType
-        }
-        console.log(updatedPost)
-
         try {
-            await updatePost(updatedPost).unwrap();
-            setOpen(false);
-        }
-        catch (e) {
+            switch (userType) {
+                case 'sub-admin':
+                    await resetSubAdminPassword(email).unwrap();
+
+                    break;
+                case 'instructor':
+                    await resetInstructorPassword(email).unwrap();
+                    break;
+                case 'student':
+                    await resetStudentPassword(email).unwrap();
+                    break;
+                default:
+                    console.log('User Type Invalid')
+            }
+        } catch (e) {
             console.log(e);
         }
+
+
+        // try {
+        //     setEmail('');
+        //     setUserType(false);
+        //     setOpen(false);
+        // }
     }
 
     return (
@@ -73,7 +80,8 @@ export default function EditPostSlideover({open, setOpen, post}) {
                                 leaveTo="translate-x-full"
                             >
                                 <Dialog.Panel className="pointer-events-auto w-screen max-w-2xl">
-                                    <form onSubmit={handleSubmit} className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+                                    <form onSubmit={handleSubmit}
+                                          className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                                         <div className="flex-1">
                                             {/* Header */}
                                             <div className="bg-gray-50 px-4 py-6 sm:px-6">
@@ -81,17 +89,17 @@ export default function EditPostSlideover({open, setOpen, post}) {
                                                     <div className="space-y-1">
                                                         <Dialog.Title
                                                             className="text-base font-semibold leading-6 text-gray-900">
-                                                            Edit post
+                                                            Reset Password
                                                         </Dialog.Title>
                                                         <p className="text-sm text-gray-500">
-                                                            Edit your post by filling in the information below.
+                                                            Reset a users password by filling in the information below.
                                                         </p>
                                                     </div>
                                                     <div className="flex h-7 items-center">
                                                         <button
                                                             type="button"
                                                             className="text-gray-400 hover:text-gray-500"
-                                                            onClick={() => setOpen(false)}
+                                                            onClick={() => {setOpen(false)}}
                                                         >
                                                             <span className="sr-only">Close panel</span>
                                                             <XMarkIcon className="h-6 w-6" aria-hidden="true"/>
@@ -104,6 +112,11 @@ export default function EditPostSlideover({open, setOpen, post}) {
                                             <div
                                                 className="space-y-6 py-6 sm:space-y-0 sm:divide-y sm:divide-gray-200 sm:py-0">
                                                 {/* Project name */}
+
+                                                {isSuccess ? (<FeedbackAlert type='success' content='Password reset successful'/>) : ''}
+                                                {isError ? (<FeedbackAlert type='error' content='Password reset failed'/>) : ''}
+
+
                                                 <div
                                                     className="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
                                                     <div>
@@ -111,104 +124,89 @@ export default function EditPostSlideover({open, setOpen, post}) {
                                                             htmlFor="project-name"
                                                             className="block text-sm font-medium leading-6 text-gray-900 sm:mt-1.5"
                                                         >
-                                                            Title
+                                                            Email
                                                         </label>
                                                     </div>
                                                     <div className="sm:col-span-2">
                                                         <input
-                                                            type="text"
-                                                            name="title"
-                                                            id="title"
+                                                            type="email"
+                                                            name="email"
+                                                            id="email"
+                                                            onChange={handleEmailInput}
                                                             required={true}
-                                                            value={title}
-                                                            onChange={handleTitleInput}
                                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
                                                         />
-                                                    </div>
-                                                </div>
-
-                                                {/* Project description */}
-                                                <div
-                                                    className="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
-                                                    <div>
-                                                        <label
-                                                            htmlFor="project-description"
-                                                            className="block text-sm font-medium leading-6 text-gray-900 sm:mt-1.5"
-                                                        >
-                                                            Description
-                                                        </label>
-                                                    </div>
-                                                    <div className="sm:col-span-2">
-                            <textarea
-                                id="project-description"
-                                name="project-description"
-                                rows={3}
-                                value={description}
-                                onChange={handleDescriptionInput}
-                                className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:py-1.5 sm:text-sm sm:leading-6"
-                            />
                                                     </div>
                                                 </div>
 
                                                 {/* Privacy */}
                                                 <fieldset
                                                     className="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
-                                                    <legend className="sr-only">Is Question</legend>
+                                                    <legend className="sr-only">User Type</legend>
                                                     <div className="text-sm font-medium leading-6 text-gray-900"
                                                          aria-hidden="true">
-                                                        Is Question
+                                                        User Type
                                                     </div>
                                                     <div className="space-y-5 sm:col-span-2">
                                                         <div className="space-y-5 sm:mt-0">
                                                             <div className="relative flex items-start">
                                                                 <div className="absolute flex h-6 items-center">
                                                                     <input
-                                                                        id="isQuestion"
-                                                                        aria-describedby="IsQuestion"
-                                                                        name="IsQuestion"
-                                                                        type="checkbox"
-                                                                        checked={isQuestion}
-                                                                        onChange={handleIsQuestionInput}
-                                                                        className="h-4 w-4 rounded border-gray-300 text-primary-900 focus:ring-primary-600"
+                                                                        id="sub-admin"
+                                                                        name="user-type"
+                                                                        aria-describedby="public-access-description"
+                                                                        type="radio"
+                                                                        onChange={handleUserTypeInput}
+                                                                        className="h-4 w-4 border-gray-300 text-primary-900 focus:ring-primary-600"
+                                                                        defaultChecked
                                                                     />
                                                                 </div>
                                                                 <div className="pl-7 text-sm leading-6">
-                                                                    <label htmlFor="isQuestion"
+                                                                    <label htmlFor="public-access"
                                                                            className="font-medium text-gray-900">
-                                                                        Mark as Question
+                                                                        Sub Admin
                                                                     </label>
-                                                                    <p id="isQuestion"
-                                                                       className="text-gray-500">
-                                                                        This post will be marked as a question
-                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="relative flex items-start">
+                                                                <div className="absolute flex h-6 items-center">
+                                                                    <input
+                                                                        id="instructor"
+                                                                        name="user-type"
+                                                                        aria-describedby="restricted-access-description"
+                                                                        type="radio"
+                                                                        onChange={handleUserTypeInput}
+                                                                        className="h-4 w-4 border-gray-300 text-primary-900 focus:ring-primary-600"
+                                                                    />
+                                                                </div>
+                                                                <div className="pl-7 text-sm leading-6">
+                                                                    <label htmlFor="restricted-access"
+                                                                           className="font-medium text-gray-900">
+                                                                        Instructor
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div className="relative flex items-start">
+                                                                <div className="absolute flex h-6 items-center">
+                                                                    <input
+                                                                        id="student"
+                                                                        name="user-type"
+                                                                        aria-describedby="private-access-description"
+                                                                        type="radio"
+                                                                        onChange={handleUserTypeInput}
+                                                                        className="h-4 w-4 border-gray-300 text-primary-900 focus:ring-primary-600"
+                                                                    />
+                                                                </div>
+                                                                <div className="pl-7 text-sm leading-6">
+                                                                    <label htmlFor="private-access"
+                                                                           className="font-medium text-gray-900">
+                                                                        Student
+                                                                    </label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </fieldset>
-
-                                                <div
-                                                    className="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
-                                                    <div>
-                                                        <label
-                                                            htmlFor="project-description"
-                                                            className="block text-sm font-medium leading-6 text-gray-900 sm:mt-1.5"
-                                                        >
-                                                            Tags
-                                                        </label>
-                                                    </div>
-                                                    <div className="sm:col-span-2">
-                            <textarea
-                                id="project-description"
-                                name="project-description"
-                                placeholder='Enter relevant tags separated by a ","'
-                                rows={3}
-                                value={tags}
-                                onChange={handleTagsInput}
-                                className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:py-1.5 sm:text-sm sm:leading-6"
-                            />
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
 
@@ -227,7 +225,7 @@ export default function EditPostSlideover({open, setOpen, post}) {
                                                     onClick={handleSubmit}
                                                     className="inline-flex justify-center rounded-md bg-primary-900 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
                                                 >
-                                                    Update
+                                                    Reset
                                                 </button>
                                             </div>
                                         </div>
