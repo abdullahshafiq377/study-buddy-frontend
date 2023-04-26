@@ -1,68 +1,83 @@
-import DropdownMenu from '../../../components/DropdownMenu';
 import RadioInput from '../../../components/RadioInput';
 import TextInput from '../../../components/TextInput';
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 import {useAddNewSubAdminMutation} from '../subAdminsApiSlice';
 import {Link, useNavigate} from 'react-router-dom';
 import TextInputLong from './../../../components/TextInputLong';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectAllDepartments} from '../../departments/departmentsApiSlice';
 import {departmentsApiSlice} from './../../departments/departmentsApiSlice';
+import ComboBox from "../../../components/ComboBox";
+import FeedbackAlert from "../../../components/FeedbackAlert";
 
 export default function AddSubAdminForm() {
-    const [addNewSubAdmin, {isLoading}] = useAddNewSubAdminMutation();
-
+    const [addNewSubAdmin] = useAddNewSubAdminMutation();
     const dispatch = useDispatch();
-
-    const navigate = useNavigate();
-
-    const [name, setName] = useState('');
-    const [fatherName, setFatherName] = useState('');
-    const [email, setEmail] = useState('');
-    const [departmentId, setDepartmentId] = useState('');
-    const [gender, setGender] = useState('');
-    const [contact, setContact] = useState('');
-    const [nationality, setNationality] = useState('');
 
     dispatch(departmentsApiSlice.endpoints.getDepartments.initiate());
     const departments = useSelector(selectAllDepartments);
 
+    const imageInputRef = useRef(null);
+
+    const [name, setName] = useState('');
+    const [fatherName, setFatherName] = useState('');
+    const [dob, setDob] = useState('');
+    const [email, setEmail] = useState('');
+    const [department, setDepartment] = useState(null);
+    const [gender, setGender] = useState('');
+    const [contact, setContact] = useState('');
+    const [nationality, setNationality] = useState('');
+    const [image, setImage] = useState(null);
+    const [imageUrl, setImageUrl] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    const navigate = useNavigate();
+
     const handleNameInput = (e) => setName(e.target.value);
     const handleFatherNameInput = (e) => setFatherName(e.target.value);
+    const handleDobInput = (e) => setDob(e.target.value);
     const handleEmailInput = (e) => setEmail(e.target.value);
-    const handleDepartmentInput = (e) => setDepartmentId(e.target.value);
     const handleGenderInput = (e) => setGender(e.target.id);
     const handleContactInput = (e) => setContact(e.target.value);
     const handleNationalityInput = (e) => setNationality(e.target.value);
 
+    const handleImageInput = () => {
+        imageInputRef.current.click();
+    };
+
+    const handleFileChange = e => {
+        const fileObj = e.target.files && e.target.files[0];
+        if (!fileObj) return null;
+        e.target.value = null;
+        setImage(fileObj);
+        setImageUrl(URL.createObjectURL(fileObj));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = new FormData();
-        const newSubAdmin = {
-            name,
-            f_name: fatherName,
-            email,
-            gender,
-            contact,
-            nationality,
-            dob: null,
-            image: null,
-            department_id: departmentId,
-        };
-        console.log(newSubAdmin);
-
+        let formData = new FormData();
+        formData.append('name', name);
+        image ? formData.append('image', image, image?.name) : formData.append('image', null);
+        formData.append('f_name', fatherName);
+        formData.append('email', email);
+        formData.append('gender', gender);
+        formData.append('contact', contact);
+        formData.append('nationality', nationality);
+        formData.append('dob', dob);
+        formData.append('department_id', department.id);
         try {
-            await addNewSubAdmin(newSubAdmin).unwrap();
+            await addNewSubAdmin(formData).unwrap();
             setName('');
             setFatherName('');
             setEmail('');
-            setDepartmentId('');
+            setDepartment(null);
             setGender('');
             setContact('');
             setNationality('');
             navigate('/admin/sub-admins');
         } catch (err) {
             console.log(err);
+            setErrorMessage(err);
         }
     };
 
@@ -81,7 +96,7 @@ export default function AddSubAdminForm() {
                             Please fill all the required fields.
                         </p>
                     </div>
-
+                    {errorMessage ? <FeedbackAlert type='error' content={errorMessage}/> : ''}
                     <div className='space-y-6 sm:space-y-5'>
                         <div
                             className='sm:grid sm:grid-cols-3 sm:items-center sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5'>
@@ -93,7 +108,10 @@ export default function AddSubAdminForm() {
                             </label>
                             <div className='mt-1 sm:col-span-2 sm:mt-0'>
                                 <div className='flex items-center'>
-									<span className='h-12 w-12 overflow-hidden rounded-full bg-gray-100'>
+                                    {imageUrl ? (
+                                        <img src={imageUrl} alt='profile image' className='h-12 w-12 overflow-hidden rounded-full bg-gray-100'/>
+                                    ) : (
+                                        <span className='h-12 w-12 overflow-hidden rounded-full bg-gray-100'>
 										<svg
                                             className='h-full w-full text-gray-300'
                                             fill='currentColor'
@@ -103,8 +121,18 @@ export default function AddSubAdminForm() {
                                                 d='M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z'/>
 										</svg>
 									</span>
+                                    )}
+
+                                    <input
+                                        style={{display: 'none'}}
+                                        ref={imageInputRef}
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleFileChange}
+                                    />
                                     <button
                                         type='button'
+                                        onClick={handleImageInput}
                                         className='ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2'
                                     >
                                         Change
@@ -117,6 +145,7 @@ export default function AddSubAdminForm() {
                             name='full-name'
                             label='Full Name'
                             type='text'
+                            maxLength={32}
                             onChange={handleNameInput}
                             required={true}
                         />
@@ -125,7 +154,16 @@ export default function AddSubAdminForm() {
                             name='father-name'
                             label="Father's Name"
                             type='text'
+                            maxLength={32}
                             onChange={handleFatherNameInput}
+                            required={true}
+                        />
+
+                        <TextInput
+                            name='dob'
+                            label="Date of Birth"
+                            type='date'
+                            onChange={handleDobInput}
                             required={true}
                         />
 
@@ -133,16 +171,16 @@ export default function AddSubAdminForm() {
                             name='email'
                             label='Email'
                             type='email'
+                            maxLength={64}
                             onChange={handleEmailInput}
                             required={true}
                         />
 
-                        <DropdownMenu
-                            name='department'
+                        <ComboBox
                             label='Department'
                             data={departments}
-                            onChange={handleDepartmentInput}
-                            required={true}
+                            selectedData={department}
+                            setSelectedData={setDepartment}
                         />
 
                         <RadioInput
@@ -153,12 +191,14 @@ export default function AddSubAdminForm() {
                                 {name: 'male', label: 'Male'},
                                 {name: 'female', label: 'Female'},
                             ]}
+                            required={true}
                         />
 
                         <TextInput
                             name='contact'
                             label='Contact'
                             type='text'
+                            maxLength={16}
                             onChange={handleContactInput}
                             required={true}
                         />
@@ -166,8 +206,10 @@ export default function AddSubAdminForm() {
                         <TextInput
                             name='nationality'
                             label='Nationality'
-                            onChange={handleNationalityInput}
                             type='text'
+                            maxLength={16}
+                            onChange={handleNationalityInput}
+                            required={true}
                         />
                     </div>
                 </div>

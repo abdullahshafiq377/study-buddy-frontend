@@ -20,6 +20,7 @@ import EditEventPage from './../pages/admin/EditEventPage';
 import NotFoundPage from './../pages/public/NotFoundPage';
 import AdminSettingsPage from "../pages/admin/AdminSettingsPage";
 import ResetPasswordPage from "../pages/admin/ResetPasswordPage";
+import AdminPostsPage from "../pages/admin/AdminPostsPage";
 
 const AdminRoutes = () => {
     return (
@@ -56,7 +57,9 @@ const AdminRoutes = () => {
             <Route path='events/add' element={<AddEventPage/>}/>
             <Route path='events/edit/:eventId' element={<EditEventPage/>}/>
 
-                <Route path='reset-password' element={<ResetPasswordPage/>}/>
+            <Route path='posts' element={<AdminPostsPage/>}/>
+
+            <Route path='reset-password' element={<ResetPasswordPage/>}/>
 
 
             <Route path='*' element={<NotFoundPage/>}/>

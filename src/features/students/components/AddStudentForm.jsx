@@ -36,8 +36,6 @@ export default function AddStudentForm() {
     const handleNameInput = (e) => setName(e.target.value);
     const handleFatherNameInput = (e) => setFatherName(e.target.value);
     const handleEmailInput = (e) => setEmail(e.target.value);
-    //const handleDepartmentInput = (e) => setDepartmentId(e.target.value);
-    const handleProgramInput = (e) => setProgram(e.target.value);
     const handleGenderInput = (e) => setGender(e.target.id);
     const handleContactInput = (e) => setContact(e.target.value);
     const handleNationalityInput = (e) => setNationality(e.target.value);

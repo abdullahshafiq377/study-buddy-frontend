@@ -7,11 +7,11 @@ import {
     ArrowPathIcon,
     Bars3BottomLeftIcon,
     BuildingOfficeIcon,
-    CalendarDaysIcon,
+    CalendarDaysIcon, ChatBubbleLeftRightIcon,
     ChevronDownIcon,
     DocumentTextIcon,
     HomeIcon,
-    NewspaperIcon,
+    NewspaperIcon, QueueListIcon,
     UsersIcon,
     XMarkIcon,
 } from '@heroicons/react/24/outline';
@@ -107,7 +107,7 @@ export default function AdminSideNav(props) {
                                     <div className='mt-5 h-0 flex-1 overflow-y-auto'>
                                         <nav className='space-y-1 px-2'>
                                             <NavLink
-                                                key='Dashboard'
+                                                key='dashboard'
                                                 to='admin/dashboard'
                                                 className={({isActive}) =>
                                                     isActive
@@ -122,7 +122,7 @@ export default function AdminSideNav(props) {
                                                 Dashboard
                                             </NavLink>
                                             <NavLink
-                                                key='SubAdmins'
+                                                key='sub-admins'
                                                 to='admin/sub-admins'
                                                 className={({isActive}) =>
                                                     isActive
@@ -137,7 +137,7 @@ export default function AdminSideNav(props) {
                                                 Sub Admins
                                             </NavLink>
                                             <NavLink
-                                                key='Departments'
+                                                key='departments'
                                                 to='admin/departments'
                                                 className={({isActive}) =>
                                                     isActive
@@ -152,7 +152,7 @@ export default function AdminSideNav(props) {
                                                 Departments
                                             </NavLink>
                                             <NavLink
-                                                key='Programs'
+                                                key='programs'
                                                 to='admin/programs'
                                                 className={({isActive}) =>
                                                     isActive
@@ -167,7 +167,7 @@ export default function AdminSideNav(props) {
                                                 Programs
                                             </NavLink>
                                             <NavLink
-                                                key='Notices'
+                                                key='notices'
                                                 to='admin/notices'
                                                 className={({isActive}) =>
                                                     isActive
@@ -182,7 +182,7 @@ export default function AdminSideNav(props) {
                                                 Notices
                                             </NavLink>
                                             <NavLink
-                                                key='Events'
+                                                key='events'
                                                 to='admin/events'
                                                 className={({isActive}) =>
                                                     isActive
@@ -197,13 +197,24 @@ export default function AdminSideNav(props) {
                                                 Events
                                             </NavLink>
                                             <NavLink
-                                                key='ResetPassword'
-                                                to='admin/reset-password'
+                                                key='posts'
+                                                to='admin/posts'
                                                 className={({isActive}) =>
                                                     isActive
                                                         ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md'
                                                         : 'text-primary-100 hover:bg-primary-800 group flex items-center px-2 py-2 text-base font-medium rounded-md'
                                                 }
+                                            >
+                                                <ChatBubbleLeftRightIcon
+                                                    className='mr-3 h-6 w-6 flex-shrink-0 text-primary-400'
+                                                    aria-hidden='true'
+                                                />
+                                                Posts
+                                            </NavLink>
+                                            <NavLink
+                                                key='reset-password'
+                                                onClick={() => setResetPasswordSlideoverOpen(true)}
+                                                className='text-primary-100 hover:bg-primary-800 group flex items-center px-2 py-2 text-base font-medium rounded-md'
                                             >
                                                 <ArrowPathIcon
                                                     className='mr-3 h-6 w-6 flex-shrink-0 text-primary-400'
@@ -239,7 +250,7 @@ export default function AdminSideNav(props) {
                         <div className='mt-5 flex flex-1 flex-col'>
                             <nav className='flex-1 space-y-1 px-2 pb-4'>
                                 <NavLink
-                                    key='Dashboard'
+                                    key='dashboard'
                                     to='admin/dashboard'
                                     className={({isActive}) =>
                                         isActive
@@ -254,7 +265,7 @@ export default function AdminSideNav(props) {
                                     Dashboard
                                 </NavLink>
                                 <NavLink
-                                    key='SubAdmins'
+                                    key='sub-admins'
                                     to='admin/sub-admins'
                                     className={({isActive}) =>
                                         isActive
@@ -269,7 +280,7 @@ export default function AdminSideNav(props) {
                                     Sub Admins
                                 </NavLink>
                                 <NavLink
-                                    key='Departments'
+                                    key='departments'
                                     to='admin/departments'
                                     className={({isActive}) =>
                                         isActive
@@ -284,7 +295,7 @@ export default function AdminSideNav(props) {
                                     Departments
                                 </NavLink>
                                 <NavLink
-                                    key='Programs'
+                                    key='programs'
                                     to='admin/programs'
                                     className={({isActive}) =>
                                         isActive
@@ -299,7 +310,7 @@ export default function AdminSideNav(props) {
                                     Programs
                                 </NavLink>
                                 <NavLink
-                                    key='Notices'
+                                    key='notices'
                                     to='admin/notices'
                                     className={({isActive}) =>
                                         isActive
@@ -314,7 +325,7 @@ export default function AdminSideNav(props) {
                                     Notices
                                 </NavLink>
                                 <NavLink
-                                    key='Events'
+                                    key='events'
                                     to='admin/events'
                                     className={({isActive}) =>
                                         isActive
@@ -329,7 +340,22 @@ export default function AdminSideNav(props) {
                                     Events
                                 </NavLink>
                                 <NavLink
-                                    key='ResetPassword'
+                                    key='posts'
+                                    to='admin/posts'
+                                    className={({isActive}) =>
+                                        isActive
+                                            ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                                            : 'text-primary-100 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                                    }
+                                >
+                                    <ChatBubbleLeftRightIcon
+                                        className='mr-3 h-6 w-6 flex-shrink-0 text-primary-400'
+                                        aria-hidden='true'
+                                    />
+                                    Posts
+                                </NavLink>
+                                <NavLink
+                                    key='reset-password'
                                     onClick={() => setResetPasswordSlideoverOpen(true)}
                                     className='text-primary-100 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                                 >
@@ -368,12 +394,19 @@ export default function AdminSideNav(props) {
 												Open user menu
 											</span>
                                             <div className='flex items-center mr-4'>
-                                                <div>
-                                                    <img
-                                                        className='inline-block h-9 w-9 rounded-full'
-                                                        src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-                                                        alt=''
-                                                    />
+                                                <div className='flex items-center'>
+                                                    <span
+                                                        className='inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100'
+                                                    >
+                                                        <svg
+                                                            className='h-full w-full text-gray-300'
+                                                            fill='currentColor'
+                                                            viewBox='0 0 24 24'
+                                                        >
+											<path
+                                                d='M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z'/>
+										</svg>
+                                                    </span>
                                                 </div>
                                                 <div className='ml-3 flex flex-row'>
                                                     <div>

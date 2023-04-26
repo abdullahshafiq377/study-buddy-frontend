@@ -4,7 +4,7 @@
 import React from 'react';
 import {QuestionMarkCircleIcon} from "@heroicons/react/20/solid";
 
-const TextInput = ({name, type, label, value, required, onChange}) => {
+const TextInput = ({name, type, label, value, required, maxLength, onChange}) => {
     return (
         <div className='sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5'>
             <label
@@ -21,6 +21,7 @@ const TextInput = ({name, type, label, value, required, onChange}) => {
                     value={value}
                     required={required}
                     onChange={onChange}
+                    maxLength={maxLength}
                     autoComplete="false"
                     className='block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-primary-600 focus:ring-primary-600 sm:max-w-xs sm:text-sm'
                 />
