@@ -1,13 +1,13 @@
 import DropdownMenu from '../../../components/DropdownMenu';
 import TextInput from '../../../components/TextInput';
-import {useState} from 'react';
-import {useAddNewCourseMutation} from '../coursesApiSlice';
-import {Link, useNavigate} from 'react-router-dom';
+import { useState } from 'react';
+import { useAddNewCourseMutation } from '../coursesApiSlice';
+import { Link, useNavigate } from 'react-router-dom';
 import TextArea from './../../../components/TextArea';
 import TextInputLong from './../../../components/TextInputLong';
-import {useDispatch, useSelector} from 'react-redux';
-import {departmentsApiSlice, selectAllDepartments,} from './../../departments/departmentsApiSlice';
-import {programsApiSlice, selectAllPrograms,} from './../../programs/programsApiSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { departmentsApiSlice, selectAllDepartments, } from './../../departments/departmentsApiSlice';
+import { programsApiSlice, selectAllPrograms, } from './../../programs/programsApiSlice';
 
 export default function AddCourseForm() {
     const [addNewCourse, {isLoading}] = useAddNewCourseMutation();

@@ -1,6 +1,6 @@
-import {useState} from 'react';
-import {useAddNewNoticeMutation} from '../noticesApiSlice';
-import {Link, useNavigate} from 'react-router-dom';
+import { useState } from 'react';
+import { useAddNewNoticeMutation } from '../noticesApiSlice';
+import { Link, useNavigate } from 'react-router-dom';
 import TextInputLong from './../../../components/TextInputLong';
 import TextArea from './../../../components/TextArea';
 

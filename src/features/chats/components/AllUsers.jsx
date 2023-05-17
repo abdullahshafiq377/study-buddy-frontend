@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import UserLayout from './UserLayout';
-import { getDirectConversationHistory } from '../../../services/socketConnection';
 import { useDispatch, useSelector } from 'react-redux';
 import { getConversations, setChosenChatDetails } from '../chatsApiSlice';
 import { selectCurrentUserId } from '../../auth/authSlice';

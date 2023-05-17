@@ -1,10 +1,10 @@
-import {Fragment, useState} from 'react'
-import {Dialog, Transition} from '@headlessui/react'
-import {XMarkIcon} from '@heroicons/react/24/outline'
-import {useSelector} from "react-redux";
-import {selectCurrentUserId, selectCurrentUserType} from "../../auth/authSlice";
-import {useAddNewPostMutation, useUpdatePostMutation} from "../postsApiSlice";
-import {format} from "date-fns";
+import { Fragment, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useSelector } from 'react-redux';
+import { selectCurrentUserId, selectCurrentUserType } from '../../auth/authSlice';
+import { useUpdatePostMutation } from '../postsApiSlice';
+import { format } from 'date-fns';
 
 export default function EditPostSlideover({open, setOpen, post}) {
     const userId = useSelector(selectCurrentUserId);

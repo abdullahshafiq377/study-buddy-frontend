@@ -1,6 +1,8 @@
 import React from 'react';
 import { selectCurrentUserId } from '../../features/auth/authSlice';
 import { useSelector } from 'react-redux';
+import Meeting from '../../features/meetings/components/Meeting';
+import MeetingControls from '../../features/meetings/components/MeetingControls';
 
 const InMeetingPage = () => {
 	const userId = useSelector(selectCurrentUserId);
@@ -11,7 +13,12 @@ const InMeetingPage = () => {
 					Meeting Title
 				</h3>
 			</div>
-			{/**/}
+			<div>
+				<Meeting/>
+			</div>
+			<div>
+				<MeetingControls/>
+			</div>
 		</div>
 	);
 };

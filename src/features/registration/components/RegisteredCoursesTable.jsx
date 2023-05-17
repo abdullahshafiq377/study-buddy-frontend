@@ -2,8 +2,6 @@ import React from 'react';
 import FeedbackAlert from './../../../components/FeedbackAlert';
 import { useNavigate } from 'react-router-dom';
 import RegisteredCoursesTableRow from './RegisteredCoursesTableRow';
-import { useSelector } from 'react-redux';
-import { selectCurrentUserId } from '../../auth/authSlice';
 import { useGetRegisteredCoursesQuery } from '../registrationApiSlice';
 import Loader from '../../../components/Loader';
 

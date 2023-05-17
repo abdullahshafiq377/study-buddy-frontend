@@ -1,7 +1,28 @@
 import React from 'react';
-import StudentMeetingsTable from '../../features/meetings/components/StudentMeetingsTable';
+import StudentScheduledMeetingsTable from '../../features/meetings/components/StudentScheduledMeetingsTable';
+import StudentActiveMeetingsTable from '../../features/meetings/components/StudentActiveMeetingsTable';
+import { getActiveMeetings, getScheduledMeetingHistory } from '../../services/RTC/socketConnection';
+import { useSelector } from 'react-redux';
+import { useGetRegisteredCoursesQuery } from '../../features/registration/registrationApiSlice';
+import { selectCurrentUserId } from '../../features/auth/authSlice';
 
 const StudentMeetingsPage = () => {
+	getScheduledMeetingHistory();
+	getActiveMeetings();
+	
+	const userId = useSelector(selectCurrentUserId);
+	const {data: registrationData, isSuccess: registrationIsSuccess} = useGetRegisteredCoursesQuery(userId);
+	let sectionIds = [];
+	if (registrationIsSuccess) {
+		const {ids, entities} = registrationData;
+		ids.map(id => {
+			if (entities[id].section_id !== null) {
+				sectionIds.push(entities[id].section_id);
+			}
+		});
+		console.log(sectionIds);
+	}
+	
 	return (
 		<div className="px-4 sm:px-6 lg:px-8">
 			<div className="sm:flex sm:items-center">
@@ -15,15 +36,20 @@ const StudentMeetingsPage = () => {
 					</p>
 				</div>
 			</div>
-			<div className="mt-8 flex flex-col">
-				<div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-					<div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-						<div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-							<StudentMeetingsTable/>
-						</div>
-					</div>
-				</div>
+			
+			<div>
+				<h3 className="text-l font-bold leading-6 text-gray-900 mt-8">
+					Active Meetings
+				</h3>
+				<StudentActiveMeetingsTable sectionIds={sectionIds}/>
 			</div>
+			<div>
+				<h3 className="text-l font-bold leading-6 text-gray-900 mt-8">
+					Scheduled Meetings
+				</h3>
+				<StudentScheduledMeetingsTable sectionIds={sectionIds}/>
+			</div>
+		
 		</div>
 	);
 };

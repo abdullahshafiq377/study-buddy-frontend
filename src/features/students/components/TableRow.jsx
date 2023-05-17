@@ -1,8 +1,8 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
-import {selectStudentById, useDeleteStudentMutation,} from '../studentsApiSlice';
-import {Link} from 'react-router-dom';
-import {PencilSquareIcon, TrashIcon} from '@heroicons/react/24/outline';
+import { useSelector } from 'react-redux';
+import { selectStudentById, useDeleteStudentMutation, } from '../studentsApiSlice';
+import { Link } from 'react-router-dom';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
 
 const TableRow = ({studentId}) => {
     const [deleteStudent] = useDeleteStudentMutation();

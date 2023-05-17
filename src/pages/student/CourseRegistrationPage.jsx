@@ -1,9 +1,9 @@
 import React from 'react';
-import UnregisteredCoursesTable from "../../features/registration/components/UnregisteredCoursesTable";
-import RegisteredCoursesTable from "../../features/registration/components/RegisteredCoursesTable";
-import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {selectCurrentUserId} from "../../features/auth/authSlice";
+import UnregisteredCoursesTable from '../../features/registration/components/UnregisteredCoursesTable';
+import RegisteredCoursesTable from '../../features/registration/components/RegisteredCoursesTable';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectCurrentUserId } from '../../features/auth/authSlice';
 
 const CourseRegistrationPage = () => {
     const studentId = useSelector(selectCurrentUserId);

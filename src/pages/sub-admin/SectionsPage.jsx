@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import SectionsTable from "../../features/sections/components/SectionsTable";
-import CreateSectionSlideover from "../../features/sections/components/CreateSectionSlideover";
+import React, { useState } from 'react';
+import SectionsTable from '../../features/sections/components/SectionsTable';
+import CreateSectionSlideover from '../../features/sections/components/CreateSectionSlideover';
 
 const SectionsPage = () => {
     const [openCreateSectionSlideover, setOpenCreateSectionSlideover] = useState(false);

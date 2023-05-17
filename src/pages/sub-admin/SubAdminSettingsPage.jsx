@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { selectCurrentUserId } from '../../features/auth/authSlice';
 import { useGetSubAdminByIdQuery } from '../../features/sub-admins/subAdminsApiSlice';
 import Loader from '../../components/Loader';
-import { Link } from 'react-router-dom';
 
 const SubAdminSettingsPage = () => {
 	const subAdminId = useSelector(selectCurrentUserId);

@@ -1,11 +1,12 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import {
-	ArrowPathIcon,
 	Bars3BottomLeftIcon,
-	ChevronDownIcon, ClipboardDocumentCheckIcon,
+	ChevronDownIcon,
+	ClipboardDocumentCheckIcon,
 	HomeIcon,
-	NewspaperIcon, UserGroupIcon,
+	NewspaperIcon,
+	UserGroupIcon,
 	UserIcon,
 	UsersIcon,
 	XMarkIcon,

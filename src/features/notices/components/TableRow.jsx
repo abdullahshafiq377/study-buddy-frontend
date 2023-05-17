@@ -1,8 +1,8 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
-import {Link} from 'react-router-dom';
-import {PencilSquareIcon} from '@heroicons/react/24/outline';
-import {selectNoticeById} from '../noticesApiSlice';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { selectNoticeById } from '../noticesApiSlice';
 
 const TableRow = ({noticeId}) => {
     const notice = useSelector((state) => selectNoticeById(state, noticeId));

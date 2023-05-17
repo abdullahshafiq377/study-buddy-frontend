@@ -1,14 +1,13 @@
-import DropdownMenu from '../../../components/DropdownMenu';
 import RadioInput from '../../../components/RadioInput';
 import TextInput from '../../../components/TextInput';
-import {useState} from 'react';
-import {useAddNewStudentMutation} from '../studentsApiSlice';
-import {Link, useNavigate} from 'react-router-dom';
+import { useState } from 'react';
+import { useAddNewStudentMutation } from '../studentsApiSlice';
+import { Link, useNavigate } from 'react-router-dom';
 import TextInputLong from './../../../components/TextInputLong';
-import {useDispatch, useSelector} from 'react-redux';
-import {departmentsApiSlice, selectAllDepartments,} from './../../departments/departmentsApiSlice';
-import {programsApiSlice, selectAllPrograms,} from './../../programs/programsApiSlice';
-import ComboBox from "../../../components/ComboBox";
+import { useDispatch, useSelector } from 'react-redux';
+import { departmentsApiSlice, selectAllDepartments, } from './../../departments/departmentsApiSlice';
+import { programsApiSlice, selectAllPrograms, } from './../../programs/programsApiSlice';
+import ComboBox from '../../../components/ComboBox';
 
 export default function AddStudentForm() {
     const [addNewStudent, {isLoading}] = useAddNewStudentMutation();

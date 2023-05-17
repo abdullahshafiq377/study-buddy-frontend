@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {Link, useNavigate} from "react-router-dom";
-import TextInput from "../../../components/TextInput";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import TextInput from '../../../components/TextInput';
 
 const StudentSetting = ({student}) => {
     const navigate = useNavigate();

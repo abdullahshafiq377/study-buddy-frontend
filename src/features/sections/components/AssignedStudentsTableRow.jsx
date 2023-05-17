@@ -1,5 +1,5 @@
 import React from 'react';
-import {useUnassignSectionMutation} from "../sectionsApiSlice";
+import { useUnassignSectionMutation } from '../sectionsApiSlice';
 
 const AssignedStudentsTableRow = ({student, refetchAssigned, refetchUnassigned}) => {
     const [unassignSection] = useUnassignSectionMutation();

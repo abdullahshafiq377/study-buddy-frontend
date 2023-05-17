@@ -1,6 +1,5 @@
 import React from 'react';
-import UserProfileCard from "../../features/reset-password/components/UserProfileCard";
-import {Link} from "react-router-dom";
+import UserProfileCard from '../../features/reset-password/components/UserProfileCard';
 
 const ResetPasswordPage = () => {
     return (

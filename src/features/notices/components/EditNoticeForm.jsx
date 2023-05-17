@@ -1,7 +1,7 @@
-import {useState} from 'react';
-import {selectNoticeById, useDeleteNoticeMutation, useUpdateNoticeMutation,} from '../noticesApiSlice';
-import {Link, useNavigate, useParams} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import { useState } from 'react';
+import { selectNoticeById, useDeleteNoticeMutation, useUpdateNoticeMutation, } from '../noticesApiSlice';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import TextInputLong from './../../../components/TextInputLong';
 import TextArea from './../../../components/TextArea';
 import ConfirmDeletionModal from './../../../components/ConfirmDeletionModal';

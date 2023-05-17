@@ -1,17 +1,17 @@
-import React, {useState} from 'react';
-import Badge from "../../../components/Badge";
-import Comment from "./Comment";
-import {useSelector} from "react-redux";
+import React, { useState } from 'react';
+import Badge from '../../../components/Badge';
+import Comment from './Comment';
+import { useSelector } from 'react-redux';
 import {
-    selectPostById,
-    useAddNewCommentMutation,
-    useAddReactionMutation,
-    useGetCommentsByPostQuery
-} from "../postsApiSlice";
-import TimeAgo from "./TimeAgo";
-import {selectCurrentUserId} from "../../auth/authSlice";
-import {format} from "date-fns";
-import {HandThumbDownIcon, HandThumbUpIcon} from "@heroicons/react/24/solid";
+	selectPostById,
+	useAddNewCommentMutation,
+	useAddReactionMutation,
+	useGetCommentsByPostQuery
+} from '../postsApiSlice';
+import TimeAgo from './TimeAgo';
+import { selectCurrentUserId } from '../../auth/authSlice';
+import { format } from 'date-fns';
+import { HandThumbDownIcon, HandThumbUpIcon } from '@heroicons/react/24/solid';
 
 const Post = ({postId}) => {
     const userId = useSelector(selectCurrentUserId);

@@ -1,8 +1,8 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
-import {selectSubAdminById,} from '../subAdminsApiSlice';
-import {Link} from 'react-router-dom';
-import {PencilSquareIcon} from '@heroicons/react/24/outline';
+import { useSelector } from 'react-redux';
+import { selectSubAdminById, } from '../subAdminsApiSlice';
+import { Link } from 'react-router-dom';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
 
 const TableRow = ({subAdminId}) => {
 

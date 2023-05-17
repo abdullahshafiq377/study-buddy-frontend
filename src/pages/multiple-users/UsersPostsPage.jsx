@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import NewPostSlideover from '../../features/posts/components/NewPostSlideover';
 import UsersPost from '../../features/posts/components/UsersPost';
-import EditPostSlideover from '../../features/posts/components/EditPostSlideover';
-import ConfirmDeletionModal from '../../components/ConfirmDeletionModal';
-import { useDeletePostMutation, useGetPostsByUserQuery } from '../../features/posts/postsApiSlice';
+import { useGetPostsByUserQuery } from '../../features/posts/postsApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUserId } from '../../features/auth/authSlice';
 import FeedbackAlert from '../../components/FeedbackAlert';

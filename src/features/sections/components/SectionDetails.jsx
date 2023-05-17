@@ -63,7 +63,7 @@ const SectionDetails = ({section}) => {
 			</div>
 		</div>
 		
-		<div className="overflow-hidden bg-white shadow sm:rounded-lg">
+		<div className="overflow-hidden bg-white shadow sm:rounded-lg mt-4">
 			<div className="border-t border-gray-200 px-4 py-5 sm:p-0">
 				<dl className="sm:divide-y sm:divide-gray-200">
 					<div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">

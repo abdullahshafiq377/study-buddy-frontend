@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentUserId } from '../../features/auth/authSlice';
 import { useGetInstructorByIdQuery } from '../../features/instructors/instructorsApiSlice';
-import InstructorProfileCard from '../../features/instructors/components/InstructorProfileCard';
 import InstructorSetting from '../../features/instructors/components/InstructorSetting';
 import Loader from '../../components/Loader';
 

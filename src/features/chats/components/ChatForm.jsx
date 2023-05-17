@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { PaperAirplaneIcon } from '@heroicons/react/24/solid';
-import { FaceSmileIcon, PaperClipIcon } from '@heroicons/react/24/outline';
-import EmojiPicker from 'emoji-picker-react';
-import { sendDirectMessage } from '../../../services/socketConnection';
+import { PaperClipIcon } from '@heroicons/react/24/outline';
+import { sendDirectMessage } from '../../../services/RTC/socketConnection';
 
 const ChatForm = ({currentChatDetails}) => {
 	const [message, setMessage] = useState('');

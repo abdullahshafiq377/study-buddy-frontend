@@ -1,13 +1,13 @@
-import React, {Fragment, useState} from 'react'
-import {Dialog, Transition} from '@headlessui/react'
-import {XMarkIcon} from '@heroicons/react/24/outline'
-import ComboBox from "../../../components/ComboBox";
-import {useSelector} from "react-redux";
-import {selectCurrentUserDepartmentId} from "../../auth/authSlice";
-import {useGetCoursesByDepartmentQuery} from "../../courses/coursesApiSlice";
-import {useGetInstructorsByDepartmentQuery} from "../../instructors/instructorsApiSlice";
-import {useAddNewSectionMutation} from "../sectionsApiSlice";
-import FeedbackAlert from "../../../components/FeedbackAlert";
+import React, { Fragment, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import ComboBox from '../../../components/ComboBox';
+import { useSelector } from 'react-redux';
+import { selectCurrentUserDepartmentId } from '../../auth/authSlice';
+import { useGetCoursesByDepartmentQuery } from '../../courses/coursesApiSlice';
+import { useGetInstructorsByDepartmentQuery } from '../../instructors/instructorsApiSlice';
+import { useAddNewSectionMutation } from '../sectionsApiSlice';
+import FeedbackAlert from '../../../components/FeedbackAlert';
 
 export default function CreateSectionSlideover({open, setOpen}) {
     const [course, setCourse] = useState(null);

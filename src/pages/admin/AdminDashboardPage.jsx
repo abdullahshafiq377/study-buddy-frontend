@@ -1,5 +1,5 @@
 import React from 'react';
-import Stats from "../../components/Stats";
+import Stats from '../../components/Stats';
 
 const AdminDashboardPage = () => {
     return (<>

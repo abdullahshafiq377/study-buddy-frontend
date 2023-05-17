@@ -6,7 +6,7 @@ import { setCredentials } from '../../features/auth/authSlice';
 import FeedbackAlert from '../../components/FeedbackAlert';
 import bgImage from '../../assets/logos/login-bg.jpg';
 import logo from '../../assets/logos/logo-light@2x.png';
-import { connectWithSocketServer } from '../../services/socketConnection';
+import { connectWithSocketServer } from '../../services/RTC/socketConnection';
 
 export default function LoginPage () {
 	const emailRef = useRef();

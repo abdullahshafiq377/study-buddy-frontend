@@ -1,5 +1,5 @@
-import {createEntityAdapter, createSelector} from '@reduxjs/toolkit';
-import {apiSlice} from '../../app/api/apiSlice';
+import { createEntityAdapter, createSelector } from '@reduxjs/toolkit';
+import { apiSlice } from '../../app/api/apiSlice';
 
 const postsAdapter = createEntityAdapter({
     sortComparer: (a, b) => b.date_time.localeCompare(a.date_time),

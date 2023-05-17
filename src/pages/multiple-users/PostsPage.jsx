@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Post from '../../features/posts/components/Post';
-import { Link } from 'react-router-dom';
 import NewPostSlideover from '../../features/posts/components/NewPostSlideover';
 import { selectPostIds, useGetPostsQuery } from '../../features/posts/postsApiSlice';
 import { useSelector } from 'react-redux';

@@ -1,8 +1,8 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
-import {Link} from 'react-router-dom';
-import {PencilSquareIcon} from '@heroicons/react/24/outline';
-import {selectEventById} from '../eventsApiSlice';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { selectEventById } from '../eventsApiSlice';
 
 const TableRow = ({eventId}) => {
     const event = useSelector((state) => selectEventById(state, eventId));

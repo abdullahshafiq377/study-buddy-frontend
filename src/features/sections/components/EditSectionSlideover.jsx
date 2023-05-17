@@ -1,14 +1,14 @@
-import React, {Fragment, useState} from 'react'
-import {Dialog, Transition} from '@headlessui/react'
-import {TrashIcon, XMarkIcon} from '@heroicons/react/24/outline'
-import ComboBox from "../../../components/ComboBox";
-import {useSelector} from "react-redux";
-import {selectCurrentUserDepartmentId} from "../../auth/authSlice";
-import {useGetCoursesByDepartmentQuery} from "../../courses/coursesApiSlice";
-import {useGetInstructorsByDepartmentQuery} from "../../instructors/instructorsApiSlice";
-import {useDeleteSectionMutation, useUpdateSectionMutation} from "../sectionsApiSlice";
-import ConfirmDeletionModal from "../../../components/ConfirmDeletionModal";
-import FeedbackAlert from "../../../components/FeedbackAlert";
+import React, { Fragment, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { TrashIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import ComboBox from '../../../components/ComboBox';
+import { useSelector } from 'react-redux';
+import { selectCurrentUserDepartmentId } from '../../auth/authSlice';
+import { useGetCoursesByDepartmentQuery } from '../../courses/coursesApiSlice';
+import { useGetInstructorsByDepartmentQuery } from '../../instructors/instructorsApiSlice';
+import { useDeleteSectionMutation, useUpdateSectionMutation } from '../sectionsApiSlice';
+import ConfirmDeletionModal from '../../../components/ConfirmDeletionModal';
+import FeedbackAlert from '../../../components/FeedbackAlert';
 
 export default function EditSectionSlideover({section, open, setOpen}) {
     const [openConfirmDeletionModal, setOpenConfirmDeletionModal] = useState(false);

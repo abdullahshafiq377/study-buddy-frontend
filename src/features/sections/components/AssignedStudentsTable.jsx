@@ -1,6 +1,5 @@
 import React from 'react';
-import FeedbackAlert from "../../../components/FeedbackAlert";
-import AssignedStudentsTableRow from "./AssignedStudentsTableRow";
+import AssignedStudentsTableRow from './AssignedStudentsTableRow';
 
 const AssignedStudentsTable = ({section, assignedStudents, refetchAssigned, refetchUnassigned}) => {
 

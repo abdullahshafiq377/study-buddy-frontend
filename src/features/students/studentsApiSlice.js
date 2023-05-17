@@ -1,5 +1,5 @@
-import {createEntityAdapter, createSelector} from '@reduxjs/toolkit';
-import {apiSlice} from '../../app/api/apiSlice';
+import { createEntityAdapter, createSelector } from '@reduxjs/toolkit';
+import { apiSlice } from '../../app/api/apiSlice';
 
 const studentsAdapter = createEntityAdapter({
     sortComparer: (a, b) => a.name.localeCompare(b.name),

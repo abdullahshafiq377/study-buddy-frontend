@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import SubAdminDashboardPage from './../pages/sub-admin/SubAdminDashboardPage';
 import InstructorsListPage from './../pages/sub-admin/InstructorsListPage';
@@ -13,9 +13,9 @@ import AddCoursePage from './../pages/sub-admin/AddCoursePage';
 import EditCoursePage from './../pages/sub-admin/EditCoursePage';
 import SubAdminProfilePage from '../pages/sub-admin/SubAdminProfilePage';
 import NotFoundPage from '../pages/public/NotFoundPage';
-import SubAdminSettingsPage from "../pages/sub-admin/SubAdminSettingsPage";
-import SectionsPage from "../pages/sub-admin/SectionsPage";
-import SectionPage from "../pages/sub-admin/SectionPage";
+import SubAdminSettingsPage from '../pages/sub-admin/SubAdminSettingsPage';
+import SectionsPage from '../pages/sub-admin/SectionsPage';
+import SectionPage from '../pages/sub-admin/SectionPage';
 
 const SubAdminRoutes = () => {
     return (

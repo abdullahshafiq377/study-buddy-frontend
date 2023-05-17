@@ -1,14 +1,14 @@
-import {useState} from 'react';
-import {selectCourseById, useDeleteCourseMutation, useUpdateCourseMutation,} from '../coursesApiSlice';
-import {departmentsApiSlice, selectAllDepartments,} from './../../departments/departmentsApiSlice';
-import {programsApiSlice, selectAllPrograms,} from './../../programs/programsApiSlice';
+import { useState } from 'react';
+import { selectCourseById, useDeleteCourseMutation, useUpdateCourseMutation, } from '../coursesApiSlice';
+import { departmentsApiSlice, selectAllDepartments, } from './../../departments/departmentsApiSlice';
+import { programsApiSlice, selectAllPrograms, } from './../../programs/programsApiSlice';
 import DropdownMenu from '../../../components/DropdownMenu';
 import TextInput from '../../../components/TextInput';
-import {Link, useNavigate, useParams} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import TextArea from './../../../components/TextArea';
 import TextInputLong from './../../../components/TextInputLong';
-import ConfirmDeletionModal from "../../../components/ConfirmDeletionModal";
+import ConfirmDeletionModal from '../../../components/ConfirmDeletionModal';
 
 export default function EditCourseForm() {
     const {courseId} = useParams();

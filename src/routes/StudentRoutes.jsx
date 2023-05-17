@@ -9,6 +9,10 @@ import StudentProfilePage from '../pages/student/StudentProfilePage';
 import StudentSettingsPage from '../pages/student/StudentSettingsPage';
 import ChatsPage from '../pages/multiple-users/ChatsPage';
 import StudentMeetingsPage from '../pages/student/StudentMeetingsPage';
+import InMeetingPage from '../pages/multiple-users/InMeetingPage';
+import StudentAssignmentPage from '../pages/student/StudentAssignmentsPage';
+import StudentQuizzesPage from '../pages/student/StudentQuizzesPage';
+import StudentAssignmentsPage from '../pages/student/StudentAssignmentsPage';
 
 const StudentRoutes = () => {
 	return (
@@ -18,6 +22,9 @@ const StudentRoutes = () => {
 			<Route path="posts" element={<PostsPage/>}/>
 			<Route path="chats" element={<ChatsPage/>}/>
 			<Route path="meetings" element={<StudentMeetingsPage/>}/>
+			<Route path="meetings/in-meeting" element={<InMeetingPage/>}/>
+			<Route path="assignments" element={<StudentAssignmentsPage/>}/>
+			<Route path="quizzes" element={<StudentQuizzesPage/>}/>
 			
 			
 			<Route path="profile" element={<StudentProfilePage/>}/>

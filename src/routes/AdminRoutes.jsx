@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import AdminDashboardPage from './../pages/admin/AdminDashboardPage';
 import SubAdminsListPage from './../pages/admin/SubAdminsListPage';
@@ -18,9 +18,9 @@ import EventsListPage from './../pages/admin/EventsListPage';
 import AddEventPage from './../pages/admin/AddEventPage';
 import EditEventPage from './../pages/admin/EditEventPage';
 import NotFoundPage from './../pages/public/NotFoundPage';
-import AdminSettingsPage from "../pages/admin/AdminSettingsPage";
-import ResetPasswordPage from "../pages/admin/ResetPasswordPage";
-import AdminPostsPage from "../pages/admin/AdminPostsPage";
+import AdminSettingsPage from '../pages/admin/AdminSettingsPage';
+import ResetPasswordPage from '../pages/admin/ResetPasswordPage';
+import AdminPostsPage from '../pages/admin/AdminPostsPage';
 
 const AdminRoutes = () => {
     return (

@@ -1,22 +1,7 @@
-/*
- This example requires some changes to your config:
- 
- ```
- // tailwind.config.js
- module.exports = {
- // ...
- plugins: [
- // ...
- require('@tailwindcss/forms'),
- ],
- }
- ```
- */
 import { Fragment, useState } from 'react';
 import { Combobox, Dialog, Transition } from '@headlessui/react';
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { ChevronRightIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { UsersIcon } from '@heroicons/react/24/outline';
-import { ChevronRightIcon } from '@heroicons/react/20/solid';
 import { useDispatch } from 'react-redux';
 import { setChosenChatDetails } from '../chatsApiSlice';
 

@@ -1,12 +1,12 @@
-import {useState} from 'react';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import DropdownMenu from '../../../components/DropdownMenu';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import TextArea from './../../../components/TextArea';
 import TextInputLong from './../../../components/TextInputLong';
 import ConfirmDeletionModal from './../../../components/ConfirmDeletionModal';
-import {departmentsApiSlice, selectAllDepartments,} from './../../departments/departmentsApiSlice';
-import {selectProgramById, useDeleteProgramMutation, useUpdateProgramMutation,} from '../programsApiSlice';
+import { departmentsApiSlice, selectAllDepartments, } from './../../departments/departmentsApiSlice';
+import { selectProgramById, useDeleteProgramMutation, useUpdateProgramMutation, } from '../programsApiSlice';
 
 export default function EditDepartmentForm() {
     const {programId} = useParams();

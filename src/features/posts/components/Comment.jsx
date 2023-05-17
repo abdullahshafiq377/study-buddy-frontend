@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import TimeAgo from "./TimeAgo";
-import {useSelector} from "react-redux";
-import {selectCurrentUserId} from "../../auth/authSlice";
-import {TrashIcon} from "@heroicons/react/24/outline";
-import ConfirmDeletionModal from "../../../components/ConfirmDeletionModal";
-import {useDeleteCommentMutation} from "../postsApiSlice";
+import React, { useState } from 'react';
+import TimeAgo from './TimeAgo';
+import { useSelector } from 'react-redux';
+import { selectCurrentUserId } from '../../auth/authSlice';
+import { TrashIcon } from '@heroicons/react/24/outline';
+import ConfirmDeletionModal from '../../../components/ConfirmDeletionModal';
+import { useDeleteCommentMutation } from '../postsApiSlice';
 
 const Comment = ({comment, refetch}) => {
     const userId = useSelector(selectCurrentUserId);

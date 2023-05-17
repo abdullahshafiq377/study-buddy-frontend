@@ -1,7 +1,7 @@
 import React from 'react';
-import {useParams} from "react-router-dom";
-import SectionDetails from "../../features/sections/components/SectionDetails";
-import {useGetSectionByIdQuery} from "../../features/sections/sectionsApiSlice";
+import { useParams } from 'react-router-dom';
+import SectionDetails from '../../features/sections/components/SectionDetails';
+import { useGetSectionByIdQuery } from '../../features/sections/sectionsApiSlice';
 
 const SectionPage = () => {
     const {sectionId} = useParams();

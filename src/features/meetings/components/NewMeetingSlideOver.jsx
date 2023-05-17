@@ -4,20 +4,56 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import ComboBox from '../../../components/ComboBox';
 import { useSelector } from 'react-redux';
 import FeedbackAlert from '../../../components/FeedbackAlert';
+import { useGetSectionsByInstructorQuery } from '../../sections/sectionsApiSlice';
+import { selectCurrentUserId } from '../../auth/authSlice';
+import { scheduleNewMeeting, startNewMeeting } from '../../../services/RTC/meetingHandler';
 
 export default function NewMeetingSlideOver ({open, setOpen}) {
+	const userId = useSelector(selectCurrentUserId);
+	
+	const {data: sectionData, isSuccess: isSuccessSection} = useGetSectionsByInstructorQuery(userId);
 	
 	const [title, setTitle] = useState('');
+	const [startTime, setStartTime] = useState('');
+	const [startDate, setStartDate] = useState('');
 	const [showErrorElement, setShowErrorElement] = useState(false);
+	const [section, setSection] = useState(null);
+	let sections = [];
+	
+	if (isSuccessSection) {
+		let {ids, entities} = sectionData;
+		sections = ids.map(id => entities[id]);
+	}
 	
 	
 	const handleTitleInput = (e) => setTitle(e.target.value);
+	const handleStartTimeInput = (e) => setStartTime(e.target.value);
+	const handleStartDateInput = (e) => setStartDate(e.target.value);
 	
-	const isFilled = Boolean(title);
+	const isFilled = Boolean(title) && Boolean(startTime) && Boolean(startDate) && Boolean(section);
 	
 	
-	const handleSubmit = async (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
+		try {
+			if (isFilled) {
+				const newMeeting = {
+					title,
+					startTime,
+					startDate,
+					sectionId: section.id
+				};
+				scheduleNewMeeting(newMeeting);
+				setTitle('');
+				setSection(null);
+				setStartTime('');
+				setStartDate('');
+				setOpen(false);
+			}
+		} catch (e) {
+			console.log(e);
+		}
+		// startNewMeeting();
 	};
 	
 	return (
@@ -56,7 +92,7 @@ export default function NewMeetingSlideOver ({open, setOpen}) {
 												<div className="flex items-center justify-between">
 													<Dialog.Title
 														className="text-base font-semibold leading-6 text-gray-900">
-														New Section
+														New Meeting
 													</Dialog.Title>
 													<div className="ml-3 flex h-7 items-center">
 														<button
@@ -71,8 +107,8 @@ export default function NewMeetingSlideOver ({open, setOpen}) {
 												</div>
 												<div className="mt-1">
 													<p className="text-sm text-gray-500">
-														Get started by filling in the information below to create a new
-														section.
+														Get started by filling in the information below to schedule a
+														new meeting.
 													</p>
 												</div>
 											</div>
@@ -85,17 +121,17 @@ export default function NewMeetingSlideOver ({open, setOpen}) {
 														</div>) : ''}
 														<div>
 															<label
-																htmlFor="section-title"
+																htmlFor="title"
 																className="block text-sm font-medium leading-6 text-gray-900"
 															>
-																Section title {' '}
+																Title {' '}
 																<span className="text-gray-600 font-light">*</span>
 															</label>
 															<div className="mt-2">
 																<input
 																	type="text"
-																	name="section-title"
-																	id="section-title"
+																	name="title"
+																	id="title"
 																	required={true}
 																	value={title}
 																	onChange={handleTitleInput}
@@ -103,19 +139,57 @@ export default function NewMeetingSlideOver ({open, setOpen}) {
 																/>
 															</div>
 														</div>
+														<div>
+															<label
+																htmlFor="start-time"
+																className="block text-sm font-medium leading-6 text-gray-900"
+															>
+																Time {' '}
+																<span className="text-gray-600 font-light">*</span>
+															</label>
+															<div className="mt-2">
+																<input
+																	type="time"
+																	name="start-time"
+																	id="start-time"
+																	onChange={handleStartTimeInput}
+																	required={true}
+																	className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
+																/>
+															</div>
+														</div>
+														<div>
+															<label
+																htmlFor="start-date"
+																className="block text-sm font-medium leading-6 text-gray-900"
+															>
+																Date {' '}
+																<span className="text-gray-600 font-light">*</span>
+															</label>
+															<div className="mt-2">
+																<input
+																	type="date"
+																	name="start-date"
+																	id="start-date"
+																	onChange={handleStartDateInput}
+																	required={true}
+																	className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
+																/>
+															</div>
+														</div>
 														
-														{/*<div>*/}
-														{/*	<label*/}
-														{/*		className="block text-sm font-medium leading-6 text-gray-900"*/}
-														{/*	>*/}
-														{/*		Course {' '}*/}
-														{/*		<span className="text-gray-600 font-light">*</span>*/}
-														{/*	</label>*/}
-														{/*	<div className="mt-2">*/}
-														{/*		<ComboBox data={courses} selectedData={course}*/}
-														{/*		          setSelectedData={setCourse}/>*/}
-														{/*	</div>*/}
-														{/*</div>*/}
+														<div>
+															<label
+																className="block text-sm font-medium leading-6 text-gray-900"
+															>
+																Section {' '}
+																<span className="text-gray-600 font-light">*</span>
+															</label>
+															<div className="mt-2">
+																<ComboBox data={sections} selectedData={section}
+																          setSelectedData={setSection}/>
+															</div>
+														</div>
 													
 													
 													</div>

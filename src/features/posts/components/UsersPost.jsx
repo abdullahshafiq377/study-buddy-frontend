@@ -1,20 +1,20 @@
-import React, {useState} from 'react';
-import Badge from "../../../components/Badge";
-import Comment from "./Comment";
-import {PencilIcon} from "@heroicons/react/20/solid";
-import {TrashIcon} from "@heroicons/react/24/outline";
+import React, { useState } from 'react';
+import Badge from '../../../components/Badge';
+import Comment from './Comment';
+import { PencilIcon } from '@heroicons/react/20/solid';
+import { TrashIcon } from '@heroicons/react/24/outline';
 import {
-    selectPostById,
-    useAddNewCommentMutation, useDeleteCommentByPostMutation, useDeleteCommentMutation,
+    useAddNewCommentMutation,
+    useDeleteCommentByPostMutation,
     useDeletePostMutation,
     useGetCommentsByPostQuery
-} from "../postsApiSlice";
-import TimeAgo from "./TimeAgo";
-import ConfirmDeletionModal from "../../../components/ConfirmDeletionModal";
-import EditPostSlideover from "./EditPostSlideover";
-import {useSelector} from "react-redux";
-import {selectCurrentUserId} from "../../auth/authSlice";
-import {format} from "date-fns";
+} from '../postsApiSlice';
+import TimeAgo from './TimeAgo';
+import ConfirmDeletionModal from '../../../components/ConfirmDeletionModal';
+import EditPostSlideover from './EditPostSlideover';
+import { useSelector } from 'react-redux';
+import { selectCurrentUserId } from '../../auth/authSlice';
+import { format } from 'date-fns';
 
 const UsersPost = ({post, onEdit, onDelete}) => {
     const [openEditPostSildeover, setOpenEditPostSildeover] = useState(false);

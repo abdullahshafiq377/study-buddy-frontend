@@ -1,14 +1,14 @@
 import DropdownMenu from '../../../components/DropdownMenu';
 import RadioInput from '../../../components/RadioInput';
 import TextInput from '../../../components/TextInput';
-import {useState} from 'react';
-import {selectStudentById, useDeleteStudentMutation, useUpdateStudentMutation,} from '../studentsApiSlice';
-import {Link, useNavigate, useParams} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {departmentsApiSlice, selectAllDepartments,} from './../../departments/departmentsApiSlice';
-import {programsApiSlice, selectAllPrograms,} from '../../programs/programsApiSlice';
+import { useState } from 'react';
+import { selectStudentById, useDeleteStudentMutation, useUpdateStudentMutation, } from '../studentsApiSlice';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { departmentsApiSlice, selectAllDepartments, } from './../../departments/departmentsApiSlice';
+import { programsApiSlice, selectAllPrograms, } from '../../programs/programsApiSlice';
 import TextInputLong from './../../../components/TextInputLong';
-import ConfirmDeletionModal from "../../../components/ConfirmDeletionModal";
+import ConfirmDeletionModal from '../../../components/ConfirmDeletionModal';
 
 export default function EditStudentForm() {
     const {studentId} = useParams();

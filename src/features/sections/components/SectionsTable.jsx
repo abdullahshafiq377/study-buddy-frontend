@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FeedbackAlert from '../../../components/FeedbackAlert';
 import { useGetSectionsByDepartmentQuery } from '../sectionsApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUserDepartmentId } from '../../auth/authSlice';
 import SectionsTableRow from './SectionsTableRow';
-import EditSectionSlideover from './EditSectionSlideover';
 import Loader from '../../../components/Loader';
 
 const SectionsTable = () => {

@@ -1,19 +1,15 @@
-import DropdownMenu from '../../../components/DropdownMenu';
 import RadioInput from '../../../components/RadioInput';
 import TextInput from '../../../components/TextInput';
 import { useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import TextInputLong from './../../../components/TextInputLong';
 import ConfirmDeletionModal from '../../../components/ConfirmDeletionModal';
 import { selectSubAdminById, useDeleteSubAdminMutation, useUpdateSubAdminMutation, } from '../subAdminsApiSlice';
-import {
-	departmentsApiSlice,
-	selectAllDepartments,
-	useGetDepartmentsQuery,
-} from './../../departments/departmentsApiSlice';
+import { useGetDepartmentsQuery, } from './../../departments/departmentsApiSlice';
 import ComboBox from '../../../components/ComboBox';
 import FeedbackAlert from '../../../components/FeedbackAlert';
+import { formatISO } from 'date-fns';
 
 export default function EditSubAdminForm () {
 	const {subAdminId} = useParams();
@@ -35,7 +31,7 @@ export default function EditSubAdminForm () {
 	
 	const [name, setName] = useState(subAdmin?.name);
 	const [fatherName, setFatherName] = useState(subAdmin?.f_name);
-	const [dob, setDob] = useState(subAdmin?.dob?.split('T')[0]);
+	const [dob, setDob] = useState(formatISO(new Date(subAdmin?.dob), {representation: 'date'}));
 	const [email, setEmail] = useState(subAdmin?.email);
 	const [department, setDepartment] = useState(
 		{id: subAdmin?.department_id, name: departmentData?.entities[subAdmin?.department_id]?.title});

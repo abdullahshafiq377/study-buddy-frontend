@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import TextInput from '../../../components/TextInput';
+import { useNavigate } from 'react-router-dom';
 
 const SubAdminSetting = ({subAdmin}) => {
 	const navigate = useNavigate();

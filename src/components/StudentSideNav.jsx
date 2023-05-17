@@ -1,7 +1,6 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import {
-	ArrowPathIcon,
 	Bars3BottomLeftIcon,
 	BellAlertIcon,
 	BookOpenIcon,
@@ -16,12 +15,8 @@ import {
 	DocumentCheckIcon,
 	DocumentTextIcon,
 	HomeIcon,
-	NewspaperIcon,
-	QueueListIcon,
 	TableCellsIcon,
 	TvIcon,
-	UserIcon,
-	UsersIcon,
 	XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { logOut, selectCurrentUserId } from '../features/auth/authSlice';

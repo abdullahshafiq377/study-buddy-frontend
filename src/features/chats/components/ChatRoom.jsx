@@ -5,7 +5,7 @@ import UserLayout from './UserLayout';
 import { useSelector } from 'react-redux';
 import { getMessages } from '../chatsApiSlice';
 import { selectCurrentUserId } from '../../auth/authSlice';
-import { getDirectConversationHistory } from '../../../services/socketConnection';
+import { getDirectConversationHistory } from '../../../services/RTC/socketConnection';
 
 const ChatRoom = ({currentChatDetails}) => {
 	const userId = useSelector(selectCurrentUserId);

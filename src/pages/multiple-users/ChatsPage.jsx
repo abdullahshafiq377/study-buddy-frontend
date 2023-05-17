@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchUsers from '../../features/chats/components/SearchUsers';
 import AllUsers from '../../features/chats/components/AllUsers';
 import ChatRoom from '../../features/chats/components/ChatRoom';
 import Welcome from '../../features/chats/components/Welcome';
 import { useGetStudentsQuery } from '../../features/students/studentsApiSlice';
 import { useGetInstructorsQuery } from '../../features/instructors/instructorsApiSlice';
-import { getChosenChatDetails, getConversations } from '../../features/chats/chatsApiSlice';
+import { getChosenChatDetails } from '../../features/chats/chatsApiSlice';
 import { useSelector } from 'react-redux';
-import { getDirectChatHistory, getDirectConversationHistory } from '../../services/socketConnection';
+import { getDirectChatHistory, getDirectConversationHistory } from '../../services/RTC/socketConnection';
 
 const ChatsPage = () => {
 	const [openSearch, setOpenSearch] = useState(false);

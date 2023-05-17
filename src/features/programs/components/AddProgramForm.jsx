@@ -1,11 +1,11 @@
 import DropdownMenu from '../../../components/DropdownMenu';
-import {useState} from 'react';
-import {useAddNewProgramMutation} from '../programsApiSlice';
-import {Link, useNavigate} from 'react-router-dom';
+import { useState } from 'react';
+import { useAddNewProgramMutation } from '../programsApiSlice';
+import { Link, useNavigate } from 'react-router-dom';
 import TextInputLong from './../../../components/TextInputLong';
 import TextArea from './../../../components/TextArea';
-import {useDispatch, useSelector} from 'react-redux';
-import {departmentsApiSlice, selectAllDepartments,} from './../../departments/departmentsApiSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { departmentsApiSlice, selectAllDepartments, } from './../../departments/departmentsApiSlice';
 
 export default function AddProgramForm() {
     const [addNewProgram, {isLoading}] = useAddNewProgramMutation();
