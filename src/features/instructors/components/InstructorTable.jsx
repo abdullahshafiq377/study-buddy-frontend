@@ -79,7 +79,7 @@ const InstructorsTable = () => {
 						Instructors
 					</h1>
 					<p className="mt-2 text-sm text-gray-700">
-						A list of all the instructors in the system including
+						A list of all the instructors in the system displaying
 						their name and email.
 					</p>
 				</div>

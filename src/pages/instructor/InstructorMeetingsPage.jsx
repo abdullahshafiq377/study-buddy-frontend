@@ -22,8 +22,7 @@ const InstructorMeetingsPage = () => {
 							Meetings
 						</h1>
 						<p className="mt-2 text-sm text-gray-700">
-							A list of all the sub admins in the system including
-							their names, emails, genders and contact numbers.
+							A list of all the active and scheduled meetings in the system.
 						</p>
 					</div>
 					<div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">

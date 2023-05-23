@@ -1,12 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetSectionByIdQuery } from '../../features/sections/sectionsApiSlice';
+import { useGetAssignedStudentsQuery, useGetSectionByIdQuery } from '../../features/sections/sectionsApiSlice';
 import AttendanceHistoryTable from '../../features/attendance/components/AttendanceHistoryTable';
 
 const InstructorSectionAttendancePage = () => {
 	const {sectionId} = useParams();
 	console.log(sectionId);
 	
+	const {isSuccess: sectionIsSuccess, data: sectionData} = useGetAssignedStudentsQuery(sectionId);
 	const {isSuccess, data} = useGetSectionByIdQuery(sectionId);
 	console.log(data);
 	let section = {
@@ -17,8 +18,9 @@ const InstructorSectionAttendancePage = () => {
 		strength: '',
 	};
 	
-	if (isSuccess) {
-		section = data.entities[sectionId];
+	if (isSuccess && sectionIsSuccess) {
+		section = {...data.entities[sectionId]};
+		section.strength = sectionData?.length;
 	}
 	
 	
@@ -59,7 +61,7 @@ const InstructorSectionAttendancePage = () => {
 								Strength
 							</dt>
 							<dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-							
+								{section.strength}
 							</dd>
 						</div>
 					</dl>
@@ -69,7 +71,7 @@ const InstructorSectionAttendancePage = () => {
 				<h3 className="text-l font-bold leading-6 text-gray-900 mt-8 mb-4">
 					Attendance History
 				</h3>
-				<AttendanceHistoryTable/>
+				<AttendanceHistoryTable sectionId={sectionId}/>
 			</div>
 		</div>
 	);

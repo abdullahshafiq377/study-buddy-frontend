@@ -2,8 +2,8 @@ import { createEntityAdapter, createSelector } from '@reduxjs/toolkit';
 import { apiSlice } from '../../app/api/apiSlice';
 
 const assignmentSubmissionsAdapter = createEntityAdapter({
-	                                                         sortComparer: (a, b) => a.start_date.localeCompare(
-		                                                         b.start_date),
+	                                                         sortComparer: (a, b) => a.student_name.localeCompare(
+		                                                         b.student_name),
                                                          });
 
 const initialState = assignmentSubmissionsAdapter.getInitialState();

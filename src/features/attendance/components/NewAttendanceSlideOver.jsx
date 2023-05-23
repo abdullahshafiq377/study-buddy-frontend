@@ -6,11 +6,16 @@ import { useSelector } from 'react-redux';
 import FeedbackAlert from '../../../components/FeedbackAlert';
 import { useGetSectionsByInstructorQuery } from '../../sections/sectionsApiSlice';
 import { selectCurrentUserId } from '../../auth/authSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import { useAddNewLectureMutation } from '../lecturesApiSlice';
 
 export default function NewAttendanceSlideOver ({open, setOpen}) {
 	const userId = useSelector(selectCurrentUserId);
 	
+	const navigate = useNavigate();
+	
+	const [addNewLecture] = useAddNewLectureMutation();
 	const {data: sectionData, isSuccess: isSuccessSection} = useGetSectionsByInstructorQuery(userId);
 	
 	const [title, setTitle] = useState('');
@@ -31,8 +36,22 @@ export default function NewAttendanceSlideOver ({open, setOpen}) {
 	const handleStartTimeInput = (e) => setStartTime(e.target.value);
 	const handleEndTimeInput = (e) => setEndTime(e.target.value);
 	const handleDateInput = (e) => setDate(e.target.value);
-	const handleSubmit = (e) => {
+	
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const lectureData = {
+			id: uuidv4(),
+			title,
+			startTime,
+			endTime,
+			date,
+			sectionId: section.id
+		};
+		console.log(lectureData);
+		
+		await addNewLecture(lectureData);
+		
+		navigate(`mark/${lectureData.id}`);
 	};
 	
 	return (
@@ -200,12 +219,12 @@ export default function NewAttendanceSlideOver ({open, setOpen}) {
 											>
 												Cancel
 											</button>
-											<Link
-												to="mark"
+											<button
+												onClick={handleSubmit}
 												className="ml-4 inline-flex justify-center rounded-md bg-primary-900 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
 											>
 												Mark
-											</Link>
+											</button>
 										</div>
 									</form>
 								</Dialog.Panel>

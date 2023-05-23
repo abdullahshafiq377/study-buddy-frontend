@@ -11,12 +11,16 @@ import StudentRoutes from './routes/StudentRoutes';
 import StudentLayout from './components/StudentLayout';
 import InstructorLayout from './components/InstructorLayout';
 import RequireAuth from './features/auth/RequireAuth';
+import QRCodePage from './pages/public/QRCodePage';
+import ScanQRCodePage from './pages/public/ScanQRCodePage';
 
 function App () {
 	return (<Routes>
 			{/* Public Routes */}
 			<Route path="/">
 				<Route index element={<LoginPage/>}/>
+				<Route path="QR/:lectureId" element={<QRCodePage/>}/>
+				<Route path="scan-QR/:studentId" element={<ScanQRCodePage/>}/>
 				
 				{/* Private Routes */}
 				<Route element={<RequireAuth/>}>

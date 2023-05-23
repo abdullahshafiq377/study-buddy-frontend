@@ -2,15 +2,17 @@ import React from 'react';
 import Loader from '../../../components/Loader';
 import FeedbackAlert from '../../../components/FeedbackAlert';
 import AttendanceHistoryTableRow from './AttendanceHistoryTableRow';
+import { useGetLectureBySectionQuery } from '../lecturesApiSlice';
 
-const AttendanceHistoryTable = () => {
+const AttendanceHistoryTable = ({sectionId}) => {
+	const {isLoading, isSuccess, isError, data} = useGetLectureBySectionQuery(sectionId);
 	let content;
 	
-	if (false) {
+	if (isLoading) {
 		content = <Loader/>;
 	}
-	else if (true) {
-		//const {ids, entities} = data;
+	else if (isSuccess) {
+		const {ids, entities} = data;
 		content = (
 			<>
 				<table className="min-w-full divide-y divide-gray-300">
@@ -32,7 +34,19 @@ const AttendanceHistoryTable = () => {
 							scope="col"
 							className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
 						>
-							Time
+							Start Time
+						</th>
+						<th
+							scope="col"
+							className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+						>
+							End Time
+						</th>
+						<th
+							scope="col"
+							className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+						>
+							Delete
 						</th>
 						<th
 							scope="col"
@@ -43,13 +57,15 @@ const AttendanceHistoryTable = () => {
 					</tr>
 					</thead>
 					<tbody className="bg-white">
-					<AttendanceHistoryTableRow/>
+					{ids.map(id => {
+						return <AttendanceHistoryTableRow lecture={entities[id]}/>;
+					})}
 					</tbody>
 				</table>
 			</>
 		);
 	}
-	else if (false) {
+	else if (isError) {
 		content = (<div className="mt-6">
 			<FeedbackAlert type="error" content={'Replace with error'}/>
 		</div>);

@@ -80,8 +80,8 @@ const StudentsTable = () => {
 						Students
 					</h1>
 					<p className="mt-2 text-sm text-gray-700">
-						A list of all the students in the system including their
-						name and email.
+						A list of all the students in the system displaying their
+						reg#, name and email.
 					</p>
 				</div>
 				<div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">

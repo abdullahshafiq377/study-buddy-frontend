@@ -2,15 +2,17 @@ import React from 'react';
 import Loader from '../../../components/Loader';
 import FeedbackAlert from '../../../components/FeedbackAlert';
 import MarkAttendanceTableRow from './MarkAttendanceTableRow';
+import { useGetAttendanceByLectureQuery } from '../attendanceApiSlice';
 
-const MarkAttendanceTable = () => {
+const MarkAttendanceTable = ({lectureId}) => {
+	const {isLoading, isSuccess, isError, data} = useGetAttendanceByLectureQuery(lectureId);
 	let content;
 	
-	if (false) {
+	if (isLoading) {
 		content = <Loader/>;
 	}
-	else if (true) {
-		//const {ids, entities} = data;
+	else if (isSuccess) {
+		const {ids, entities} = data;
 		content = (
 			<>
 				<table className="min-w-full divide-y divide-gray-300">
@@ -37,13 +39,15 @@ const MarkAttendanceTable = () => {
 					</tr>
 					</thead>
 					<tbody className="bg-white">
-					<MarkAttendanceTableRow/>
+					{ids.map(id => {
+						return <MarkAttendanceTableRow attendance={entities[id]}/>;
+					})}
 					</tbody>
 				</table>
 			</>
 		);
 	}
-	else if (false) {
+	else if (isError) {
 		content = (<div className="mt-6">
 			<FeedbackAlert type="error" content={'Replace with error'}/>
 		</div>);

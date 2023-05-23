@@ -4,7 +4,7 @@ import { useGetSectionsByInstructorQuery } from '../../sections/sectionsApiSlice
 import { useSelector } from 'react-redux';
 import { selectCurrentUserId } from '../../auth/authSlice';
 import ConfirmDeletionModal from '../../../components/ConfirmDeletionModal';
-import { deleteScheduledMeeting, startMeeting } from '../../../services/RTC/socketConnection';
+import { deleteScheduledMeeting } from '../../../services/RTC/socketConnection';
 import { formatISO } from 'date-fns';
 import { startNewMeeting } from '../../../services/RTC/meetingHandler';
 

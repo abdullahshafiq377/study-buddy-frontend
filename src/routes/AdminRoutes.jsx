@@ -20,51 +20,48 @@ import EditEventPage from './../pages/admin/EditEventPage';
 import NotFoundPage from './../pages/public/NotFoundPage';
 import AdminSettingsPage from '../pages/admin/AdminSettingsPage';
 import ResetPasswordPage from '../pages/admin/ResetPasswordPage';
-import AdminPostsPage from '../pages/admin/AdminPostsPage';
 
 const AdminRoutes = () => {
-    return (
-        <Routes>
-            <Route path='dashboard' element={<AdminDashboardPage/>}/>
-            <Route path='settings' element={<AdminSettingsPage/>}/>
-
-            <Route path='sub-admins' element={<SubAdminsListPage/>}/>
-            <Route path='sub-admins/add' element={<AddSubAdminPage/>}/>
-            <Route
-                path='sub-admins/edit/:subAdminId'
-                element={<EditSubAdminPage/>}
-            />
-
-            <Route path='departments' element={<DepartmentsListPage/>}/>
-            <Route path='departments/add' element={<AddDepartmentPage/>}/>
-            <Route
-                path='departments/edit/:departmentId'
-                element={<EditDepartmentPage/>}
-            />
-
-            <Route path='programs' element={<ProgramsListPage/>}/>
-            <Route path='programs/add' element={<AddProgramPage/>}/>
-            <Route
-                path='programs/edit/:programId'
-                element={<EditProgramPage/>}
-            />
-
-            <Route path='notices' element={<NoticesListPage/>}/>
-            <Route path='notices/add' element={<AddNoticePage/>}/>
-            <Route path='notices/edit/:noticeId' element={<EditNoticePage/>}/>
-
-            <Route path='events' element={<EventsListPage/>}/>
-            <Route path='events/add' element={<AddEventPage/>}/>
-            <Route path='events/edit/:eventId' element={<EditEventPage/>}/>
-
-            <Route path='posts' element={<AdminPostsPage/>}/>
-
-            <Route path='reset-password' element={<ResetPasswordPage/>}/>
-
-
-            <Route path='*' element={<NotFoundPage/>}/>
-        </Routes>
-    );
+	return (
+		<Routes>
+			<Route path="dashboard" element={<AdminDashboardPage/>}/>
+			<Route path="settings" element={<AdminSettingsPage/>}/>
+			
+			<Route path="sub-admins" element={<SubAdminsListPage/>}/>
+			<Route path="sub-admins/add" element={<AddSubAdminPage/>}/>
+			<Route
+				path="sub-admins/edit/:subAdminId"
+				element={<EditSubAdminPage/>}
+			/>
+			
+			<Route path="departments" element={<DepartmentsListPage/>}/>
+			<Route path="departments/add" element={<AddDepartmentPage/>}/>
+			<Route
+				path="departments/edit/:departmentId"
+				element={<EditDepartmentPage/>}
+			/>
+			
+			<Route path="programs" element={<ProgramsListPage/>}/>
+			<Route path="programs/add" element={<AddProgramPage/>}/>
+			<Route
+				path="programs/edit/:programId"
+				element={<EditProgramPage/>}
+			/>
+			
+			<Route path="notices" element={<NoticesListPage/>}/>
+			<Route path="notices/add" element={<AddNoticePage/>}/>
+			<Route path="notices/edit/:noticeId" element={<EditNoticePage/>}/>
+			
+			<Route path="events" element={<EventsListPage/>}/>
+			<Route path="events/add" element={<AddEventPage/>}/>
+			<Route path="events/edit/:eventId" element={<EditEventPage/>}/>
+			
+			<Route path="reset-password" element={<ResetPasswordPage/>}/>
+			
+			
+			<Route path="*" element={<NotFoundPage/>}/>
+		</Routes>
+	);
 };
 
 export default AdminRoutes;

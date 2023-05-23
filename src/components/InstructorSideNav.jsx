@@ -34,6 +34,7 @@ export default function InstructorSideNav (props) {
 	
 	let name = '';
 	let email = '';
+	let image = null;
 	if (isLoading) {
 		name = 'Loading';
 		email = 'Loading';
@@ -43,6 +44,7 @@ export default function InstructorSideNav (props) {
 		if (instructor) {
 			name = instructor.name;
 			email = instructor.email;
+			image = instructor.image;
 		}
 	}
 	else if (isError) {
@@ -181,21 +183,6 @@ export default function InstructorSideNav (props) {
 												Learning Resources
 											</NavLink>
 											<NavLink
-												key="alerts"
-												to="instructor/alerts"
-												className={({isActive}) =>
-													isActive
-													? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md'
-													: 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-base font-medium rounded-md'
-												}
-											>
-												<BellAlertIcon
-													className="mr-3 h-6 w-6 flex-shrink-0 text-primary-400"
-													aria-hidden="true"
-												/>
-												Alerts
-											</NavLink>
-											<NavLink
 												key="assignments"
 												to="instructor/assignments"
 												className={({isActive}) =>
@@ -313,7 +300,7 @@ export default function InstructorSideNav (props) {
 				
 				{/* Static sidebar for desktop */}
 				<div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
-					{/* Sidebar component, swap this element with another sidebar if you like */}
+					{/* Sidebar components, swap this element with another sidebar if you like */}
 					<div className="flex flex-grow flex-col overflow-y-auto bg-primary-900 pt-5">
 						<div className="flex flex-shrink-0 items-center px-4">
 							<img className="h-8 w-auto" src={logo} alt="Your Company"/>
@@ -379,21 +366,6 @@ export default function InstructorSideNav (props) {
 										aria-hidden="true"
 									/>
 									Learning Resources
-								</NavLink>
-								<NavLink
-									key="alerts"
-									to="instructor/alerts"
-									className={({isActive}) =>
-										isActive
-										? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-										: 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-									}
-								>
-									<BellAlertIcon
-										className="mr-3 h-6 w-6 flex-shrink-0 text-primary-400"
-										aria-hidden="true"
-									/>
-									Alerts
 								</NavLink>
 								<NavLink
 									key="assignments"
@@ -527,7 +499,7 @@ export default function InstructorSideNav (props) {
 												<div>
 													<img
 														className="inline-block h-9 w-9 rounded-full"
-														src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+														src={`http://localhost:8000/api/v1/files/${image}`}
 														alt=""
 													/>
 												</div>

@@ -68,7 +68,7 @@ const ProgramsTable = () => {
 						Programs
 					</h1>
 					<p className="mt-2 text-sm text-gray-700">
-						A list of all the programs in the system including their
+						A list of all the programs in the system displaying their
 						titles and descriptions.
 					</p>
 				</div>

@@ -6,8 +6,7 @@ function classNames (...classes) {
 	              .join(' ');
 }
 
-export default function AttendanceToggleButton () {
-	const [enabled, setEnabled] = useState(false);
+export default function AttendanceToggleButton ({enabled, setEnabled}) {
 	
 	return (
 		<Switch

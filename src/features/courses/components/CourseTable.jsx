@@ -79,8 +79,8 @@ const CoursesTable = () => {
 						Courses
 					</h1>
 					<p className="mt-2 text-sm text-gray-700">
-						A list of all the courses in the system including their
-						name and email.
+						A list of all the courses in the system displaying their
+						course code, title and description.
 					</p>
 				</div>
 				<div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">

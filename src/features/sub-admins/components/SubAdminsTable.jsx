@@ -85,7 +85,7 @@ const SubAdminsTable = () => {
 						Sub Admins
 					</h1>
 					<p className="mt-2 text-sm text-gray-700">
-						A list of all the sub admins in the system including
+						A list of all the sub admins in the system displaying
 						their names, emails, genders and contact numbers.
 					</p>
 				</div>

@@ -68,7 +68,7 @@ const DepartmentsTable = () => {
 						Departments
 					</h1>
 					<p className="mt-2 text-sm text-gray-700">
-						A list of all the departments in the system including
+						A list of all the departments in the system displaying
 						their titles and descriptions.
 					</p>
 				</div>

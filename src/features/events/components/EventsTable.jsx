@@ -66,7 +66,7 @@ const EventsTable = () => {
 				<div className="sm:flex-auto">
 					<h1 className="text-2xl font-bold text-gray-900">Events</h1>
 					<p className="mt-2 text-sm text-gray-700">
-						A list of all the events in the system including their
+						A list of all the events in the system displaying their
 						titles and descriptions.
 					</p>
 				</div>

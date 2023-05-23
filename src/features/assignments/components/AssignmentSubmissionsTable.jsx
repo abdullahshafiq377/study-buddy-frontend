@@ -4,8 +4,10 @@ import { useGetAssignmentSubmissionsQuery } from '../assignmentSubmissionApiSlic
 import Loader from '../../../components/Loader';
 import FeedbackAlert from '../../../components/FeedbackAlert';
 
-const AssignmentSubmissionsTable = ({assignmentId}) => {
-	const {isLoading, isSuccess, isError, data} = useGetAssignmentSubmissionsQuery(assignmentId);
+const AssignmentSubmissionsTable = ({
+	                                    data, isSuccess, isLoading, isError, assignmentSubmissions,
+	                                    setAssignmentSubmissions
+                                    }) => {
 	
 	let content;
 	

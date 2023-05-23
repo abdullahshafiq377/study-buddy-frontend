@@ -149,11 +149,11 @@ export default function LoginPage () {
 												id="remember-me"
 												name="remember-me"
 												type="checkbox"
-												className="h-4 w-4 rounded border-gray-300 text-primary-900 focus:ring-primary-600"
+												className="h-4 w-4 rounded border-gray-300 text-primary-900 focus:ring-primary-600 hidden"
 											/>
 											<label
 												htmlFor="remember-me"
-												className="ml-2 block text-sm text-gray-900"
+												className="ml-2 block text-sm text-gray-900 hidden"
 											>
 												Remember me
 											</label>
@@ -162,7 +162,7 @@ export default function LoginPage () {
 										<div className="text-sm">
 											<a
 												href="#"
-												className="font-medium text-primary-900 hover:text-primary-600"
+												className="font-medium text-primary-900 hover:text-primary-600 hidden"
 											>
 												Forgot your password?
 											</a>

@@ -1,26 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const authSlice = createSlice({
-    name: 'auth',
-    initialState: {user: null, token: null, userType: null, userId: null, userDepartmentId: null},
-    reducers: {
-        setCredentials: (state, action) => {
-            const {user, accessToken, userType, userId, userDepartmentId} = action.payload;
-            state.user = user;
-            state.token = accessToken;
-            state.userType = userType;
-            state.userId = userId;
-            state.userDepartmentId = userDepartmentId;
-        },
-        logOut: (state, action) => {
-            state.user = null;
-            state.token = null;
-            state.userType = null;
-            state.userId = null;
-            state.userDepartmentId = null;
-        },
-    },
-});
+	                              name: 'auth',
+	                              initialState: {
+		                              user: null, token: null, userType: null, userId: null, userDepartmentId: null
+	                              },
+	                              reducers: {
+		                              setCredentials: (state, action) => {
+			                              const {
+				                              user, accessToken, userType, userId, userDepartmentId
+			                              } = action.payload;
+			                              state.user = user;
+			                              state.token = accessToken;
+			                              state.userType = userType;
+			                              state.userId = userId;
+			                              state.userDepartmentId = userDepartmentId;
+		                              },
+		                              logOut: (state, action) => {
+			                              state.user = null;
+			                              state.token = null;
+			                              state.userType = null;
+			                              state.userId = null;
+			                              state.userDepartmentId = null;
+		                              },
+	                              },
+                              });
 
 export const {setCredentials, logOut} = authSlice.actions;
 

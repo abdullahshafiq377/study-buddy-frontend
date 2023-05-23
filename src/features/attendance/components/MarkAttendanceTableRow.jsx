@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AttendanceToggleButton from './AttendanceToggleButton';
+import { useMarkAttendanceMutation } from '../attendanceApiSlice';
 
-const MarkAttendanceTableRow = ({student}) => {
+const MarkAttendanceTableRow = ({attendance}) => {
+	const [enabled, setEnabled] = useState(Boolean(attendance?.is_present));
+	const [markAttendance] = useMarkAttendanceMutation();
+	console.log('before', enabled);
+	
+	const handleAttendanceButton = async () => {
+		setEnabled(!enabled);
+		console.log('after', enabled);
+		await markAttendance({attendanceId: attendance.id, isPresent: !enabled});
+	};
 	return (
-		<tr key={student?.id}>
+		<tr key={attendance?.id}>
 			<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-				{student?.title}
+				{attendance?.student_name}
 			</td>
 			<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-				{student?.name}
+				{attendance.session}-{attendance.program_title}-{attendance.reg_num}
 			</td>
 			<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-				<AttendanceToggleButton/>
+				<AttendanceToggleButton enabled={enabled} setEnabled={handleAttendanceButton}/>
 			</td>
 		</tr>
 	);

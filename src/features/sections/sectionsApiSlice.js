@@ -162,6 +162,14 @@ export const sectionsApiSlice =
 						                                       return responseData;
 					                                       },
 				                                       }),
+			                         getStudentSections:
+				                         builder.query({
+					                                       query: (studentId) => `/sections/by-student/${studentId}`,
+					                                       keepUnusedDataFor: 900,
+					                                       transformResponse: (responseData) => {
+						                                       return responseData;
+					                                       },
+				                                       }),
 			                         assignSection:
 				                         builder.mutation({
 					                                          query: (details) => ({
@@ -172,10 +180,10 @@ export const sectionsApiSlice =
 				                                          }),
 			                         unassignSection:
 				                         builder.mutation({
-					                                          query: (registrationId) => ({
-						                                          url: `/sections/unassign/${registrationId}`,
+					                                          query: (details) => ({
+						                                          url: `/sections/unassign/${details.registrationId}`,
 						                                          method: 'PATCH',
-						                                          body: {registrationId},
+						                                          body: {...details},
 					                                          }),
 				                                          }),
 		                         }),
@@ -189,6 +197,7 @@ export const {
 	useGetSectionByIdQuery,
 	useGetAssignedStudentsQuery,
 	useGetUnassignedStudentsQuery,
+	useGetStudentSectionsQuery,
 	useAddNewSectionMutation,
 	useUpdateSectionMutation,
 	useDeleteSectionMutation,

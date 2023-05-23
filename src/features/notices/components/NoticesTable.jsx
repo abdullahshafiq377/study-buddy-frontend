@@ -68,8 +68,8 @@ const NoticesTable = () => {
 						Notices
 					</h1>
 					<p className="mt-2 text-sm text-gray-700">
-						A list of all the notices in the system including their
-						titles and descriptions.
+						A list of all the notices in the system displaying their
+						titles and links.
 					</p>
 				</div>
 				<div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">

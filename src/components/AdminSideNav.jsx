@@ -12,7 +12,7 @@ import {
 	ChevronDownIcon,
 	DocumentTextIcon,
 	HomeIcon,
-	NewspaperIcon,
+	NewspaperIcon, TableCellsIcon,
 	UsersIcon,
 	XMarkIcon,
 } from '@heroicons/react/24/outline';
@@ -22,10 +22,12 @@ import { useLogoutMutation } from '../features/auth/authApiSlice';
 import { useDispatch } from 'react-redux';
 import logo from '../assets/logos/logo-dark@2x.png';
 import ResetPasswordSlideover from '../features/reset-password/components/ResetPasswordSlideover';
+import GenerateResultModal from '../features/result/components/GenerateResultModal';
 
 export default function AdminSideNav (props) {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [resetPasswordSlideoverOpen, setResetPasswordSlideoverOpen] = useState(false);
+	const [openGenerateResultModal, setOpenGenerateResultModal] = useState(false);
 	const [logout] = useLogoutMutation();
 	const dispatch = useDispatch();
 	
@@ -198,19 +200,16 @@ export default function AdminSideNav (props) {
 												Events
 											</NavLink>
 											<NavLink
-												key="posts"
-												to="admin/posts"
-												className={({isActive}) =>
-													isActive
-													? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md'
-													: 'text-primary-100 hover:bg-primary-800 group flex items-center px-2 py-2 text-base font-medium rounded-md'
-												}
+												key="generate_result"
+												onClick={() => setOpenGenerateResultModal(
+													!openGenerateResultModal)}
+												className="text-primary-100 hover:bg-primary-800 group flex items-center px-2 py-2 text-base font-medium rounded-md"
 											>
-												<ChatBubbleLeftRightIcon
+												<TableCellsIcon
 													className="mr-3 h-6 w-6 flex-shrink-0 text-primary-400"
 													aria-hidden="true"
 												/>
-												Posts
+												Generate Result
 											</NavLink>
 											<NavLink
 												key="reset-password"
@@ -239,7 +238,7 @@ export default function AdminSideNav (props) {
 				
 				{/* Static sidebar for desktop */}
 				<div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
-					{/* Sidebar component, swap this element with another sidebar if you like */}
+					{/* Sidebar components, swap this element with another sidebar if you like */}
 					<div className="flex flex-grow flex-col overflow-y-auto bg-primary-900 pt-5">
 						<div className="flex flex-shrink-0 items-center px-4">
 							<img
@@ -341,19 +340,15 @@ export default function AdminSideNav (props) {
 									Events
 								</NavLink>
 								<NavLink
-									key="posts"
-									to="admin/posts"
-									className={({isActive}) =>
-										isActive
-										? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-										: 'text-primary-100 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-									}
+									key="generate_result"
+									onClick={() => setOpenGenerateResultModal(!openGenerateResultModal)}
+									className="text-primary-100 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md"
 								>
-									<ChatBubbleLeftRightIcon
+									<TableCellsIcon
 										className="mr-3 h-6 w-6 flex-shrink-0 text-primary-400"
 										aria-hidden="true"
 									/>
-									Posts
+									Generate Result
 								</NavLink>
 								<NavLink
 									key="reset-password"
@@ -472,6 +467,7 @@ export default function AdminSideNav (props) {
 						</div>
 					</main>
 				</div>
+				<GenerateResultModal setOpen={setOpenGenerateResultModal} open={openGenerateResultModal}/>
 				<ResetPasswordSlideover setOpen={setResetPasswordSlideoverOpen} open={resetPasswordSlideoverOpen}/>
 			</div>
 		</>

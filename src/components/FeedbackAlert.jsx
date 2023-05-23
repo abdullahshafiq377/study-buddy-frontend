@@ -3,8 +3,8 @@
 
 import { CheckCircleIcon, ExclamationTriangleIcon, } from '@heroicons/react/20/solid';
 
-export default function FeedbackAlert (props) {
-	switch (props.type) {
+export default function FeedbackAlert ({type, content}) {
+	switch (type) {
 		case 'error':
 			return (
 				<div
@@ -19,7 +19,7 @@ export default function FeedbackAlert (props) {
 						</div>
 						<div className="ml-3">
 							<p className={`text-sm font-medium text-red-800`}>
-								{props.content}
+								{content}
 							</p>
 						</div>
 					</div>
@@ -41,7 +41,7 @@ export default function FeedbackAlert (props) {
 							<p
 								className={`text-sm font-medium text-yellow-800`}
 							>
-								{props.content}
+								{content}
 							</p>
 						</div>
 					</div>
@@ -61,7 +61,7 @@ export default function FeedbackAlert (props) {
 						</div>
 						<div className="ml-3">
 							<p className={`text-sm font-medium text-green-800`}>
-								{props.content}
+								{content}
 							</p>
 						</div>
 					</div>
@@ -81,7 +81,7 @@ export default function FeedbackAlert (props) {
 						</div>
 						<div className="ml-3">
 							<p className={`text-sm font-medium text-red-800`}>
-								{props.content}
+								{content}
 							</p>
 						</div>
 					</div>
