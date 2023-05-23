@@ -5,12 +5,8 @@ import { useSelector } from 'react-redux';
 import { selectCurrentUserId } from '../../auth/authSlice';
 import { useGetSectionsByInstructorQuery } from '../../sections/sectionsApiSlice';
 import ComboBox from '../../../components/ComboBox';
-import {
-	useAddNewQuizMutation,
-	useDeleteQuizMutation,
-	useUpdateQuizMutation
-} from '../quizApiSlice';
-import { format, formatISO, parseISO } from 'date-fns';
+import { useDeleteQuizMutation, useUpdateQuizMutation } from '../quizApiSlice';
+import { formatISO } from 'date-fns';
 import ConfirmDeletionModal from '../../../components/ConfirmDeletionModal';
 
 export default function EditQuizSlideOver ({open, setOpen, quiz}) {

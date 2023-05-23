@@ -1,9 +1,12 @@
 import { store } from '../../app/store';
 import {
-	setActiveMeetings, setLocalStream,
+	setActiveMeetings,
+	setLocalStream,
 	setMeetingDetails,
-	setOpenMeeting, setRemoteStreams,
-	setScheduledMeetings, setScreenSharingSteam
+	setOpenMeeting,
+	setRemoteStreams,
+	setScheduledMeetings,
+	setScreenSharingSteam
 } from '../../features/meetings/meetingsApiSlice';
 import * as socketConnection from './socketConnection';
 import * as webRTCHandler from './webRTCHandler';

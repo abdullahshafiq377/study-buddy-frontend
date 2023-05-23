@@ -3,9 +3,8 @@ import { useRegisterCourseMutation } from '../registrationApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUserId } from '../../auth/authSlice';
 
-const UnregisteredCoursesTableRow = ({course}) => {
+const UnregisteredCoursesTableRow = ({course, studentId}) => {
 	const [registerCourse] = useRegisterCourseMutation();
-	const studentId = useSelector(selectCurrentUserId);
 	
 	
 	const handleRegister = async () => {

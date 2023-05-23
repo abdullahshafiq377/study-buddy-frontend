@@ -95,6 +95,14 @@ export const subAdminsApiSlice = apiSlice.injectEndpoints({
 				                                                                                           },
 			                                                                                           ],
 		                                                                                           }),
+		                                                          changeSubAdminPassword:
+			                                                          builder.mutation({
+				                                                                           query: (details) => ({
+					                                                                           url: `/sub-admins/${details.id}`,
+					                                                                           method: 'PATCH',
+					                                                                           body: {...details},
+				                                                                           }),
+			                                                                           }),
 	                                                          }),
                                                           });
 
@@ -105,6 +113,7 @@ export const {
 	useAddNewSubAdminMutation,
 	useUpdateSubAdminMutation,
 	useDeleteSubAdminMutation,
+	useChangeSubAdminPasswordMutation,
 } = subAdminsApiSlice;
 
 // Selectors

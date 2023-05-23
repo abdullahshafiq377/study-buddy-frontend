@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import InstructorSectionsTable from '../../features/sections/components/InstructorSectionsTable';
 import NewQuizSlideOver from '../../features/quizzes/components/NewQuizSlideOver';
-import ViewQuizSlideOver from '../../features/quizzes/components/ViewQuizSlideOver';
 
 const InstructorQuizzesPage = () => {
 	const [openNewQuizSlideOver, setOpenNewQuizSlideOver] = useState(false);

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import StudentLecturesTable from '../../features/attendance/components/StudentLecturesTable';
 import StudentLearningResourceTable from '../../features/learning-resource/components/StudentLearningResourceTable';
 
 const StudentSectionLearningResourcePage = () => {

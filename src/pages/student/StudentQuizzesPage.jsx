@@ -1,6 +1,4 @@
 import React from 'react';
-import InstructorSectionsTable from '../../features/sections/components/InstructorSectionsTable';
-import NewQuizSlideOver from '../../features/quizzes/components/NewQuizSlideOver';
 import StudentQuizzesTable from '../../features/quizzes/components/StudentQuizzesTable';
 import { useGetQuizzesQuery } from '../../features/quizzes/quizApiSlice';
 

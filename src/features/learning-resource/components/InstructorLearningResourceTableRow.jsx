@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronRightIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
+import { TrashIcon } from '@heroicons/react/24/outline';
 import { useDeleteLearningResourceMutation } from '../learningResourcesApiSlice';
 import ConfirmDeletionModal from '../../../components/ConfirmDeletionModal';
 

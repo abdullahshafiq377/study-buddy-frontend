@@ -1,10 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetSectionByIdQuery } from '../../features/sections/sectionsApiSlice';
 import MarkAttendanceTable from '../../features/attendance/components/MarkAttendanceTable';
 import { useGetLectureByIdQuery } from '../../features/attendance/lecturesApiSlice';
 import { formatISO } from 'date-fns';
-import QRCode from 'react-qr-code';
 
 const InstructorMarkAttendancePage = () => {
 	const {lectureId} = useParams();

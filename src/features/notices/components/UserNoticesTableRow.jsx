@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { selectNoticeById } from '../noticesApiSlice';
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
 import ViewNoticeSlideOver from './ViewNoticeSlideOver';

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetAssignedStudentsQuery, useGetSectionByIdQuery } from '../../features/sections/sectionsApiSlice';
-import AttendanceHistoryTable from '../../features/attendance/components/AttendanceHistoryTable';
 import InstructorLearningResourceTable
 	from '../../features/learning-resource/components/InstructorLearningResourceTable';
 

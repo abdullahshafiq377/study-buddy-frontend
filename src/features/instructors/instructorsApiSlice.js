@@ -88,9 +88,10 @@ export const instructorsApiSlice = apiSlice.injectEndpoints({
 		                                                                                               }),
 		                                                            updateInstructor: builder.mutation({
 			                                                                                               query: (initialInstructor) => ({
-				                                                                                               url: `/instructors/${initialInstructor.id}`,
+				                                                                                               url: `/instructors/${initialInstructor.get(
+					                                                                                               'id')}`,
 				                                                                                               method: 'PUT',
-				                                                                                               body: {...initialInstructor},
+				                                                                                               body: initialInstructor,
 			                                                                                               }),
 			                                                                                               invalidatesTags: (result,
 			                                                                                                                 error,
@@ -116,6 +117,14 @@ export const instructorsApiSlice = apiSlice.injectEndpoints({
 				                                                                                               },
 			                                                                                               ],
 		                                                                                               }),
+		                                                            changeInstructorPassword:
+			                                                            builder.mutation({
+				                                                                             query: (details) => ({
+					                                                                             url: `/instructors/${details.id}`,
+					                                                                             method: 'PATCH',
+					                                                                             body: {...details},
+				                                                                             }),
+			                                                                             }),
 	                                                            }),
                                                             });
 
@@ -127,6 +136,7 @@ export const {
 	useAddNewInstructorMutation,
 	useUpdateInstructorMutation,
 	useDeleteInstructorMutation,
+	useChangeInstructorPasswordMutation,
 } = instructorsApiSlice;
 
 // Selectors

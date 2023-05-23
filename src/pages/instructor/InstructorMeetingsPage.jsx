@@ -4,7 +4,6 @@ import NewMeetingSlideOver from '../../features/meetings/components/NewMeetingSl
 import { getScheduledMeetingHistory } from '../../services/RTC/socketConnection';
 import { useSelector } from 'react-redux';
 import { selectCurrentUserId } from '../../features/auth/authSlice';
-import StudentActiveMeetingsTable from '../../features/meetings/components/StudentActiveMeetingsTable';
 import InstructorActiveMeetingsTable from '../../features/meetings/components/InstructorActiveMeetingsTable';
 
 const InstructorMeetingsPage = () => {

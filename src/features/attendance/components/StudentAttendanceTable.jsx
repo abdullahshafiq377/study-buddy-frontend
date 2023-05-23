@@ -6,7 +6,6 @@ import Loader from '../../../components/Loader';
 import { useGetInstructorsQuery } from '../../instructors/instructorsApiSlice';
 import StudentAttendanceTableRow from './StudentAttendanceTableRow';
 import { useGetStudentSectionsQuery } from '../../sections/sectionsApiSlice';
-import { useGetAssignmentsBySectionQuery } from '../../assignments/assignmentApiSlice';
 import { useGetAttendanceByStudentQuery } from '../attendanceApiSlice';
 
 const StudentAttendanceTable = () => {

@@ -1,11 +1,4 @@
 import React from 'react';
-import InstructorSectionsTable from '../../features/sections/components/InstructorSectionsTable';
-import NewAssignmentSlideOver from '../../features/assignments/components/NewAssignmentSlideOver';
-import StudentAssignmentsTable from '../../features/assignments/components/StudentAssignmentsTable';
-import { useGetAssignmentsQuery } from '../../features/assignments/assignmentApiSlice';
-import { useGetStudentSectionsQuery } from '../../features/sections/sectionsApiSlice';
-import StudentSectionsTable from '../../features/sections/components/StudentSectionsTable';
-import AttendanceHistoryTable from '../../features/attendance/components/AttendanceHistoryTable';
 import { useParams } from 'react-router-dom';
 import StudentLecturesTable from '../../features/attendance/components/StudentLecturesTable';
 

@@ -31,7 +31,7 @@ export default function EditSubAdminForm () {
 	
 	const [name, setName] = useState(subAdmin?.name);
 	const [fatherName, setFatherName] = useState(subAdmin?.f_name);
-	const [dob, setDob] = useState(formatISO(new Date(subAdmin?.dob), {representation: 'date'}));
+	const [dob, setDob] = useState(subAdmin?.dob.split('T')[0]);
 	const [email, setEmail] = useState(subAdmin?.email);
 	const [department, setDepartment] = useState(
 		{id: subAdmin?.department_id, name: departmentData?.entities[subAdmin?.department_id]?.title});
@@ -98,6 +98,7 @@ export default function EditSubAdminForm () {
 			setGender('');
 			setContact('');
 			setNationality('');
+			setDob(null);
 			navigate('/admin/sub-admins');
 		} catch (err) {
 			console.log(err);

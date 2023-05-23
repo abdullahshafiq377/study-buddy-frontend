@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectActiveMeetings } from '../meetingsApiSlice';
 import { selectCurrentUserId } from '../../auth/authSlice';
-import StudentActiveMeetingsTableRow from './StudentActiveMeetingsTableRow';
 import InstructorActiveMeetingsTableRow from './InstructorActiveMeetingsTableRow';
 
 const InstructorActiveMeetingsTable = () => {

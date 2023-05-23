@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import InstructorSectionsTable from '../../features/sections/components/InstructorSectionsTable';
-import NewAssignmentSlideOver from '../../features/assignments/components/NewAssignmentSlideOver';
-import ViewAssignmentSlideOver from '../../features/assignments/components/ViewAssignmentSlideOver';
 
 const InstructorGradesPage = () => {
 	return (

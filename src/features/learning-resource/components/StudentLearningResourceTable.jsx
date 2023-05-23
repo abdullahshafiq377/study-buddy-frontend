@@ -1,7 +1,6 @@
 import React from 'react';
 import FeedbackAlert from '../../../components/FeedbackAlert';
 import Loader from '../../../components/Loader';
-import InstructorLearningResourceTableRow from './InstructorLearningResourceTableRow';
 import { useGetLearningResourcesBySectionQuery } from '../learningResourcesApiSlice';
 import StudentLearningResourceTableRow from './StudentLearningResourceTableRow';
 

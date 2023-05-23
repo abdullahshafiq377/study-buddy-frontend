@@ -1,8 +1,4 @@
-import React, { useState } from 'react';
-import InstructorSectionsTable from '../../features/sections/components/InstructorSectionsTable';
-import NewAssignmentSlideOver from '../../features/assignments/components/NewAssignmentSlideOver';
-import ViewAssignmentSlideOver from '../../features/assignments/components/ViewAssignmentSlideOver';
-import UserNoticesTable from '../../features/notices/components/UserNoticesTable';
+import React from 'react';
 import UserEventsTable from '../../features/events/components/UserEventsTable';
 
 const UserEventsPage = () => {

@@ -1,5 +1,4 @@
 import React from 'react';
-import StudentSectionsTable from '../../features/sections/components/StudentSectionsTable';
 import StudentAttendanceTable from '../../features/attendance/components/StudentAttendanceTable';
 import { useSelector } from 'react-redux';
 import { selectCurrentUserId } from '../../features/auth/authSlice';

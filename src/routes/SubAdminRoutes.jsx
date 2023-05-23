@@ -16,38 +16,41 @@ import NotFoundPage from '../pages/public/NotFoundPage';
 import SubAdminSettingsPage from '../pages/sub-admin/SubAdminSettingsPage';
 import SectionsPage from '../pages/sub-admin/SectionsPage';
 import SectionPage from '../pages/sub-admin/SectionPage';
+import SubAdminCourseRegistrationPage from '../pages/sub-admin/SubAdminCourseRegistrationPage';
 
 const SubAdminRoutes = () => {
-    return (
-        <Routes>
-            <Route path='dashboard' element={<SubAdminDashboardPage/>}/>
-            <Route path='instructors' element={<InstructorsListPage/>}/>
-            <Route path='instructors/add' element={<AddInstructorPage/>}/>
-            <Route
-                path='instructors/edit/:instructorId'
-                element={<EditInstructorPage/>}
-            />
-
-            <Route path='students' element={<StudentsListPage/>}/>
-            <Route path='students/add' element={<AddStudentPage/>}/>
-            <Route
-                path='students/edit/:studentId'
-                element={<EditStudentPage/>}
-            />
-
-            <Route path='courses' element={<CoursesListPage/>}/>
-            <Route path='courses/add' element={<AddCoursePage/>}/>
-            <Route path='courses/edit/:courseId' element={<EditCoursePage/>}/>
-
-            <Route path='sections' element={<SectionsPage/>}/>
-            <Route path='sections/:sectionId' element={<SectionPage/>}/>
-
-            <Route path='profile' element={<SubAdminProfilePage/>}/>
-            <Route path='settings' element={<SubAdminSettingsPage/>}/>
-
-            <Route path='*' element={<NotFoundPage/>}/>
-        </Routes>
-    );
+	return (
+		<Routes>
+			<Route path="dashboard" element={<SubAdminDashboardPage/>}/>
+			<Route path="instructors" element={<InstructorsListPage/>}/>
+			<Route path="instructors/add" element={<AddInstructorPage/>}/>
+			<Route
+				path="instructors/edit/:instructorId"
+				element={<EditInstructorPage/>}
+			/>
+			
+			<Route path="students" element={<StudentsListPage/>}/>
+			<Route path="students/add" element={<AddStudentPage/>}/>
+			<Route
+				path="students/edit/:studentId"
+				element={<EditStudentPage/>}
+			/>
+			
+			<Route path="courses" element={<CoursesListPage/>}/>
+			<Route path="courses/add" element={<AddCoursePage/>}/>
+			<Route path="courses/edit/:courseId" element={<EditCoursePage/>}/>
+			
+			<Route path="sections" element={<SectionsPage/>}/>
+			<Route path="sections/:sectionId" element={<SectionPage/>}/>
+			
+			<Route path="registration/:studentId" element={<SubAdminCourseRegistrationPage/>}/>
+			
+			<Route path="profile" element={<SubAdminProfilePage/>}/>
+			<Route path="settings" element={<SubAdminSettingsPage/>}/>
+			
+			<Route path="*" element={<NotFoundPage/>}/>
+		</Routes>
+	);
 };
 
 export default SubAdminRoutes;

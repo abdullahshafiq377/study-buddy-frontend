@@ -1,7 +1,6 @@
 import React from 'react';
 import Loader from '../../../components/Loader';
 import FeedbackAlert from '../../../components/FeedbackAlert';
-import AttendanceHistoryTableRow from './AttendanceHistoryTableRow';
 import { useGetLectureBySectionQuery } from '../lecturesApiSlice';
 import StudentLecturesTableRow from './StudentLecturesTableRow';
 

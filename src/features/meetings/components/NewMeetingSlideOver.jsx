@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import FeedbackAlert from '../../../components/FeedbackAlert';
 import { useGetSectionsByInstructorQuery } from '../../sections/sectionsApiSlice';
 import { selectCurrentUserId } from '../../auth/authSlice';
-import { scheduleNewMeeting, startNewMeeting } from '../../../services/RTC/meetingHandler';
+import { scheduleNewMeeting } from '../../../services/RTC/meetingHandler';
 
 export default function NewMeetingSlideOver ({open, setOpen}) {
 	const userId = useSelector(selectCurrentUserId);

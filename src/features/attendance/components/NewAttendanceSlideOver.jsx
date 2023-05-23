@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import FeedbackAlert from '../../../components/FeedbackAlert';
 import { useGetSectionsByInstructorQuery } from '../../sections/sectionsApiSlice';
 import { selectCurrentUserId } from '../../auth/authSlice';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { useAddNewLectureMutation } from '../lecturesApiSlice';
 

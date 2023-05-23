@@ -1,6 +1,5 @@
 import React from 'react';
 import AssignmentSubmissionsTableRow from './AssignmentSubmissionsTableRow';
-import { useGetAssignmentSubmissionsQuery } from '../assignmentSubmissionApiSlice';
 import Loader from '../../../components/Loader';
 import FeedbackAlert from '../../../components/FeedbackAlert';
 

@@ -1,11 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import {
-	selectLocalStream,
-	selectRemoteStreams,
-	selectScreenSharingStream,
-	setRemoteStreams
-} from '../meetingsApiSlice';
+import { selectLocalStream, selectRemoteStreams, selectScreenSharingStream } from '../meetingsApiSlice';
 import Video from './Video';
 
 const Meeting = () => {

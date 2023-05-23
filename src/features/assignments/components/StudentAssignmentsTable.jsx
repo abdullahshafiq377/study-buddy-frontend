@@ -1,5 +1,4 @@
 import React from 'react';
-import AssignmentSubmissionsTableRow from './AssignmentSubmissionsTableRow';
 import StudentAssignmentsTableRow from './StudentAssignmentsTableRow';
 import { useSelector } from 'react-redux';
 import { selectCurrentUserId } from '../../auth/authSlice';
@@ -86,8 +85,7 @@ const StudentAssignmentsTable = ({assignments}) => {
 				 </table>
 			 )
 			                      :
-			 (<p className="py-4 pl-4 pr-3 text-sm font-medium text-red-600">No Active
-				 Meetings</p>)}
+			 (<p className="py-4 pl-4 pr-3 text-sm font-medium text-red-600">No Assignments Found</p>)}
 		
 		</>
 	);

@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-	useGetSectionsByDepartmentQuery,
-	useGetSectionsByInstructorQuery,
-	useGetSectionsQuery
-} from '../../sections/sectionsApiSlice';
+import { useGetSectionsByDepartmentQuery } from '../../sections/sectionsApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUserDepartmentId } from '../../auth/authSlice';
 import { formatISO } from 'date-fns';

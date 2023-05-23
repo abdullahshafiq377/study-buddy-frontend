@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import InstructorSectionsTable from '../../features/sections/components/InstructorSectionsTable';
 import NewAssignmentSlideOver from '../../features/assignments/components/NewAssignmentSlideOver';
-import ViewAssignmentSlideOver from '../../features/assignments/components/ViewAssignmentSlideOver';
 
 const InstructorAssignmentsPage = () => {
 	const [openNewAssignmentSlideOver, setOpenNewAssignmentSlideOver] = useState(false);

@@ -1,8 +1,4 @@
-import React, { useState } from 'react';
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
-import { formatISO } from 'date-fns';
-import { ChevronRightIcon } from '@heroicons/react/20/solid';
-import { Link } from 'react-router-dom';
+import React from 'react';
 
 const ResultsTableRow = ({result}) => {
 	return (

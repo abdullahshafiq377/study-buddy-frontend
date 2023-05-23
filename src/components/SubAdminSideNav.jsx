@@ -17,9 +17,11 @@ import { useLogoutMutation } from '../features/auth/authApiSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/logos/logo-dark@2x.png';
 import { useGetSubAdminByIdQuery } from '../features/sub-admins/subAdminsApiSlice';
+import SearchStudentSlideOver from '../features/students/components/SearchStudentSlideOver';
 
 export default function SubAdminSideNav (props) {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const [openSearchStudentSlideOver, setOpenSearchStudentSlideOver] = useState(false);
 	const [logout] = useLogoutMutation();
 	const dispatch = useDispatch();
 	const subAdminId = useSelector(selectCurrentUserId);
@@ -172,10 +174,8 @@ export default function SubAdminSideNav (props) {
 										</NavLink>
 										<NavLink
 											key="registration"
-											to="sub-admin/registration"
-											className={({isActive}) => isActive
-											                           ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md'
-											                           : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-base font-medium rounded-md'}
+											onClick={() => setOpenSearchStudentSlideOver(!openSearchStudentSlideOver)}
+											className="text-primary-100 hover:bg-primary-800 group flex items-center px-2 py-2 text-base font-medium rounded-md"
 										>
 											<ClipboardDocumentCheckIcon
 												className="mr-3 h-6 w-6 flex-shrink-0 text-primary-400"
@@ -278,10 +278,8 @@ export default function SubAdminSideNav (props) {
 							</NavLink>
 							<NavLink
 								key="registration"
-								to="sub-admin/registration"
-								className={({isActive}) => isActive
-								                           ? 'bg-primary-600 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-								                           : 'text-primary-200 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md'}
+								onClick={() => setOpenSearchStudentSlideOver(!openSearchStudentSlideOver)}
+								className="text-primary-100 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md"
 							>
 								<ClipboardDocumentCheckIcon
 									className="mr-3 h-6 w-6 flex-shrink-0 text-primary-400"
@@ -411,5 +409,6 @@ export default function SubAdminSideNav (props) {
 				</main>
 			</div>
 		</div>
+		<SearchStudentSlideOver open={openSearchStudentSlideOver} setOpen={setOpenSearchStudentSlideOver}/>
 	</>);
 }

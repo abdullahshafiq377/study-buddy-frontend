@@ -1,7 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import StudentLecturesTable from '../../features/attendance/components/StudentLecturesTable';
-import StudentLearningResourceTable from '../../features/learning-resource/components/StudentLearningResourceTable';
 import StudentAssignmentGradesTable from '../../features/grades/components/StudentAssignmentGradesTable';
 import { useSelector } from 'react-redux';
 import { selectCurrentUserId } from '../../features/auth/authSlice';

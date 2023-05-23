@@ -1,9 +1,4 @@
 import React from 'react';
-import { formatISO } from 'date-fns';
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
-import { ChevronRightIcon } from '@heroicons/react/20/solid';
-import EditQuizSlideOver from './EditQuizSlideOver';
 
 const QuizSubmissionsTableRow = ({submission}) => {
 	return (

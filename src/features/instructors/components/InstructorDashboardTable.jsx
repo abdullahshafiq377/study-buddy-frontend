@@ -1,25 +1,23 @@
 import React from 'react';
 import FeedbackAlert from '../../../components/FeedbackAlert';
-import { useGetStudentSectionsQuery } from '../sectionsApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUserId } from '../../auth/authSlice';
 import Loader from '../../../components/Loader';
-import { useGetInstructorsQuery } from '../../instructors/instructorsApiSlice';
-import StudentSectionsTableRow from './StudentSectionsTableRow';
+import InstructorDashboardTableRow from './InstructorDashboardTableRow';
+import { useGetSectionsByInstructorQuery } from '../../sections/sectionsApiSlice';
 
-const StudentSectionsTable = () => {
+const InstructorDashboardTable = () => {
 	const userId = useSelector(selectCurrentUserId);
+	const {data, isLoading, isSuccess, isError, error} = useGetSectionsByInstructorQuery(userId);
 	
-	const {isLoading, isSuccess, isError, data} = useGetStudentSectionsQuery(userId);
-	const {isSuccess: instructorIsSuccess, data: instructorData} = useGetInstructorsQuery();
 	
 	let content;
 	
 	if (isLoading) {
 		content = <Loader/>;
 	}
-	else if (isSuccess && instructorIsSuccess) {
-		console.log(instructorData);
+	else if (isSuccess) {
+		const {ids, entities} = data;
 		content = (
 			<>
 				<table className="min-w-full divide-y divide-gray-300">
@@ -41,19 +39,12 @@ const StudentSectionsTable = () => {
 							scope="col"
 							className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
 						>
-							Instructor
-						</th>
-						<th
-							scope="col"
-							className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-						>
-							View
+							Semester
 						</th>
 					</tr>
 					</thead>
 					<tbody className="bg-white">
-					{data.map(section => <StudentSectionsTableRow key={section.id} section={section}
-					                                              instructorData={instructorData}/>)}
+					{ids.map(id => <InstructorDashboardTableRow key={id} section={entities[id]}/>)}
 					</tbody>
 				</table>
 			</>
@@ -64,7 +55,15 @@ const StudentSectionsTable = () => {
 			<FeedbackAlert type="error" content={'Replace with error'}/>
 		</div>);
 	}
-	return content;
+	return (<div className="flex flex-col">
+		<div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+			<div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+				<div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+					{content}
+				</div>
+			</div>
+		</div>
+	</div>);
 };
 
-export default StudentSectionsTable;
+export default InstructorDashboardTable;

@@ -1,5 +1,4 @@
 import React from 'react';
-import InstructorSectionsTable from '../../features/sections/components/InstructorSectionsTable';
 import QuizSubmissionsTable from '../../features/quizzes/components/QuizSubmissionsTable';
 import { useParams } from 'react-router-dom';
 

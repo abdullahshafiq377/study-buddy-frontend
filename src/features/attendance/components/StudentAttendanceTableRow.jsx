@@ -1,11 +1,9 @@
 import React from 'react';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
-import { useGetAssignmentsBySectionQuery } from '../../assignments/assignmentApiSlice';
 import { useGetLectureBySectionQuery } from '../lecturesApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUserId } from '../../auth/authSlice';
-import { useGetAttendanceByStudentQuery } from '../attendanceApiSlice';
 
 
 function classNames (...classes) {

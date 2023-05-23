@@ -1,14 +1,10 @@
 import React, { Fragment, useRef, useState } from 'react';
-import { Dialog, Menu, Transition } from '@headlessui/react';
+import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { formatISO } from 'date-fns';
 import { useSelector } from 'react-redux';
 import { selectCurrentUserId } from '../../auth/authSlice';
-import {
-	useAddNewQuizSubmissionMutation,
-	useGetQuizSubmissionsQuery
-} from '../quizSubmissionApiSlice';
+import { useAddNewQuizSubmissionMutation, useGetQuizSubmissionsQuery } from '../quizSubmissionApiSlice';
 
 function classNames (...classes) {
 	return classes.filter(Boolean)

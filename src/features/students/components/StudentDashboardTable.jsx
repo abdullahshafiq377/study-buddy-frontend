@@ -1,13 +1,13 @@
 import React from 'react';
 import FeedbackAlert from '../../../components/FeedbackAlert';
-import { useGetStudentSectionsQuery } from '../sectionsApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUserId } from '../../auth/authSlice';
 import Loader from '../../../components/Loader';
 import { useGetInstructorsQuery } from '../../instructors/instructorsApiSlice';
-import StudentSectionsTableRow from './StudentSectionsTableRow';
+import StudentDashboardTableRow from './StudentDashboardTableRow';
+import { useGetStudentSectionsQuery } from '../../sections/sectionsApiSlice';
 
-const StudentSectionsTable = () => {
+const StudentDashboardTable = () => {
 	const userId = useSelector(selectCurrentUserId);
 	
 	const {isLoading, isSuccess, isError, data} = useGetStudentSectionsQuery(userId);
@@ -43,17 +43,11 @@ const StudentSectionsTable = () => {
 						>
 							Instructor
 						</th>
-						<th
-							scope="col"
-							className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-						>
-							View
-						</th>
 					</tr>
 					</thead>
 					<tbody className="bg-white">
-					{data.map(section => <StudentSectionsTableRow key={section.id} section={section}
-					                                              instructorData={instructorData}/>)}
+					{data.map(section => <StudentDashboardTableRow key={section.id} section={section}
+					                                               instructorData={instructorData}/>)}
 					</tbody>
 				</table>
 			</>
@@ -67,4 +61,4 @@ const StudentSectionsTable = () => {
 	return content;
 };
 
-export default StudentSectionsTable;
+export default StudentDashboardTable;

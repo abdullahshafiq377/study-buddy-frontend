@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import InstructorSectionsTable from '../../features/sections/components/InstructorSectionsTable';
+import React from 'react';
 import AssignmentSubmissionsTable from '../../features/assignments/components/AssignmentSubmissionsTable';
 import { useParams } from 'react-router-dom';
 import { useGetAssignmentSubmissionsQuery } from '../../features/assignments/assignmentSubmissionApiSlice';
-import { da } from 'date-fns/locale';
 import axios from 'axios';
 
 const InstructorAssignmentSubmissionsPage = () => {

@@ -1,8 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronRightIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { formatISO } from 'date-fns';
-import { useDeleteLectureMutation } from '../lecturesApiSlice';
 import { useGetAttendanceByLectureQuery } from '../attendanceApiSlice';
 import { useSelector } from 'react-redux';
 import { selectCurrentUserId } from '../../auth/authSlice';

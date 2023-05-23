@@ -8,11 +8,11 @@ import {
 	Bars3BottomLeftIcon,
 	BuildingOfficeIcon,
 	CalendarDaysIcon,
-	ChatBubbleLeftRightIcon,
 	ChevronDownIcon,
 	DocumentTextIcon,
 	HomeIcon,
-	NewspaperIcon, TableCellsIcon,
+	NewspaperIcon,
+	TableCellsIcon,
 	UsersIcon,
 	XMarkIcon,
 } from '@heroicons/react/24/outline';

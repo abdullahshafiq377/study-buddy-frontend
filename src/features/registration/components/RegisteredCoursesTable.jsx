@@ -50,7 +50,7 @@ const RegisteredCoursesTable = ({studentId}) => {
 					</thead>
 					<tbody className="bg-white">
 					{courses.map(course => {
-						return <RegisteredCoursesTableRow key={course.id} course={course}/>;
+						return <RegisteredCoursesTableRow key={course.id} course={course} studentId={studentId}/>;
 					})}
 					</tbody>
 				</table>

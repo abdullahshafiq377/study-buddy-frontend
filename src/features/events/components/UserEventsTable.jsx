@@ -1,8 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import TableRow from './TableRow';
 import FeedbackAlert from '../../../components/FeedbackAlert';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { selectEventIds, useGetEventsQuery } from '../eventsApiSlice';
 import Loader from '../../../components/Loader';
 import UserEventsTableRow from './UserEventsTableRow';
