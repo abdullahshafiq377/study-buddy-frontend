@@ -1,7 +1,7 @@
 import RadioInput from '../../../components/RadioInput';
 import TextInput from '../../../components/TextInput';
 import { useRef, useState } from 'react';
-import { useAddNewSubAdminMutation } from '../subAdminsApiSlice';
+import { selectAllSubAdmins, useAddNewSubAdminMutation } from '../subAdminsApiSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import TextInputLong from './../../../components/TextInputLong';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +13,8 @@ import FeedbackAlert from '../../../components/FeedbackAlert';
 export default function AddSubAdminForm () {
 	const [addNewSubAdmin] = useAddNewSubAdminMutation();
 	const dispatch = useDispatch();
+	
+	const subAdmins = useSelector(selectAllSubAdmins);
 	
 	dispatch(departmentsApiSlice.endpoints.getDepartments.initiate());
 	const departments = useSelector(selectAllDepartments);
@@ -29,7 +31,8 @@ export default function AddSubAdminForm () {
 	const [nationality, setNationality] = useState('');
 	const [image, setImage] = useState(null);
 	const [imageUrl, setImageUrl] = useState(null);
-	const [errorMessage, setErrorMessage] = useState(null);
+	const [errorMessage, setErrorMessage] = useState('');
+	const [showErrorMessage, setShowErrorMessage] = useState(false);
 	
 	const navigate = useNavigate();
 	
@@ -57,29 +60,43 @@ export default function AddSubAdminForm () {
 	
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		let formData = new FormData();
-		formData.append('name', name);
-		image ? formData.append('image', image, image?.name) : formData.append('image', null);
-		formData.append('f_name', fatherName);
-		formData.append('email', email);
-		formData.append('gender', gender);
-		formData.append('contact', contact);
-		formData.append('nationality', nationality);
-		formData.append('dob', dob);
-		formData.append('department_id', department.id);
+		
 		try {
-			await addNewSubAdmin(formData)
-				.unwrap();
-			setName('');
-			setFatherName('');
-			setEmail('');
-			setDepartment(null);
-			setGender('');
-			setContact('');
-			setNationality('');
-			setImage(null);
-			setImageUrl(null);
-			navigate('/admin/sub-admins');
+			let formData = new FormData();
+			formData.append('name', name);
+			image ? formData.append('image', image, image?.name) : formData.append('image', null);
+			formData.append('f_name', fatherName);
+			formData.append('email', email);
+			formData.append('gender', gender);
+			formData.append('contact', contact);
+			formData.append('nationality', nationality);
+			formData.append('dob', dob);
+			formData.append('department_id', department.id);
+			
+			const alreadyExists = subAdmins.some(obj => {
+				return obj.email === email;
+			});
+			console.log(alreadyExists);
+			
+			if (alreadyExists) {
+				setErrorMessage('ERROR: User already exists please use a different email address.');
+				setShowErrorMessage(true);
+				setTimeout(() => setShowErrorMessage(false), 10000);
+			}
+			else {
+				await addNewSubAdmin(formData)
+					.unwrap();
+				setName('');
+				setFatherName('');
+				setEmail('');
+				setDepartment(null);
+				setGender('');
+				setContact('');
+				setNationality('');
+				setImage(null);
+				setImageUrl(null);
+				navigate('/admin/sub-admins');
+			}
 		} catch (err) {
 			console.log(err);
 			setErrorMessage(err);
@@ -101,7 +118,7 @@ export default function AddSubAdminForm () {
 							Please fill all the required fields.
 						</p>
 					</div>
-					{errorMessage ? <FeedbackAlert type="error" content={errorMessage}/> : ''}
+					{showErrorMessage ? <FeedbackAlert type="error" content={errorMessage}/> : ''}
 					<div className="space-y-6 sm:space-y-5">
 						<div
 							className="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
@@ -169,6 +186,7 @@ export default function AddSubAdminForm () {
 							name="dob"
 							label="Date of Birth"
 							type="date"
+							max="1998-12-31"
 							onChange={handleDobInput}
 							required={true}
 						/>
@@ -177,6 +195,7 @@ export default function AddSubAdminForm () {
 							name="email"
 							label="Email"
 							type="email"
+							minLen
 							maxLength={64}
 							onChange={handleEmailInput}
 							required={true}
@@ -204,7 +223,8 @@ export default function AddSubAdminForm () {
 							name="contact"
 							label="Contact"
 							type="text"
-							maxLength={16}
+							minLength={11}
+							maxLength={14}
 							onChange={handleContactInput}
 							required={true}
 						/>
@@ -213,6 +233,7 @@ export default function AddSubAdminForm () {
 							name="nationality"
 							label="Nationality"
 							type="text"
+							minLength={4}
 							maxLength={16}
 							onChange={handleNationalityInput}
 							required={true}

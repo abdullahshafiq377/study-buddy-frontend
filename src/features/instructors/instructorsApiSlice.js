@@ -79,7 +79,7 @@ export const instructorsApiSlice = apiSlice.injectEndpoints({
 			                                                                                               query: (initialInstructor) => ({
 				                                                                                               url: '/instructors',
 				                                                                                               method: 'POST',
-				                                                                                               body: {...initialInstructor},
+				                                                                                               body: initialInstructor,
 			                                                                                               }),
 			                                                                                               invalidatesTags: [{
 				                                                                                               type: 'Instructor',

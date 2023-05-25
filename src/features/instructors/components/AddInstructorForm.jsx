@@ -1,11 +1,12 @@
 import DropdownMenu from '../../../components/DropdownMenu';
 import RadioInput from '../../../components/RadioInput';
 import TextInput from '../../../components/TextInput';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useAddNewInstructorMutation } from '../instructorsApiSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import { departmentsApiSlice, selectAllDepartments } from './../../departments/departmentsApiSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import ComboBox from '../../../components/ComboBox';
 
 export default function AddInstructorForm () {
 	const [addNewInstructor, {isLoading}] = useAddNewInstructorMutation();
@@ -14,50 +15,72 @@ export default function AddInstructorForm () {
 	
 	const navigate = useNavigate();
 	
+	const imageInputRef = useRef(null);
+	
 	const [name, setName] = useState('');
 	const [fatherName, setFatherName] = useState('');
+	const [dob, setDob] = useState('');
 	const [email, setEmail] = useState('');
-	const [departmentId, setDepartmentId] = useState('');
+	const [department, setDepartment] = useState(null);
 	const [gender, setGender] = useState('');
 	const [contact, setContact] = useState('');
 	const [nationality, setNationality] = useState('');
+	const [image, setImage] = useState(null);
+	const [imageUrl, setImageUrl] = useState(null);
 	
 	dispatch(departmentsApiSlice.endpoints.getDepartments.initiate());
 	const departments = useSelector(selectAllDepartments);
 	
 	const handleNameInput = (e) => setName(e.target.value);
 	const handleFatherNameInput = (e) => setFatherName(e.target.value);
+	const handleDobInput = (e) => setDob(e.target.value);
+	
 	const handleEmailInput = (e) => setEmail(e.target.value);
-	const handleDepartmentInput = (e) => setDepartmentId(e.target.value);
 	const handleGenderInput = (e) => setGender(e.target.id);
 	const handleContactInput = (e) => setContact(e.target.value);
 	const handleNationalityInput = (e) => setNationality(e.target.value);
 	
+	const handleImageInput = () => {
+		imageInputRef.current.click();
+	};
+	
+	const handleFileChange = e => {
+		const fileObj = e.target.files && e.target.files[0];
+		if (!fileObj) {
+			return null;
+		}
+		e.target.value = null;
+		setImage(fileObj);
+		setImageUrl(URL.createObjectURL(fileObj));
+	};
+	
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const newInstructor = {
-			name,
-			f_name: fatherName,
-			email,
-			gender,
-			contact,
-			nationality,
-			dob: null,
-			image: null,
-			department_id: departmentId,
-		};
-		console.log(newInstructor);
+		
+		let formData = new FormData();
+		formData.append('name', name);
+		image ? formData.append('image', image, image?.name) : formData.append('image', null);
+		formData.append('f_name', fatherName);
+		formData.append('email', email);
+		formData.append('gender', gender);
+		formData.append('contact', contact);
+		formData.append('nationality', nationality);
+		formData.append('dob', dob);
+		formData.append('department_id', department.id);
 		
 		try {
-			await addNewInstructor(newInstructor)
+			await addNewInstructor(formData)
 				.unwrap();
 			setName('');
 			setFatherName('');
+			setDob('');
 			setEmail('');
-			setDepartmentId('');
+			setDepartment(null);
 			setGender('');
 			setContact('');
 			setNationality('');
+			setImage(null);
+			setImageUrl(null);
 			navigate('/sub-admin/instructors');
 		} catch (err) {
 			console.log(err);
@@ -91,7 +114,11 @@ export default function AddInstructorForm () {
 							</label>
 							<div className="mt-1 sm:col-span-2 sm:mt-0">
 								<div className="flex items-center">
-									<span className="h-12 w-12 overflow-hidden rounded-full bg-gray-100">
+									{imageUrl ? (
+										<img src={imageUrl} alt="profile image"
+										     className="h-12 w-12 overflow-hidden rounded-full bg-gray-100"/>
+									) : (
+										 <span className="h-12 w-12 overflow-hidden rounded-full bg-gray-100">
 										<svg
 											className="h-full w-full text-gray-300"
 											fill="currentColor"
@@ -101,8 +128,18 @@ export default function AddInstructorForm () {
 												d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"/>
 										</svg>
 									</span>
+									 )}
+									
+									<input
+										style={{display: 'none'}}
+										ref={imageInputRef}
+										type="file"
+										accept="image/*"
+										onChange={handleFileChange}
+									/>
 									<button
 										type="button"
+										onClick={handleImageInput}
 										className="ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2"
 									>
 										Change
@@ -128,6 +165,14 @@ export default function AddInstructorForm () {
 						/>
 						
 						<TextInput
+							name="dob"
+							label="Date of Birth"
+							type="date"
+							onChange={handleDobInput}
+							required={true}
+						/>
+						
+						<TextInput
 							name="email"
 							label="Email"
 							type="email"
@@ -135,12 +180,11 @@ export default function AddInstructorForm () {
 							required={true}
 						/>
 						
-						<DropdownMenu
-							name="department"
+						<ComboBox
 							label="Department"
 							data={departments}
-							onChange={handleDepartmentInput}
-							required={true}
+							selectedData={department}
+							setSelectedData={setDepartment}
 						/>
 						
 						<RadioInput

@@ -57,7 +57,7 @@ export const studentsApiSlice = apiSlice.injectEndpoints({
 			                                                                                         query: (initialStudent) => ({
 				                                                                                         url: '/students',
 				                                                                                         method: 'POST',
-				                                                                                         body: {...initialStudent},
+				                                                                                         body: initialStudent,
 			                                                                                         }),
 			                                                                                         invalidatesTags: [{
 				                                                                                         type: 'Student',

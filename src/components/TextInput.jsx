@@ -3,7 +3,7 @@
 
 import React from 'react';
 
-const TextInput = ({name, type, label, value, required, maxLength, onChange}) => {
+const TextInput = ({name, type, label, value, required, minLength, maxLength, min, max, onChange}) => {
 	return (
 		<div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
 			<label
@@ -19,7 +19,10 @@ const TextInput = ({name, type, label, value, required, maxLength, onChange}) =>
 					id={name}
 					value={value}
 					required={required}
+					min={min}
+					max={max}
 					onChange={onChange}
+					minLength={minLength}
 					maxLength={maxLength}
 					autoComplete="false"
 					className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-primary-600 focus:ring-primary-600 sm:max-w-xs sm:text-sm"

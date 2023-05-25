@@ -99,6 +99,8 @@ export default function EditSubAdminForm () {
 			setContact('');
 			setNationality('');
 			setDob(null);
+			setImage(null);
+			setImageUrl(null);
 			navigate('/admin/sub-admins');
 		} catch (err) {
 			console.log(err);
@@ -115,6 +117,9 @@ export default function EditSubAdminForm () {
 			setGender('');
 			setContact('');
 			setNationality('');
+			setDob(null);
+			setImage(null);
+			setImageUrl(null);
 			setOpenDeleteModal(false);
 			navigate('/admin/sub-admins');
 		} catch (err) {
