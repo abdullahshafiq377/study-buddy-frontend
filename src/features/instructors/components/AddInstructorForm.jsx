@@ -1,17 +1,19 @@
-import DropdownMenu from '../../../components/DropdownMenu';
 import RadioInput from '../../../components/RadioInput';
 import TextInput from '../../../components/TextInput';
 import { useRef, useState } from 'react';
-import { useAddNewInstructorMutation } from '../instructorsApiSlice';
+import { selectAllInstructors, useAddNewInstructorMutation } from '../instructorsApiSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import { departmentsApiSlice, selectAllDepartments } from './../../departments/departmentsApiSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import ComboBox from '../../../components/ComboBox';
+import FeedbackAlert from '../../../components/FeedbackAlert';
 
 export default function AddInstructorForm () {
 	const [addNewInstructor, {isLoading}] = useAddNewInstructorMutation();
-	
 	const dispatch = useDispatch();
+	
+	const instructor = useSelector(selectAllInstructors);
+	
 	
 	const navigate = useNavigate();
 	
@@ -27,7 +29,8 @@ export default function AddInstructorForm () {
 	const [nationality, setNationality] = useState('');
 	const [image, setImage] = useState(null);
 	const [imageUrl, setImageUrl] = useState(null);
-	
+	const [errorMessage, setErrorMessage] = useState('');
+	const [showErrorMessage, setShowErrorMessage] = useState(false);
 	dispatch(departmentsApiSlice.endpoints.getDepartments.initiate());
 	const departments = useSelector(selectAllDepartments);
 	
@@ -67,24 +70,35 @@ export default function AddInstructorForm () {
 		formData.append('nationality', nationality);
 		formData.append('dob', dob);
 		formData.append('department_id', department.id);
-		
-		try {
-			await addNewInstructor(formData)
-				.unwrap();
-			setName('');
-			setFatherName('');
-			setDob('');
-			setEmail('');
-			setDepartment(null);
-			setGender('');
-			setContact('');
-			setNationality('');
-			setImage(null);
-			setImageUrl(null);
-			navigate('/sub-admin/instructors');
-		} catch (err) {
-			console.log(err);
+		const alreadyExists = instructor.some(obj => {
+			return obj.email === email;
+		});
+		console.log(alreadyExists);
+		if (alreadyExists) {
+			setErrorMessage('ERROR: User already exists please use a different email address.');
+			setShowErrorMessage(true);
+			setTimeout(() => setShowErrorMessage(false), 10000);
 		}
+		else {
+			try {
+				await addNewInstructor(formData)
+					.unwrap();
+				setName('');
+				setFatherName('');
+				setDob('');
+				setEmail('');
+				setDepartment(null);
+				setGender('');
+				setContact('');
+				setNationality('');
+				setImage(null);
+				setImageUrl(null);
+				navigate('/sub-admin/instructors');
+			} catch (err) {
+				console.log(err);
+			}
+		}
+		
 	};
 	
 	return (
@@ -102,6 +116,7 @@ export default function AddInstructorForm () {
 							Please fill all the required fields.
 						</p>
 					</div>
+					{showErrorMessage ? <FeedbackAlert type="error" content={errorMessage}/> : ''}
 					
 					<div className="space-y-6 sm:space-y-5">
 						<div
@@ -154,6 +169,8 @@ export default function AddInstructorForm () {
 							type="text"
 							onChange={handleNameInput}
 							required={true}
+							maxLength={32}
+						
 						/>
 						
 						<TextInput
@@ -162,6 +179,8 @@ export default function AddInstructorForm () {
 							type="text"
 							onChange={handleFatherNameInput}
 							required={true}
+							maxLength={32}
+						
 						/>
 						
 						<TextInput
@@ -170,6 +189,8 @@ export default function AddInstructorForm () {
 							type="date"
 							onChange={handleDobInput}
 							required={true}
+							maxLength={32}
+						
 						/>
 						
 						<TextInput
@@ -178,6 +199,8 @@ export default function AddInstructorForm () {
 							type="email"
 							onChange={handleEmailInput}
 							required={true}
+							maxLength={32}
+						
 						/>
 						
 						<ComboBox

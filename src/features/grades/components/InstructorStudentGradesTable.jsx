@@ -4,9 +4,11 @@ import FeedbackAlert from '../../../components/FeedbackAlert';
 import InstructorStudentGradesTableRow from './InstructorStudentGradesTableRow';
 import { useGetGradesBySectionQuery } from '../gradesApiSlice';
 
-const InstructorStudentGradesTable = ({sectionId}) => {
+const InstructorStudentGradesTable = ({
+	                                      sectionId, type, assessmentMarks, setAssessmentMarks, totalMarks,
+	                                      setTotalMarks, onChange
+                                      }) => {
 	const {isLoading, isSuccess, isError, data} = useGetGradesBySectionQuery(sectionId);
-	
 	let content;
 	
 	if (isLoading) {
@@ -34,13 +36,17 @@ const InstructorStudentGradesTable = ({sectionId}) => {
 						scope="col"
 						className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
 					>
-						Grades
+						Marks
 					</th>
 				</tr>
 				</thead>
 				<tbody className="bg-white">
 				{ids?.map(id => {
-					return <InstructorStudentGradesTableRow grade={entities[id]}/>;
+					return <InstructorStudentGradesTableRow grade={entities[id]} totalMarks={totalMarks}
+					                                        setTotalMarks={setTotalMarks}
+					                                        assessmentMarks={assessmentMarks}
+					                                        setAssessmentMarks={setAssessmentMarks}
+					                                        onChange={onChange}/>;
 				})}
 				</tbody>
 			</table>
@@ -55,6 +61,7 @@ const InstructorStudentGradesTable = ({sectionId}) => {
 	return (<>
 		{data?.ids?.length ?
 		 <div className="mt-8 flex flex-col">
+			 
 			 <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
 				 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
 					 <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">

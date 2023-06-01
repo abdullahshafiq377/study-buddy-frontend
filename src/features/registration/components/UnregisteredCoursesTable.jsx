@@ -2,13 +2,26 @@ import React from 'react';
 import FeedbackAlert from './../../../components/FeedbackAlert';
 import { useNavigate } from 'react-router-dom';
 import UnregisteredCoursesTableRow from './UnregisteredCoursesTableRow';
-import { useGetUnregisteredCoursesQuery } from '../registrationApiSlice';
+import { useGetRegisteredCoursesQuery, useGetUnregisteredCoursesQuery } from '../registrationApiSlice';
 import Loader from '../../../components/Loader';
 
 const UnregisteredCoursesTable = ({studentId}) => {
 	const {data, isLoading, isSuccess, isError, error} = useGetUnregisteredCoursesQuery(studentId);
+	const {data: registeredCoursesData, isSuccess: registeredCoursesIsSuccess} = useGetRegisteredCoursesQuery(
+		studentId);
+	
+	
 	let courses, content;
+	let credits = 0;
 	const navigate = useNavigate();
+	
+	if (registeredCoursesIsSuccess) {
+		registeredCoursesData.ids.map(id => {
+			credits += parseInt(registeredCoursesData.entities[id].credit_hours);
+		});
+	}
+	console.log(credits);
+	
 	
 	if (isLoading) {
 		content = <Loader/>;
@@ -49,9 +62,15 @@ const UnregisteredCoursesTable = ({studentId}) => {
 					</tr>
 					</thead>
 					<tbody className="bg-white">
-					{courses.map(course => {
-						return <UnregisteredCoursesTableRow key={course.id} course={course} studentId={studentId}/>;
-					})}
+					{
+						credits < 21 ?
+						courses.map(course => {
+							return <UnregisteredCoursesTableRow key={course.id} course={course} studentId={studentId}
+							                                    credits={credits}/>;
+						})
+						             :
+						''
+					}
 					</tbody>
 				</table>
 			</>

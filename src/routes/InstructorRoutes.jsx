@@ -24,6 +24,7 @@ import UserEventsPage from '../pages/multiple-users/UserEventsPage';
 import InstructorLearningResourcesPage from '../pages/instructor/InstructorLearningResourcesPage';
 import InstructorSectionLearningResourcesPage from '../pages/instructor/InstructorSectionLearningResourcesPage';
 import InstructorGradesPage from '../pages/instructor/InstructorGradesPage';
+import InstructorSectionAssessmentsPage from '../pages/instructor/InstructorSectionAssessmentsPage';
 import InstructorSectionGradesPage from '../pages/instructor/InstructorSectionGradesPage';
 
 const InstructorRoutes = () => {
@@ -59,7 +60,8 @@ const InstructorRoutes = () => {
 			<Route path="learning-resources/:sectionId" element={<InstructorSectionLearningResourcesPage/>}/>
 			
 			<Route path="grades" element={<InstructorGradesPage/>}/>
-			<Route path="grades/:sectionId" element={<InstructorSectionGradesPage/>}/>
+			<Route path="grades/:sectionId" element={<InstructorSectionAssessmentsPage/>}/>
+			<Route path="grades/:type/:sectionId" element={<InstructorSectionGradesPage/>}/>
 			
 			<Route path="profile" element={<InstructorProfilePage/>}/>
 			<Route path="settings" element={<InstructorSettingsPage/>}/>

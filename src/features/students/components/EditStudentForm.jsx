@@ -1,16 +1,11 @@
-import DropdownMenu from '../../../components/DropdownMenu';
 import RadioInput from '../../../components/RadioInput';
 import TextInput from '../../../components/TextInput';
 import { useRef, useState } from 'react';
 import { selectStudentById, useDeleteStudentMutation, useUpdateStudentMutation, } from '../studentsApiSlice';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	departmentsApiSlice,
-	selectAllDepartments,
-	useGetDepartmentsQuery,
-} from './../../departments/departmentsApiSlice';
-import { programsApiSlice, selectAllPrograms, useGetProgramsQuery, } from '../../programs/programsApiSlice';
+import { useGetDepartmentsQuery, } from './../../departments/departmentsApiSlice';
+import { useGetProgramsQuery, } from '../../programs/programsApiSlice';
 import TextInputLong from './../../../components/TextInputLong';
 import ConfirmDeletionModal from '../../../components/ConfirmDeletionModal';
 import ComboBox from '../../../components/ComboBox';

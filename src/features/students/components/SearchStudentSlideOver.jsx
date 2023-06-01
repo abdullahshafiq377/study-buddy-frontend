@@ -1,9 +1,9 @@
-import React, { Fragment, useRef, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import ComboBox from '../../../components/ComboBox';
 import { useGetStudentsQuery } from '../studentsApiSlice';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function SearchStudentSlideOver ({open, setOpen}) {
 	const {data: studentData, isSuccess: isSuccessStudent} = useGetStudentsQuery();

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { departmentsApiSlice, selectAllDepartments, } from '../../departments/departmentsApiSlice';
 import { programsApiSlice, selectAllPrograms, } from '../../programs/programsApiSlice';
 import ComboBox from '../../../components/ComboBox';
+import FeedbackAlert from '../../../components/FeedbackAlert';
 
 export default function AddStudentForm () {
 	const [addNewStudent, {isLoading}] = useAddNewStudentMutation();
@@ -34,7 +35,8 @@ export default function AddStudentForm () {
 	const [rollNum, setRollNum] = useState('');
 	const [image, setImage] = useState(null);
 	const [imageUrl, setImageUrl] = useState(null);
-	
+	const [errorMessage, setErrorMessage] = useState('');
+	const [showErrorMessage, setShowErrorMessage] = useState(false);
 	dispatch(departmentsApiSlice.endpoints.getDepartments.initiate());
 	dispatch(programsApiSlice.endpoints.getPrograms.initiate());
 	const departments = useSelector(selectAllDepartments);
@@ -82,26 +84,40 @@ export default function AddStudentForm () {
 		formData.append('program_id', program.id);
 		formData.append('program_title', program.name);
 		
-		try {
-			await addNewStudent(formData)
-				.unwrap();
-			setName('');
-			setFatherName('');
-			setDob('');
-			setEmail('');
-			setDepartment(null);
-			setProgram(null);
-			setGender('');
-			setContact('');
-			setNationality('');
-			setSession('');
-			setRollNum('');
-			setImage(null);
-			setImageUrl(null);
-			navigate('/sub-admin/students');
-		} catch (err) {
-			console.log(err);
+		const alreadyExists = students.some(obj => {
+			return obj.email === email;
+		});
+		console.log(alreadyExists);
+		
+		if (alreadyExists) {
+			setErrorMessage('ERROR: User already exists please use a different email address.');
+			setShowErrorMessage(true);
+			setTimeout(() => setShowErrorMessage(false), 10000);
 		}
+		else {
+			try {
+				await addNewStudent(formData)
+					.unwrap();
+				setName('');
+				
+				setFatherName('');
+				setDob('');
+				setEmail('');
+				setDepartment(null);
+				setProgram(null);
+				setGender('');
+				setContact('');
+				setNationality('');
+				setSession('');
+				setRollNum('');
+				setImage(null);
+				setImageUrl(null);
+				navigate('/sub-admin/students');
+			} catch (err) {
+				console.log(err);
+			}
+		}
+		
 	};
 	
 	return (
@@ -119,6 +135,7 @@ export default function AddStudentForm () {
 							Please fill all the required fields.
 						</p>
 					</div>
+					{showErrorMessage ? <FeedbackAlert type="error" content={errorMessage}/> : ''}
 					
 					<div className="space-y-6 sm:space-y-5">
 						<div
@@ -169,6 +186,7 @@ export default function AddStudentForm () {
 							name="full-name"
 							label="Full Name"
 							type="text"
+							maxLength={32}
 							onChange={handleNameInput}
 							required={true}
 						/>
@@ -177,6 +195,7 @@ export default function AddStudentForm () {
 							name="father-name"
 							label="Father's Name"
 							type="text"
+							maxLength={32}
 							onChange={handleFatherNameInput}
 							required={true}
 						/>
@@ -185,6 +204,7 @@ export default function AddStudentForm () {
 							name="dob"
 							label="Date of Birth"
 							type="date"
+							max="2006-12-31"
 							onChange={handleDobInput}
 							required={true}
 						/>
@@ -192,6 +212,7 @@ export default function AddStudentForm () {
 						<TextInputLong
 							name="email"
 							label="Email"
+							maxLength={64}
 							type="email"
 							onChange={handleEmailInput}
 							required={true}
@@ -207,6 +228,8 @@ export default function AddStudentForm () {
 						<TextInput
 							name="session"
 							label="Session"
+							minLength={4}
+							maxLength={4}
 							type="text"
 							onChange={handleSessionInput}
 							required={true}
@@ -222,6 +245,8 @@ export default function AddStudentForm () {
 						<TextInput
 							name="rollNumber"
 							label="Roll Number"
+							minLength={3}
+							maxLength={3}
 							type="text"
 							onChange={handleRollNumInput}
 							required={true}
@@ -240,6 +265,8 @@ export default function AddStudentForm () {
 						<TextInput
 							name="contact"
 							label="Contact"
+							minLength={11}
+							maxLength={13}
 							type="text"
 							onChange={handleContactInput}
 							required={true}
@@ -250,6 +277,7 @@ export default function AddStudentForm () {
 							label="Nationality"
 							onChange={handleNationalityInput}
 							type="text"
+							maxLength={16}
 						/>
 					</div>
 				</div>

@@ -62,6 +62,27 @@ export const resultsApiSlice =
 						                                          body: {},
 					                                          }),
 				                                          }),
+			                         getResultDeadlines:
+				                         builder.query({
+					                                       query: () => '/results/deadline',
+					                                       keepUnusedDataFor: 900,
+					                                       transformResponse: (responseData) => {
+						                                       return responseData;
+					                                       },
+					                                       providesTags: (result,
+					                                                      error,
+					                                                      arg) => [
+						                                       {
+							                                       type: 'ResultDeadline',
+							                                       id: 'LIST'
+						                                       },
+						                                       ...result.ids.map(
+							                                       (id) => ({
+								                                       type: 'ResultDeadline',
+								                                       id
+							                                       })),
+					                                       ],
+				                                       }),
 			                         
 		                         }),
 	                         });
@@ -69,6 +90,7 @@ export const resultsApiSlice =
 // Api hooks
 export const {
 	useGetResultsQuery,
+	useGetResultDeadlinesQuery,
 	useGetResultsByStudentQuery,
 	useGenerateResultsMutation
 } = resultsApiSlice;

@@ -1,15 +1,15 @@
 import React from 'react';
 import { useRegisterCourseMutation } from '../registrationApiSlice';
-import { useSelector } from 'react-redux';
-import { selectCurrentUserId } from '../../auth/authSlice';
 
-const UnregisteredCoursesTableRow = ({course, studentId}) => {
+const UnregisteredCoursesTableRow = ({course, studentId, credits}) => {
 	const [registerCourse] = useRegisterCourseMutation();
 	
 	
 	const handleRegister = async () => {
 		try {
-			await registerCourse({courseId: course.id, studentId});
+			if (credits + parseInt(course.credit_hours) <= 21) {
+				await registerCourse({courseId: course.id, studentId});
+			}
 		} catch (err) {
 			console.log(err);
 		}

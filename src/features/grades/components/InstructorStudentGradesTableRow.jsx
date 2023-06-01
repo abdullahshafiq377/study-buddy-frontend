@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { ChevronRightIcon } from '@heroicons/react/20/solid';
-import AddGradesSlideOver from './AddGradesSlideOver';
+import React from 'react';
 
-const InstructorStudentGradesTableRow = ({grade}) => {
-	const [openAddGradesSlideOver, setOpenAddGradesSlideOver] = useState(false);
+const InstructorStudentGradesTableRow = ({
+	                                         grade, setTotalMarks, totalMarks, assessmentMarks, setAssessmentMarks,
+	                                         onChange
+                                         }) => {
 	return (
 		<tr key={grade?.id}>
 			<td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
@@ -13,15 +13,16 @@ const InstructorStudentGradesTableRow = ({grade}) => {
 				{grade?.session}-{grade?.program_title}-{grade?.reg_num}
 			</td>
 			<td className="whitespace-nowrap px-3 py-4">
-				<button
-					type="button"
-					onClick={() => setOpenAddGradesSlideOver(!openAddGradesSlideOver)}
-					className="text-blue-600 hover:text-primary-900"
-				>
-					<ChevronRightIcon className="w-7"/>
-				</button>
+				<input
+					type="number"
+					max={totalMarks}
+					min={0}
+					name={grade.id}
+					required={true}
+					onChange={(e) => onChange(e)}
+					className="block rounded-md border-gray-300 shadow-sm focus:border-primary-600 focus:ring-primary-600  sm:text-sm"
+				/>
 			</td>
-			<AddGradesSlideOver open={openAddGradesSlideOver} setOpen={setOpenAddGradesSlideOver} grade={grade}/>
 		</tr>
 	);
 };

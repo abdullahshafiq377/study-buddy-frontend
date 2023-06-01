@@ -9,7 +9,6 @@ import { selectSubAdminById, useDeleteSubAdminMutation, useUpdateSubAdminMutatio
 import { useGetDepartmentsQuery, } from './../../departments/departmentsApiSlice';
 import ComboBox from '../../../components/ComboBox';
 import FeedbackAlert from '../../../components/FeedbackAlert';
-import { formatISO } from 'date-fns';
 
 export default function EditSubAdminForm () {
 	const {subAdminId} = useParams();

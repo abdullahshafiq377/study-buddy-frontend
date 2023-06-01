@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FeedbackAlert from './../../../components/FeedbackAlert';
 import { useNavigate } from 'react-router-dom';
 import RegisteredCoursesTableRow from './RegisteredCoursesTableRow';
@@ -9,16 +9,27 @@ const RegisteredCoursesTable = ({studentId}) => {
 	const {data, isLoading, isSuccess, isError, error} = useGetRegisteredCoursesQuery(studentId);
 	let courses, content;
 	const navigate = useNavigate();
+	const [totalCredits, setTotalCredits] = useState(0);
+	const [errorMessage, setErrorMessage] = useState('');
+	const [showErrorMessage, setShowErrorMessage] = useState(false);
 	
 	if (isLoading) {
 		content = <Loader/>;
 	}
 	else if (isSuccess) {
+		let credits = 0;
 		courses = data.ids.map(id => {
+			credits += parseInt(data.entities[id].credit_hours);
 			return data.entities[id];
 		});
-		console.log(courses);
 		content = (<>
+				{credits < 12 ?
+				 <div className="my-2">
+					 <FeedbackAlert type="warning" content="At least 12 credit hours should be registered."/>
+				 </div>
+				              :
+				 ''
+				}
 				<table className="min-w-full divide-y divide-gray-300">
 					<thead className="bg-gray-50">
 					<tr>

@@ -1,4 +1,3 @@
-import DropdownMenu from '../../../components/DropdownMenu';
 import RadioInput from '../../../components/RadioInput';
 import TextInput from '../../../components/TextInput';
 import { useRef, useState } from 'react';
@@ -9,11 +8,7 @@ import {
 } from '../instructorsApiSlice';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	departmentsApiSlice,
-	selectAllDepartments,
-	useGetDepartmentsQuery,
-} from './../../departments/departmentsApiSlice';
+import { useGetDepartmentsQuery, } from './../../departments/departmentsApiSlice';
 import ConfirmDeletionModal from '../../../components/ConfirmDeletionModal';
 import ComboBox from '../../../components/ComboBox';
 

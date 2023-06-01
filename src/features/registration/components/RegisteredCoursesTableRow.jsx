@@ -1,7 +1,5 @@
 import React from 'react';
 import { useUnregisterCourseMutation } from '../registrationApiSlice';
-import { useSelector } from 'react-redux';
-import { selectCurrentUserId } from '../../auth/authSlice';
 
 const UnregisteredCoursesTableRow = ({course, studentId}) => {
 	const [unregisterCourse] = useUnregisterCourseMutation();

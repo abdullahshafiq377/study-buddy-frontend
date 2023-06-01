@@ -6,7 +6,7 @@ import { Dialog, Menu, Transition } from '@headlessui/react';
 import {
 	ArrowPathIcon,
 	Bars3BottomLeftIcon,
-	BuildingOfficeIcon,
+	BuildingOfficeIcon, CalculatorIcon,
 	CalendarDaysIcon,
 	ChevronDownIcon,
 	DocumentTextIcon,
@@ -23,11 +23,14 @@ import { useDispatch } from 'react-redux';
 import logo from '../assets/logos/logo-dark@2x.png';
 import ResetPasswordSlideover from '../features/reset-password/components/ResetPasswordSlideover';
 import GenerateResultModal from '../features/result/components/GenerateResultModal';
+import ResultDeadlineSlideOver from '../features/result/components/ResultDeadlineSlideOver';
 
 export default function AdminSideNav (props) {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [resetPasswordSlideoverOpen, setResetPasswordSlideoverOpen] = useState(false);
 	const [openGenerateResultModal, setOpenGenerateResultModal] = useState(false);
+	const [openResultDeadlineSlideOver, setOpenResultDeadlineSlideOver] = useState(false);
+	
 	const [logout] = useLogoutMutation();
 	const dispatch = useDispatch();
 	
@@ -200,6 +203,18 @@ export default function AdminSideNav (props) {
 												Events
 											</NavLink>
 											<NavLink
+												key="result_deadline"
+												onClick={() => setOpenResultDeadlineSlideOver(
+													!openResultDeadlineSlideOver)}
+												className="text-primary-100 hover:bg-primary-800 group flex items-center px-2 py-2 text-base font-medium rounded-md"
+											>
+												<CalculatorIcon
+													className="mr-3 h-6 w-6 flex-shrink-0 text-primary-400"
+													aria-hidden="true"
+												/>
+												Result Deadlines
+											</NavLink>
+											<NavLink
 												key="generate_result"
 												onClick={() => setOpenGenerateResultModal(
 													!openGenerateResultModal)}
@@ -340,6 +355,18 @@ export default function AdminSideNav (props) {
 									Events
 								</NavLink>
 								<NavLink
+									key="result_deadline"
+									onClick={() => setOpenResultDeadlineSlideOver(
+										!openResultDeadlineSlideOver)}
+									className="text-primary-100 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+								>
+									<CalculatorIcon
+										className="mr-3 h-6 w-6 flex-shrink-0 text-primary-400"
+										aria-hidden="true"
+									/>
+									Result Deadlines
+								</NavLink>
+								<NavLink
 									key="generate_result"
 									onClick={() => setOpenGenerateResultModal(!openGenerateResultModal)}
 									className="text-primary-100 hover:bg-primary-800 group flex items-center px-2 py-2 text-sm font-medium rounded-md"
@@ -469,6 +496,7 @@ export default function AdminSideNav (props) {
 				</div>
 				<GenerateResultModal setOpen={setOpenGenerateResultModal} open={openGenerateResultModal}/>
 				<ResetPasswordSlideover setOpen={setResetPasswordSlideoverOpen} open={resetPasswordSlideoverOpen}/>
+				<ResultDeadlineSlideOver setOpen={setOpenResultDeadlineSlideOver} open={openResultDeadlineSlideOver}/>
 			</div>
 		</>
 	);
